@@ -72,6 +72,7 @@ namespace szzminer.Views
             this.Name = "DownloadForm";
             this.Text = "松之宅矿工";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.DownloadForm_Load);
             this.Shown += new System.EventHandler(this.DownloadForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

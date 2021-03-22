@@ -18,7 +18,6 @@ namespace szzminer.Views
     {
         string url;
         string path;
-        Thread downloadThread;
         public DownloadForm(string url,string path)
         {
             InitializeComponent();
@@ -218,10 +217,17 @@ namespace szzminer.Views
 
         private void DownloadForm_Shown(object sender, EventArgs e)
         {
+            this.Text = "松之宅矿工";
+            this.labelDescription.Text = "正在下载内核中，请稍候......";
             Task.Run(()=> {
                 Download(url,path);
                 this.Close();
             });
+        }
+
+        private void DownloadForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

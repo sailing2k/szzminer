@@ -41,7 +41,7 @@ namespace szzminer.Class
             Process[] myProcesses = System.Diagnostics.Process.GetProcesses();
             foreach (System.Diagnostics.Process myProcess in myProcesses)
             {
-                if (myProcess.ProcessName.Contains(minerSmallName.ToLower()))
+                if (myProcess.ProcessName.ToLower().Contains(minerSmallName.ToLower()))
                     myProcess.Kill();//强制关闭该程序
             }
         }

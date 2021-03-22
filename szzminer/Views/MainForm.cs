@@ -31,7 +31,7 @@ namespace szzminer.Views
         {
             Task.Run(()=> {
                 Functions.getMiningInfo();
-                Functions.loadCoinIni(ref SelectCoin, ref SelectMiner);
+                Functions.loadCoinIni(ref SelectCoin);
                 SelectCoin.SelectedIndex = 0;
                 SelectMiner.SelectedIndex = 0;
                 SelectMiningPool.SelectedIndex = 0;
@@ -41,6 +41,16 @@ namespace szzminer.Views
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
             getGpusInfoThread.Start();
+        }
+
+        private void controlEnable(bool isEnable)
+        {
+            SelectCoin.Enabled = isEnable;
+            SelectMiner.Enabled = isEnable;
+            SelectMiningPool.Enabled = isEnable;
+            InputWallet.Enabled = isEnable;
+            InputWorker.Enabled = isEnable;
+            InputArgu.Enabled = isEnable;
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -55,6 +65,7 @@ namespace szzminer.Views
                 MinerStatusThread.IsBackground = true;
                 MinerStatusThread.Start();
                 ActionButton.Text = "停止挖矿";
+                controlEnable(false);
             }
             else
             {
@@ -62,7 +73,9 @@ namespace szzminer.Views
                 {
                     MinerStatusThread.Abort();
                 }
+                RunningTime.Text = "0";
                 stopMiner();
+                controlEnable(true);
             }
         }
         private void getGpusInfo()
@@ -284,11 +297,6 @@ namespace szzminer.Views
             SelectMiningPool.Items.Add("自定义矿池");
         }
 
-        private void SelectMiner_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void SelectMiningPool_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SelectMiningPool.Text.Equals("自定义矿池"))
@@ -300,6 +308,18 @@ namespace szzminer.Views
                 InputMiningPool.Enabled = false;
             }
             InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text,SelectMiningPool.Text,"", Application.StartupPath + "\\config" + "\\miningpool.ini");
+        }
+
+        private void useComputerName_ValueChanged(object sender, bool value)
+        {
+            if (useComputerName.Checked == true)
+            {
+                this.InputWorker.Text = Environment.GetEnvironmentVariable("computername"); ;
+            }
+            else
+            {
+                this.InputWorker.Text = "";
+            }
         }
     }
 }
