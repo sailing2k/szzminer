@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szzminer", "szzminer\szzminer.csproj", "{020EAFC7-5648-4AB5-944E-FF53A217DBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nbminerDll", "nbminerDll\nbminerDll.csproj", "{59AB83AF-4C23-43B5-ABA9-3C3FE1C03F0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nbminer", "nbminerDll\nbminer.csproj", "{59AB83AF-4C23-43B5-ABA9-3C3FE1C03F0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szzminer_overclock", "..\文档\szzminer-main\szzminer-overclock\WindowsFormsApp1\szzminer_overclock.csproj", "{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{59AB83AF-4C23-43B5-ABA9-3C3FE1C03F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59AB83AF-4C23-43B5-ABA9-3C3FE1C03F0D}.Release|x64.ActiveCfg = Release|Any CPU
 		{59AB83AF-4C23-43B5-ABA9-3C3FE1C03F0D}.Release|x64.Build.0 = Release|Any CPU
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Debug|x64.ActiveCfg = Debug|x64
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Debug|x64.Build.0 = Debug|x64
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Release|x64.ActiveCfg = Release|x64
+		{FCCC771B-B01C-4FC4-990D-2A0FEE1AFF15}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
