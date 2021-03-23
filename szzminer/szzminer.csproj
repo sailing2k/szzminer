@@ -122,10 +122,13 @@
   <ItemGroup>
     <Compile Include="Class\DownloadFile.cs" />
     <Compile Include="Class\Functions.cs" />
+    <Compile Include="Class\IncomeItem.cs" />
     <Compile Include="Class\Miner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\DriveDto.cs" />
+    <Compile Include="Tools\ExitWindows.cs" />
+    <Compile Include="Tools\getIncomeData.cs" />
     <Compile Include="Tools\GPU.cs" />
     <Compile Include="Tools\IniHelper.cs" />
     <Compile Include="Tools\VirtualMemoryHelper.cs" />

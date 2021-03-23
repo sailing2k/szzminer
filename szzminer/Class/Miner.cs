@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -18,23 +19,31 @@ namespace szzminer.Class
         public static string worker;
         public static string argu;
 
-        public static void startMiner(bool MinerDisplay)
+        public static void startMiner(bool MinerDisplay,ref UIRichTextBox LogOutput)
         {
-            Process minerProcess = new Process();
-            minerProcess.StartInfo.FileName = "miner\\"+minerBigName + "\\"+minerSmallName+".exe";
-            minerProcess.StartInfo.Arguments = string.Format(getArguments(),miningPool,wallet,worker,argu);
-            if (MinerDisplay)
+            try
             {
-                minerProcess.StartInfo.CreateNoWindow = false;
+                Process minerProcess = new Process();
+                minerProcess.StartInfo.FileName = "miner\\" + minerBigName + "\\" + minerSmallName + ".exe";
+                minerProcess.StartInfo.Arguments = string.Format(getArguments(), miningPool, wallet, worker, argu);
+                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 开始挖矿，启动参数:"+ minerProcess.StartInfo.Arguments + "，若长时间无反应，请勾选显示原版内核查看错误提示\n");
+                if (MinerDisplay)
+                {
+                    minerProcess.StartInfo.CreateNoWindow = false;
+                }
+                else
+                {
+                    minerProcess.StartInfo.CreateNoWindow = true;
+                }
+                minerProcess.StartInfo.UseShellExecute = false;
+                minerProcess.StartInfo.EnvironmentVariables.Remove("NBDEV");
+                minerProcess.StartInfo.EnvironmentVariables.Add("NBDEV", "#@@@TSAmlU3LTYLdf9NFpnQbkIpKVFex7gJvUmzC01xGSyw=");
+                minerProcess.Start();
             }
-            else
+            catch(Exception ex)
             {
-                minerProcess.StartInfo.CreateNoWindow = true;
+                UIMessageBox.ShowError("错误:"+ex.ToString());
             }
-            minerProcess.StartInfo.UseShellExecute = false;
-            minerProcess.StartInfo.EnvironmentVariables.Remove("NBDEV");
-            minerProcess.StartInfo.EnvironmentVariables.Add("NBDEV", "#@@@TSAmlU3LTYLdf9NFpnQbkIpKVFex7gJvUmzC01xGSyw=");
-            minerProcess.Start();
         }
         static string getArguments()
         {
@@ -43,13 +52,16 @@ namespace szzminer.Class
             return argu;
         }
 
-        public static void stopMiner()
+        public static void stopMiner(ref UIRichTextBox LogOutput)
         {
             Process[] myProcesses = System.Diagnostics.Process.GetProcesses();
             foreach (System.Diagnostics.Process myProcess in myProcesses)
             {
                 if (myProcess.ProcessName.ToLower().Contains(minerSmallName.ToLower()))
+                {
                     myProcess.Kill();//强制关闭该程序
+                    LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 停止挖矿，结束进程:" + myProcess.ProcessName + ".exe\n");
+                }
             }
         }
     }

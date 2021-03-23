@@ -154,7 +154,7 @@ namespace szzminer.Views
             long startPosition = 0; // 上次下载的文件起始位置
             FileStream writeStream; // 写入本地文件流对象
             long remoteFileLength = GetHttpLength(url);// 取得远程文件长度
-            System.Console.WriteLine("remoteFileLength=" + remoteFileLength);
+            //System.Console.WriteLine("remoteFileLength=" + remoteFileLength);
             if (remoteFileLength == 745)
             {
                 MessageBox.Show("远程文件不存在.");

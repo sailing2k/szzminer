@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szzminer_overclock", "..\æ–
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phoenixminer", "phoenixminer\phoenixminer.csproj", "{CEE8D5A0-819B-47A9-8BC1-0C6E65B09E16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmrig", "xmrig\xmrig.csproj", "{BF903A13-08B0-41E5-9085-322B7627613A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{CEE8D5A0-819B-47A9-8BC1-0C6E65B09E16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEE8D5A0-819B-47A9-8BC1-0C6E65B09E16}.Release|x64.ActiveCfg = Release|Any CPU
 		{CEE8D5A0-819B-47A9-8BC1-0C6E65B09E16}.Release|x64.Build.0 = Release|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF903A13-08B0-41E5-9085-322B7627613A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
