@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -26,21 +27,58 @@ namespace szzminer.Views
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
-
+        private void WriteConfig()
+        {
+            string iniPath = Application.StartupPath + "\\config\\config.ini";
+            if (!File.Exists(iniPath))
+            {
+                File.Create(iniPath).Dispose();
+            }
+            IniHelper.SetValue("松之宅矿工","币种",SelectCoin.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","内核",SelectMiner.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","矿池",SelectMiningPool.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","矿池地址",InputMiningPool.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","钱包地址",InputWallet.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","矿工号",InputWorker.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","附加参数",InputArgu.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工","使用计算机名",useComputerName.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工","显示原版内核",MinerDisplayCheckBox.Checked.ToString(), iniPath);
+        }
+        private void ReadConfig()
+        {
+            string iniPath = Application.StartupPath + "\\config\\config.ini";
+            if (!File.Exists(iniPath))
+            {
+                return;
+            }
+            SelectCoin.Text=IniHelper.GetValue("松之宅矿工","币种","",iniPath);
+            SelectMiner.Text=IniHelper.GetValue("松之宅矿工","内核","",iniPath);
+            SelectMiningPool.Text=IniHelper.GetValue("松之宅矿工","矿池","",iniPath);
+            InputMiningPool.Text=IniHelper.GetValue("松之宅矿工","矿池地址","",iniPath);
+            InputWallet.Text = IniHelper.GetValue("松之宅矿工", "钱包地址", "", iniPath);
+            InputWorker.Text=IniHelper.GetValue("松之宅矿工","矿工号","",iniPath);
+            InputArgu.Text=IniHelper.GetValue("松之宅矿工","附加参数","",iniPath);
+            useComputerName.Checked = IniHelper.GetValue("松之宅矿工","使用计算机名","",iniPath) == "True" ? true : false;
+            MinerDisplayCheckBox.Checked = IniHelper.GetValue("松之宅矿工","显示原版内核","",iniPath) == "True" ? true : false;
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
             Task.Run(()=> {
                 Functions.getMiningInfo();
                 Functions.loadCoinIni(ref SelectCoin);
+                VirtualMemoryHelper.getVirtualMemoryInfo(ref DiskComboBox);
+                DiskComboBox.SelectedIndex = 0;
                 SelectCoin.SelectedIndex = 0;
                 SelectMiner.SelectedIndex = 0;
                 SelectMiningPool.SelectedIndex = 0;
+                ReadConfig();
             });
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);
             GPU.getOverclockGPU(ref GPUOverClockTable);
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
             getGpusInfoThread.Start();
+            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 欢迎使用松之宅矿工，官方网站：topool.top\n");
         }
 
         private void controlEnable(bool isEnable)
@@ -59,7 +97,7 @@ namespace szzminer.Views
             {
                 Functions.checkMinerAndDownload(SelectMiner.Text,IniHelper.GetValue(SelectCoin.Text,SelectMiner.Text,"", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
-                startMiner();
+                startMiner(MinerDisplayCheckBox.Checked);
                 Functions.dllPath = System.AppDomain.CurrentDomain.BaseDirectory + string.Format("miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
                 MinerStatusThread.IsBackground = true;
@@ -130,7 +168,7 @@ namespace szzminer.Views
             }
         }
 
-        private void startMiner()
+        private void startMiner(bool MinerDisplay)
         {
             Miner.coin = SelectCoin.Text;
             Miner.minerBigName = SelectMiner.Text;
@@ -139,7 +177,7 @@ namespace szzminer.Views
             Miner.wallet = InputWallet.Text;
             Miner.worker = InputWorker.Text;
             Miner.argu = InputArgu.Text;
-            Miner.startMiner();
+            Miner.startMiner(MinerDisplay);
             ActionButton.Text = "停止挖矿";
         }
         private void stopMiner()
@@ -295,6 +333,8 @@ namespace szzminer.Views
                 SelectMiningPool.Items.Add(miningpool);
             }
             SelectMiningPool.Items.Add("自定义矿池");
+            SelectMiner.SelectedIndex = 0;
+            SelectMiningPool.SelectedIndex = 0;
         }
 
         private void SelectMiningPool_SelectedIndexChanged(object sender, EventArgs e)
@@ -320,6 +360,27 @@ namespace szzminer.Views
             {
                 this.InputWorker.Text = "";
             }
+        }
+
+        private void DiskComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VirtualMemoryHelper.getVirtualMemoryUsage(DiskComboBox.SelectedIndex,ref uiLabel9);
+        }
+
+        private void setVM_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(VMSize.Text))
+            {
+                //UIMessageBox.ShowError("虚拟内存大小不可为空");
+                UIMessageBox.Show("虚拟内存大小不可为空","虚拟内存设置失败");
+                return;
+            }
+            VirtualMemoryHelper.setVirtualMemory(DiskComboBox,Convert.ToInt32(VMSize.Text),ref uiLabel9);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            WriteConfig();
         }
     }
 }

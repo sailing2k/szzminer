@@ -33,15 +33,39 @@ namespace szzminer.Views
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.GPUStatusTable = new Sunny.UI.UIDataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.recommendation = new Sunny.UI.UIButton();
+            this.overClockWriteAll = new Sunny.UI.UIButton();
+            this.overClockDefault = new Sunny.UI.UIButton();
+            this.overClockConfirm = new Sunny.UI.UIButton();
+            this.GPUOverClockTable = new Sunny.UI.UIDataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.LogOutput = new Sunny.UI.UIRichTextBox();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
@@ -77,38 +101,25 @@ namespace szzminer.Views
             this.uiLabel16 = new Sunny.UI.UILabel();
             this.uiLabel15 = new Sunny.UI.UILabel();
             this.LogoImage = new System.Windows.Forms.PictureBox();
-            this.GPUOverClockTable = new Sunny.UI.UIDataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.overClockConfirm = new Sunny.UI.UIButton();
-            this.overClockDefault = new Sunny.UI.UIButton();
-            this.overClockWriteAll = new Sunny.UI.UIButton();
-            this.recommendation = new Sunny.UI.UIButton();
+            this.MinerDisplayCheckBox = new Sunny.UI.UICheckBox();
+            this.VMPanel = new Sunny.UI.UIGroupBox();
+            this.uiLabel8 = new Sunny.UI.UILabel();
+            this.DiskComboBox = new Sunny.UI.UIComboBox();
+            this.uiLabel9 = new Sunny.UI.UILabel();
+            this.uiLabel10 = new Sunny.UI.UILabel();
+            this.VMSize = new Sunny.UI.UITextBox();
+            this.uiLabel11 = new Sunny.UI.UILabel();
+            this.setVM = new Sunny.UI.UIButton();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).BeginInit();
+            this.VMPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiTabControl1
@@ -198,6 +209,76 @@ namespace szzminer.Views
             this.GPUStatusTable.Style = Sunny.UI.UIStyle.Custom;
             this.GPUStatusTable.TabIndex = 0;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "BUS";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 50;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "显卡型号";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 253;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "算力";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 90;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "接受";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 50;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "拒绝";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 50;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "功率";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 50;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "温度";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 50;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "风扇";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 50;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "核心频率";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 70;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "显存频率";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 70;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.recommendation);
@@ -212,20 +293,180 @@ namespace szzminer.Views
             this.tabPage2.Text = "超频设置";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // recommendation
+            // 
+            this.recommendation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.recommendation.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.recommendation.Location = new System.Drawing.Point(552, 370);
+            this.recommendation.MinimumSize = new System.Drawing.Size(1, 1);
+            this.recommendation.Name = "recommendation";
+            this.recommendation.Size = new System.Drawing.Size(154, 24);
+            this.recommendation.Style = Sunny.UI.UIStyle.Custom;
+            this.recommendation.TabIndex = 7;
+            this.recommendation.Text = "推荐超频(不支持A卡)";
+            // 
+            // overClockWriteAll
+            // 
+            this.overClockWriteAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.overClockWriteAll.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.overClockWriteAll.Location = new System.Drawing.Point(392, 370);
+            this.overClockWriteAll.MinimumSize = new System.Drawing.Size(1, 1);
+            this.overClockWriteAll.Name = "overClockWriteAll";
+            this.overClockWriteAll.Size = new System.Drawing.Size(154, 24);
+            this.overClockWriteAll.Style = Sunny.UI.UIStyle.Custom;
+            this.overClockWriteAll.TabIndex = 7;
+            this.overClockWriteAll.Text = "按照第一行填充";
+            // 
+            // overClockDefault
+            // 
+            this.overClockDefault.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.overClockDefault.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.overClockDefault.Location = new System.Drawing.Point(232, 370);
+            this.overClockDefault.MinimumSize = new System.Drawing.Size(1, 1);
+            this.overClockDefault.Name = "overClockDefault";
+            this.overClockDefault.Size = new System.Drawing.Size(154, 24);
+            this.overClockDefault.Style = Sunny.UI.UIStyle.Custom;
+            this.overClockDefault.TabIndex = 7;
+            this.overClockDefault.Text = "恢复默认";
+            this.overClockDefault.Click += new System.EventHandler(this.overClockDefault_Click);
+            // 
+            // overClockConfirm
+            // 
+            this.overClockConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.overClockConfirm.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.overClockConfirm.Location = new System.Drawing.Point(72, 370);
+            this.overClockConfirm.MinimumSize = new System.Drawing.Size(1, 1);
+            this.overClockConfirm.Name = "overClockConfirm";
+            this.overClockConfirm.Size = new System.Drawing.Size(154, 24);
+            this.overClockConfirm.Style = Sunny.UI.UIStyle.Custom;
+            this.overClockConfirm.TabIndex = 7;
+            this.overClockConfirm.Text = "确认超频";
+            this.overClockConfirm.Click += new System.EventHandler(this.overClockConfirm_Click);
+            // 
+            // GPUOverClockTable
+            // 
+            this.GPUOverClockTable.AllowUserToAddRows = false;
+            this.GPUOverClockTable.AllowUserToDeleteRows = false;
+            this.GPUOverClockTable.AllowUserToResizeColumns = false;
+            this.GPUOverClockTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.GPUOverClockTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            this.GPUOverClockTable.BackgroundColor = System.Drawing.Color.White;
+            this.GPUOverClockTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GPUOverClockTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            this.GPUOverClockTable.ColumnHeadersHeight = 28;
+            this.GPUOverClockTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.GPUOverClockTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9});
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.GPUOverClockTable.DefaultCellStyle = dataGridViewCellStyle15;
+            this.GPUOverClockTable.EnableHeadersVisualStyles = false;
+            this.GPUOverClockTable.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.GPUOverClockTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.GPUOverClockTable.Location = new System.Drawing.Point(0, 0);
+            this.GPUOverClockTable.MultiSelect = false;
+            this.GPUOverClockTable.Name = "GPUOverClockTable";
+            this.GPUOverClockTable.RowHeadersVisible = false;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.GPUOverClockTable.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.GPUOverClockTable.RowTemplate.Height = 29;
+            this.GPUOverClockTable.SelectedIndex = -1;
+            this.GPUOverClockTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.GPUOverClockTable.ShowGridLine = true;
+            this.GPUOverClockTable.Size = new System.Drawing.Size(786, 364);
+            this.GPUOverClockTable.Style = Sunny.UI.UIStyle.Custom;
+            this.GPUOverClockTable.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "BUS";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "显卡型号";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 253;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "功率 %";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "温度";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "核心频率";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "核心电压";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "显存频率";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "显存电压";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "风扇 %";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 80;
+            // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.VMPanel);
             this.tabPage3.Location = new System.Drawing.Point(0, 40);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(786, 401);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "高级设置";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // LogOutput
             // 
             this.LogOutput.AutoWordSelection = true;
             this.LogOutput.FillColor = System.Drawing.Color.White;
-            this.LogOutput.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.LogOutput.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.LogOutput.Location = new System.Drawing.Point(245, 475);
             this.LogOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.LogOutput.MinimumSize = new System.Drawing.Size(1, 1);
@@ -419,6 +660,7 @@ namespace szzminer.Views
             // uiGroupBox2
             // 
             this.uiGroupBox2.Controls.Add(this.ActionButton);
+            this.uiGroupBox2.Controls.Add(this.MinerDisplayCheckBox);
             this.uiGroupBox2.Controls.Add(this.useComputerName);
             this.uiGroupBox2.Controls.Add(this.InputArgu);
             this.uiGroupBox2.Controls.Add(this.InputWorker);
@@ -449,10 +691,10 @@ namespace szzminer.Views
             // 
             this.ActionButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ActionButton.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.ActionButton.Location = new System.Drawing.Point(63, 283);
+            this.ActionButton.Location = new System.Drawing.Point(10, 282);
             this.ActionButton.MinimumSize = new System.Drawing.Size(1, 1);
             this.ActionButton.Name = "ActionButton";
-            this.ActionButton.Size = new System.Drawing.Size(100, 24);
+            this.ActionButton.Size = new System.Drawing.Size(116, 24);
             this.ActionButton.Style = Sunny.UI.UIStyle.Custom;
             this.ActionButton.TabIndex = 7;
             this.ActionButton.Text = "开始挖矿";
@@ -671,234 +913,127 @@ namespace szzminer.Views
             this.LogoImage.TabIndex = 9;
             this.LogoImage.TabStop = false;
             // 
-            // GPUOverClockTable
+            // MinerDisplayCheckBox
             // 
-            this.GPUOverClockTable.AllowUserToAddRows = false;
-            this.GPUOverClockTable.AllowUserToDeleteRows = false;
-            this.GPUOverClockTable.AllowUserToResizeColumns = false;
-            this.GPUOverClockTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.GPUOverClockTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
-            this.GPUOverClockTable.BackgroundColor = System.Drawing.Color.White;
-            this.GPUOverClockTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GPUOverClockTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            this.GPUOverClockTable.ColumnHeadersHeight = 28;
-            this.GPUOverClockTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.GPUOverClockTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9});
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GPUOverClockTable.DefaultCellStyle = dataGridViewCellStyle15;
-            this.GPUOverClockTable.EnableHeadersVisualStyles = false;
-            this.GPUOverClockTable.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.GPUOverClockTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.GPUOverClockTable.Location = new System.Drawing.Point(0, 0);
-            this.GPUOverClockTable.MultiSelect = false;
-            this.GPUOverClockTable.Name = "GPUOverClockTable";
-            this.GPUOverClockTable.RowHeadersVisible = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.GPUOverClockTable.RowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.GPUOverClockTable.RowTemplate.Height = 29;
-            this.GPUOverClockTable.SelectedIndex = -1;
-            this.GPUOverClockTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.GPUOverClockTable.ShowGridLine = true;
-            this.GPUOverClockTable.Size = new System.Drawing.Size(786, 364);
-            this.GPUOverClockTable.Style = Sunny.UI.UIStyle.Custom;
-            this.GPUOverClockTable.TabIndex = 1;
+            this.MinerDisplayCheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MinerDisplayCheckBox.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.MinerDisplayCheckBox.Location = new System.Drawing.Point(133, 280);
+            this.MinerDisplayCheckBox.MinimumSize = new System.Drawing.Size(1, 1);
+            this.MinerDisplayCheckBox.Name = "MinerDisplayCheckBox";
+            this.MinerDisplayCheckBox.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.MinerDisplayCheckBox.Size = new System.Drawing.Size(97, 29);
+            this.MinerDisplayCheckBox.Style = Sunny.UI.UIStyle.Custom;
+            this.MinerDisplayCheckBox.TabIndex = 4;
+            this.MinerDisplayCheckBox.Text = "显示原版内核";
+            this.MinerDisplayCheckBox.ValueChanged += new Sunny.UI.UICheckBox.OnValueChanged(this.useComputerName_ValueChanged);
             // 
-            // Column1
+            // VMPanel
             // 
-            this.Column1.HeaderText = "BUS";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 50;
+            this.VMPanel.Controls.Add(this.setVM);
+            this.VMPanel.Controls.Add(this.VMSize);
+            this.VMPanel.Controls.Add(this.uiLabel9);
+            this.VMPanel.Controls.Add(this.DiskComboBox);
+            this.VMPanel.Controls.Add(this.uiLabel11);
+            this.VMPanel.Controls.Add(this.uiLabel10);
+            this.VMPanel.Controls.Add(this.uiLabel8);
+            this.VMPanel.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.VMPanel.Location = new System.Drawing.Point(4, 2);
+            this.VMPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.VMPanel.MinimumSize = new System.Drawing.Size(1, 1);
+            this.VMPanel.Name = "VMPanel";
+            this.VMPanel.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.VMPanel.Size = new System.Drawing.Size(231, 132);
+            this.VMPanel.Style = Sunny.UI.UIStyle.Custom;
+            this.VMPanel.TabIndex = 3;
+            this.VMPanel.Text = "虚拟内存设置";
             // 
-            // Column2
+            // uiLabel8
             // 
-            this.Column2.HeaderText = "显卡型号";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 253;
+            this.uiLabel8.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel8.Location = new System.Drawing.Point(4, 27);
+            this.uiLabel8.Name = "uiLabel8";
+            this.uiLabel8.Size = new System.Drawing.Size(41, 23);
+            this.uiLabel8.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel8.TabIndex = 0;
+            this.uiLabel8.Text = "盘符:";
+            this.uiLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Column3
+            // DiskComboBox
             // 
-            this.Column3.HeaderText = "算力";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 90;
+            this.DiskComboBox.FillColor = System.Drawing.Color.White;
+            this.DiskComboBox.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.DiskComboBox.Location = new System.Drawing.Point(45, 27);
+            this.DiskComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DiskComboBox.MinimumSize = new System.Drawing.Size(63, 0);
+            this.DiskComboBox.Name = "DiskComboBox";
+            this.DiskComboBox.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.DiskComboBox.Size = new System.Drawing.Size(108, 22);
+            this.DiskComboBox.Style = Sunny.UI.UIStyle.Custom;
+            this.DiskComboBox.TabIndex = 1;
+            this.DiskComboBox.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DiskComboBox.SelectedIndexChanged += new System.EventHandler(this.DiskComboBox_SelectedIndexChanged);
             // 
-            // Column8
+            // uiLabel9
             // 
-            this.Column8.HeaderText = "接受";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 50;
+            this.uiLabel9.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.uiLabel9.Location = new System.Drawing.Point(4, 52);
+            this.uiLabel9.Name = "uiLabel9";
+            this.uiLabel9.Size = new System.Drawing.Size(224, 23);
+            this.uiLabel9.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel9.TabIndex = 2;
+            this.uiLabel9.Text = "uiLabel9";
+            this.uiLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Column9
+            // uiLabel10
             // 
-            this.Column9.HeaderText = "拒绝";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 50;
+            this.uiLabel10.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel10.Location = new System.Drawing.Point(4, 73);
+            this.uiLabel10.Name = "uiLabel10";
+            this.uiLabel10.Size = new System.Drawing.Size(41, 23);
+            this.uiLabel10.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel10.TabIndex = 0;
+            this.uiLabel10.Text = "大小:";
+            this.uiLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Column10
+            // VMSize
             // 
-            this.Column10.HeaderText = "功率";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 50;
+            this.VMSize.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.VMSize.FillColor = System.Drawing.Color.White;
+            this.VMSize.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.VMSize.Location = new System.Drawing.Point(45, 74);
+            this.VMSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.VMSize.Maximum = 2147483647D;
+            this.VMSize.Minimum = -2147483648D;
+            this.VMSize.MinimumSize = new System.Drawing.Size(1, 1);
+            this.VMSize.Name = "VMSize";
+            this.VMSize.Padding = new System.Windows.Forms.Padding(5);
+            this.VMSize.Size = new System.Drawing.Size(108, 22);
+            this.VMSize.Style = Sunny.UI.UIStyle.Custom;
+            this.VMSize.TabIndex = 3;
             // 
-            // Column4
+            // uiLabel11
             // 
-            this.Column4.HeaderText = "温度";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 50;
+            this.uiLabel11.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel11.Location = new System.Drawing.Point(152, 73);
+            this.uiLabel11.Name = "uiLabel11";
+            this.uiLabel11.Size = new System.Drawing.Size(28, 23);
+            this.uiLabel11.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel11.TabIndex = 0;
+            this.uiLabel11.Text = "GB";
+            this.uiLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Column5
+            // setVM
             // 
-            this.Column5.HeaderText = "风扇";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 50;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "核心频率";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 70;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "显存频率";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "BUS";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "显卡型号";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 253;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "功率 %";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "温度";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "核心频率";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "核心电压";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "显存频率";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "显存电压";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "风扇 %";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 80;
-            // 
-            // overClockConfirm
-            // 
-            this.overClockConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.overClockConfirm.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.overClockConfirm.Location = new System.Drawing.Point(72, 370);
-            this.overClockConfirm.MinimumSize = new System.Drawing.Size(1, 1);
-            this.overClockConfirm.Name = "overClockConfirm";
-            this.overClockConfirm.Size = new System.Drawing.Size(154, 24);
-            this.overClockConfirm.Style = Sunny.UI.UIStyle.Custom;
-            this.overClockConfirm.TabIndex = 7;
-            this.overClockConfirm.Text = "确认超频";
-            this.overClockConfirm.Click += new System.EventHandler(this.overClockConfirm_Click);
-            // 
-            // overClockDefault
-            // 
-            this.overClockDefault.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.overClockDefault.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.overClockDefault.Location = new System.Drawing.Point(232, 370);
-            this.overClockDefault.MinimumSize = new System.Drawing.Size(1, 1);
-            this.overClockDefault.Name = "overClockDefault";
-            this.overClockDefault.Size = new System.Drawing.Size(154, 24);
-            this.overClockDefault.Style = Sunny.UI.UIStyle.Custom;
-            this.overClockDefault.TabIndex = 7;
-            this.overClockDefault.Text = "恢复默认";
-            this.overClockDefault.Click += new System.EventHandler(this.overClockDefault_Click);
-            // 
-            // overClockWriteAll
-            // 
-            this.overClockWriteAll.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.overClockWriteAll.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.overClockWriteAll.Location = new System.Drawing.Point(392, 370);
-            this.overClockWriteAll.MinimumSize = new System.Drawing.Size(1, 1);
-            this.overClockWriteAll.Name = "overClockWriteAll";
-            this.overClockWriteAll.Size = new System.Drawing.Size(154, 24);
-            this.overClockWriteAll.Style = Sunny.UI.UIStyle.Custom;
-            this.overClockWriteAll.TabIndex = 7;
-            this.overClockWriteAll.Text = "按照第一行填充";
-            // 
-            // recommendation
-            // 
-            this.recommendation.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.recommendation.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.recommendation.Location = new System.Drawing.Point(552, 370);
-            this.recommendation.MinimumSize = new System.Drawing.Size(1, 1);
-            this.recommendation.Name = "recommendation";
-            this.recommendation.Size = new System.Drawing.Size(154, 24);
-            this.recommendation.Style = Sunny.UI.UIStyle.Custom;
-            this.recommendation.TabIndex = 7;
-            this.recommendation.Text = "推荐超频(不支持A卡)";
+            this.setVM.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.setVM.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.setVM.Location = new System.Drawing.Point(75, 101);
+            this.setVM.MinimumSize = new System.Drawing.Size(1, 1);
+            this.setVM.Name = "setVM";
+            this.setVM.Size = new System.Drawing.Size(91, 23);
+            this.setVM.Style = Sunny.UI.UIStyle.Custom;
+            this.setVM.TabIndex = 7;
+            this.setVM.Text = "确认设置";
+            this.setVM.Click += new System.EventHandler(this.setVM_Click);
             // 
             // MainForm
             // 
@@ -917,15 +1052,18 @@ namespace szzminer.Views
             this.ShowTitleIcon = true;
             this.Style = Sunny.UI.UIStyle.Custom;
             this.Text = "松之宅矿工";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.uiTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
             this.uiGroupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).EndInit();
+            this.VMPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -995,5 +1133,14 @@ namespace szzminer.Views
         private Sunny.UI.UIButton overClockWriteAll;
         private Sunny.UI.UIButton overClockDefault;
         private Sunny.UI.UIButton overClockConfirm;
+        private Sunny.UI.UICheckBox MinerDisplayCheckBox;
+        private Sunny.UI.UIGroupBox VMPanel;
+        private Sunny.UI.UIComboBox DiskComboBox;
+        private Sunny.UI.UILabel uiLabel8;
+        private Sunny.UI.UITextBox VMSize;
+        private Sunny.UI.UILabel uiLabel9;
+        private Sunny.UI.UILabel uiLabel10;
+        private Sunny.UI.UIButton setVM;
+        private Sunny.UI.UILabel uiLabel11;
     }
 }

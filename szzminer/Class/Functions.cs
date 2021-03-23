@@ -129,5 +129,6 @@ namespace szzminer.Class
                 //ZipFile.CreateFromDirectory(Application.StartupPath + "\\miner\\", Application.StartupPath + "\\miner\\" + minerName + ".zip");
             }
         }
+
     }
 }

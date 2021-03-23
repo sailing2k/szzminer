@@ -18,12 +18,19 @@ namespace szzminer.Class
         public static string worker;
         public static string argu;
 
-        public static void startMiner()
+        public static void startMiner(bool MinerDisplay)
         {
             Process minerProcess = new Process();
             minerProcess.StartInfo.FileName = "miner\\"+minerBigName + "\\"+minerSmallName+".exe";
             minerProcess.StartInfo.Arguments = string.Format(getArguments(),miningPool,wallet,worker,argu);
-            minerProcess.StartInfo.CreateNoWindow = false;
+            if (MinerDisplay)
+            {
+                minerProcess.StartInfo.CreateNoWindow = false;
+            }
+            else
+            {
+                minerProcess.StartInfo.CreateNoWindow = true;
+            }
             minerProcess.StartInfo.UseShellExecute = false;
             minerProcess.StartInfo.EnvironmentVariables.Remove("NBDEV");
             minerProcess.StartInfo.EnvironmentVariables.Add("NBDEV", "#@@@TSAmlU3LTYLdf9NFpnQbkIpKVFex7gJvUmzC01xGSyw=");
