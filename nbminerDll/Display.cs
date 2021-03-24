@@ -42,7 +42,7 @@ namespace DisplayDll
             for(int gpuCount = 0; gpuCount < nbminerInfo.miner.devices.Count; gpuCount++)
             {
                 BUSID.Add(nbminerInfo.miner.devices[gpuCount].pci_bus_id.ToString());
-                Hashrate.Add(nbminerInfo.miner.devices[gpuCount].hashrate.Trim() + "H/S");
+                Hashrate.Add(nbminerInfo.miner.devices[gpuCount].hashrate.Trim());
                 Accepted.Add(nbminerInfo.miner.devices[gpuCount].accepted_shares.ToString());
                 Rejected.Add(nbminerInfo.miner.devices[gpuCount].rejected_shares.ToString());
             }

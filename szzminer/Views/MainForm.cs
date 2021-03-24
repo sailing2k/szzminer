@@ -28,6 +28,7 @@ namespace szzminer.Views
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
+        //读配置文件
         private void WriteConfig()
         {
             string iniPath = Application.StartupPath + "\\config\\config.ini";
@@ -66,6 +67,7 @@ namespace szzminer.Views
                 IniHelper.SetValue(Convert.ToString(GPUOverClockTable.Rows[i].Cells[0].Value), "Fan", Convert.ToString(GPUOverClockTable.Rows[i].Cells[8].Value), path);
             }
         }
+        //写配置文件
         private void ReadConfig()
         {
             string iniPath = Application.StartupPath + "\\config\\config.ini";
@@ -126,21 +128,25 @@ namespace szzminer.Views
                 Functions.getMiningInfo();
                 VirtualMemoryHelper.getVirtualMemoryInfo(ref DiskComboBox);
                 DiskComboBox.SelectedIndex = 0;
-                getIncomeData.getinfo(IncomeCoin);
+                getIncomeData.getinfo(IncomeCoin);//从f2pool读取收益计算器所需要的信息
                 IncomeCoin.SelectedIndex = 0;
             });
-            GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);
-            GPU.getOverclockGPU(ref GPUOverClockTable);
             Functions.loadCoinIni(ref SelectCoin);
             SelectCoin.SelectedIndex = 0;
             SelectMiner.SelectedIndex = 0;
             SelectMiningPool.SelectedIndex = 0;
-            ReadConfig();
+            GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);//为表格控件添加行
+            GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
+            
+            ReadConfig();//读取配置文件
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
-            getGpusInfoThread.Start();
+            getGpusInfoThread.Start();//实时更新显卡信息
         }
-
+        /// <summary>
+        /// 禁用或启用窗体中的某些控件
+        /// </summary>
+        /// <param name="isEnable"></param>
         private void controlEnable(bool isEnable)
         {
             SelectCoin.Enabled = isEnable;
@@ -170,25 +176,30 @@ namespace szzminer.Views
                 }
                 Functions.checkMinerAndDownload(SelectMiner.Text,IniHelper.GetValue(SelectCoin.Text,SelectMiner.Text,"", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
-                startMiner(MinerDisplayCheckBox.Checked);
+                startMiner(MinerDisplayCheckBox.Checked);//启动挖矿程序
                 Functions.dllPath = System.AppDomain.CurrentDomain.BaseDirectory + string.Format("miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
                 MinerStatusThread.IsBackground = true;
-                MinerStatusThread.Start();
+                MinerStatusThread.Start();//读取dll并显示内核的输出
                 ActionButton.Text = "停止挖矿";
                 controlEnable(false);
             }
             else
             {
-                if (MinerStatusThread != null)
-                {
-                    MinerStatusThread.Abort();
-                }
+                Task.Run(()=> {
+                    if (MinerStatusThread != null)
+                    {
+                        MinerStatusThread.Abort();
+                    }
+                });
                 RunningTime.Text = "0";
                 stopMiner();
                 controlEnable(true);
             }
         }
+        /// <summary>
+        /// 读取显卡信息
+        /// </summary>
         private void getGpusInfo()
         {
             while (true)
@@ -199,8 +210,30 @@ namespace szzminer.Views
                 Thread.Sleep(5000);
             }
         }
+        /// <summary>
+        /// 读取内核信息
+        /// </summary>
         private void getMinerInfo()
         {
+            string speedUnit = null;
+            try
+            {
+                for (int i = 0; i < getIncomeData.incomeItems.Count; i++)
+                {
+                    if (SelectCoin.Text == getIncomeData.incomeItems[i].CoinCode)
+                    {
+                        speedUnit = getIncomeData.incomeItems[i].SpeedUnit;
+                    }
+                }
+                if (speedUnit == null)
+                {
+                    speedUnit = "H/S";
+                }
+            }
+            catch
+            {
+                speedUnit = "H/S";
+            }
             while (true)
             {
                 double totalHashrate = 0;
@@ -216,15 +249,15 @@ namespace szzminer.Views
                             if (!GPUStatusTable.Rows[j].Cells[0].Value.ToString().Equals(Functions.BUSID[i]))
                                 continue;
                             GPUStatusTable.Rows[j].Cells[0].Value = Functions.BUSID[i];
-                            GPUStatusTable.Rows[j].Cells[2].Value = Functions.Hashrate[i];
+                            GPUStatusTable.Rows[j].Cells[2].Value = Functions.Hashrate[i].Split(' ')[0] + " "+speedUnit;
                             totalHashrate += Convert.ToDouble(Functions.Hashrate[i].Split(' ')[0]);
                             GPUStatusTable.Rows[j].Cells[3].Value = Functions.Accepted[i];
                             totalAccepted += Convert.ToUInt32(Functions.Accepted[i]);
                             GPUStatusTable.Rows[j].Cells[4].Value = Functions.Rejected[i];
-                            totalRejected+= Convert.ToUInt32(Functions.Rejected[i]);
+                            totalRejected += Convert.ToUInt32(Functions.Rejected[i]);
                         }
                     }
-                    TotalHashrate.Text = totalHashrate.ToString() + " MH/S";
+                    TotalHashrate.Text = totalHashrate.ToString() + " "+speedUnit;
                     TotalSubmit.Text = totalAccepted.ToString();
                     TotalReject.Text = totalRejected.ToString();
                     Task.Run(()=> {
@@ -249,7 +282,7 @@ namespace szzminer.Views
                 }
                 catch (Exception ex)
                 {
-                    LogOutput.AppendText(ex.ToString());
+                    //LogOutput.AppendText(ex.ToString());
                 }
                 finally
                 {
@@ -257,7 +290,10 @@ namespace szzminer.Views
                 }
             }
         }
-
+        /// <summary>
+        /// 开始挖矿
+        /// </summary>
+        /// <param name="MinerDisplay"></param>
         private void startMiner(bool MinerDisplay)
         {
             Miner.coin = SelectCoin.Text;
@@ -270,6 +306,9 @@ namespace szzminer.Views
             Miner.startMiner(MinerDisplay,ref LogOutput);
             ActionButton.Text = "停止挖矿";
         }
+        /// <summary>
+        /// 停止挖矿
+        /// </summary>
         private void stopMiner()
         {
             ActionButton.Text = "开始挖矿";
