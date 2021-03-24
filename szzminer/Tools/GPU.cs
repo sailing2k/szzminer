@@ -47,12 +47,12 @@ namespace szzminer.Tools
                     adl.GetPowerFanTemp(adl.ATIGpus[i].BusNumber,out power,out fan,out temp);
                     adl.GetClockRange(adl.ATIGpus[i].BusNumber,out coreClock,out memoryClock);
                     GPUStatusTable.Rows[GPUCount].Cells[0].Value = adl.ATIGpus[i].BusNumber;
-                    GPUStatusTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) / 1024 / 1024 / 1024 + "GB"; ;
+                    GPUStatusTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + Math.Round((double)adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) / 1000000000) + "GB"; ;
                     GPUStatusTable.Rows[GPUCount].Cells[5].Value = power;
                     GPUStatusTable.Rows[GPUCount].Cells[6].Value = temp;
                     GPUStatusTable.Rows[GPUCount].Cells[7].Value = fan;
-                    GPUStatusTable.Rows[GPUCount].Cells[8].Value = coreClock + "Mhz";
-                    GPUStatusTable.Rows[GPUCount].Cells[9].Value = memoryClock + "Mhz";
+                    GPUStatusTable.Rows[GPUCount].Cells[8].Value = coreClock/1000 + "Mhz";
+                    GPUStatusTable.Rows[GPUCount].Cells[9].Value = memoryClock/1000 + "Mhz";
                     totalPower += Convert.ToInt32(GPUStatusTable.Rows[GPUCount].Cells[5].Value);
                     GPUCount++;
                 }

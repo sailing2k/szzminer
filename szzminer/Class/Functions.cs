@@ -25,7 +25,9 @@ namespace szzminer.Class
         public static List<string> Accepted = new List<string>();
         public static List<string> Rejected = new List<string>();
 
-
+        /// <summary>
+        /// 读取dll文件并拿取内核的信息
+        /// </summary>
         public static void getMinerInfo()
         {
             var asm = Assembly.LoadFile(dllPath);
@@ -42,7 +44,10 @@ namespace szzminer.Class
             method = type.GetMethod("getRejected");
             Rejected = (List<string>)method.Invoke(instance, null);
         }
-
+        /// <summary>
+        /// 停止挖矿后表格内容归零
+        /// </summary>
+        /// <param name="uIDataGridView"></param>
         public static void afterStopMiner(ref UIDataGridView uIDataGridView)
         {
             for (int i = 0; i < uIDataGridView.Rows.Count; i++)
@@ -52,7 +57,9 @@ namespace szzminer.Class
                 uIDataGridView.Rows[i].Cells[4].Value = "0";
             }
         }
-
+        /// <summary>
+        /// 从远端拿取币种，钱包矿池信息
+        /// </summary>
         public static void getMiningInfo()
         {
             if (File.Exists(Application.StartupPath + "\\config\\miner.ini"))
@@ -66,7 +73,10 @@ namespace szzminer.Class
             DownloadFile.downloadIniFile("https://szzminer.bj.bcebos.com/miner.ini", "\\config\\miner.ini");
             DownloadFile.downloadIniFile("https://szzminer.bj.bcebos.com/miningpool.ini", "\\config\\miningpool.ini");
         }
-
+        /// <summary>
+        /// 读取miner.ini信息
+        /// </summary>
+        /// <param name="coin"></param>
         public static void loadCoinIni(ref UIComboBox coin)
         {
             IniHelper.setPath(Application.StartupPath + "\\config\\" + "\\miner.ini");
@@ -113,7 +123,11 @@ namespace szzminer.Class
                 poolping.ForeColor = Color.Red;
             }
         }
-
+        /// <summary>
+        /// 检查内核是否存在，若不存在则下载内核压缩包并解压
+        /// </summary>
+        /// <param name="minerName">内核名称</param>
+        /// <param name="url">下载链接</param>
         public static void checkMinerAndDownload(string minerName,string url)
         {
             if (Directory.Exists(Application.StartupPath + "\\miner\\"+minerName))

@@ -119,22 +119,22 @@ namespace szzminer.Views
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            
             Task.Run(()=> {
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] " + getIncomeData.getHtml("http://121.4.60.81/szzminer/notice.html"));
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 欢迎使用松之宅矿工，官方网站：topool.top");
                 Functions.getMiningInfo();
-                Functions.loadCoinIni(ref SelectCoin);
                 VirtualMemoryHelper.getVirtualMemoryInfo(ref DiskComboBox);
                 DiskComboBox.SelectedIndex = 0;
-                SelectCoin.SelectedIndex = 0;
-                SelectMiner.SelectedIndex = 0;
-                SelectMiningPool.SelectedIndex = 0;
                 getIncomeData.getinfo(IncomeCoin);
                 IncomeCoin.SelectedIndex = 0;
-                
             });
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);
             GPU.getOverclockGPU(ref GPUOverClockTable);
+            Functions.loadCoinIni(ref SelectCoin);
+            SelectCoin.SelectedIndex = 0;
+            SelectMiner.SelectedIndex = 0;
+            SelectMiningPool.SelectedIndex = 0;
             ReadConfig();
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
@@ -158,6 +158,16 @@ namespace szzminer.Views
         {
             if (ActionButton.Text.Contains("开始挖矿"))
             {
+                if (string.IsNullOrEmpty(InputMiningPool.Text))
+                {
+                    UIMessageBox.ShowError("矿池地址不可为空！");
+                    return;
+                }
+                if (string.IsNullOrEmpty(InputWallet.Text))
+                {
+                    UIMessageBox.ShowError("钱包地址不可为空！");
+                    return;
+                }
                 Functions.checkMinerAndDownload(SelectMiner.Text,IniHelper.GetValue(SelectCoin.Text,SelectMiner.Text,"", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
                 startMiner(MinerDisplayCheckBox.Checked);
@@ -236,11 +246,14 @@ namespace szzminer.Views
                         }
                     }
                     RunningTime.Text= string.Format("{0}天{1}小时{2}分钟{3}秒", TimeCount.Days, TimeCount.Hours, TimeCount.Minutes, TimeCount.Seconds);
-                    Thread.Sleep(5000);
                 }
                 catch (Exception ex)
                 {
-
+                    LogOutput.AppendText(ex.ToString());
+                }
+                finally
+                {
+                    Thread.Sleep(5000);
                 }
             }
         }
@@ -460,6 +473,11 @@ namespace szzminer.Views
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             WriteConfig();
+            if (ActionButton.Text.Equals("停止挖矿"))
+            {
+                UIMessageBox.Show("正在挖矿，无法退出","提示");
+                e.Cancel = true;
+            }
         }
 
         private void timeRestart_KeyPress(object sender, KeyPressEventArgs e)
@@ -757,6 +775,29 @@ namespace szzminer.Views
         private void LogOutput_TextChanged(object sender, EventArgs e)
         {
             LogOutput.ScrollToCaret();
+        }
+
+        private void icon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void icon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                iconMenu.Show(MousePosition.X, MousePosition.Y);
+            }
+        }
+
+        private void 显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
