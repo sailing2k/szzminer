@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmrig", "xmrig\xmrig.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szzminerServer", "szzminerServer\szzminerServer.csproj", "{13C2B770-8DE6-4227-B826-1AE4E3979E16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "szzminer_update", "szzminer_update\szzminer_update.csproj", "{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{13C2B770-8DE6-4227-B826-1AE4E3979E16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13C2B770-8DE6-4227-B826-1AE4E3979E16}.Release|x64.ActiveCfg = Release|Any CPU
 		{13C2B770-8DE6-4227-B826-1AE4E3979E16}.Release|x64.Build.0 = Release|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Debug|x64.Build.0 = Debug|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Release|x64.ActiveCfg = Release|Any CPU
+		{6CCD0A0F-693D-40F8-8DA5-2837D62B4936}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

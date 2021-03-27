@@ -266,7 +266,17 @@ namespace szzminerServer
 
         private void uiButton5_Click(object sender, EventArgs e)
         {
-
+            if (UIMessageBox.ShowAsk("你真的要关机吗"))
+            {
+                if (!MinerOptions.shutdownMiner(MinerStatusTable))
+                {
+                    UIMessageBox.ShowError("请选择矿机");
+                }
+                else
+                {
+                    UIMessageBox.Show("关机完成");
+                }
+            }
         }
 
         private void uiCheckBox1_ValueChanged(object sender, bool value)
@@ -286,5 +296,31 @@ namespace szzminerServer
             }
         }
 
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            if (UIMessageBox.ShowAsk("你真的要重启吗"))
+            {
+                if (!MinerOptions.rebootMiner(MinerStatusTable))
+                {
+                    UIMessageBox.ShowError("请选择矿机");
+                }
+                else
+                {
+                    UIMessageBox.Show("重启完成");
+                }
+            }
+        }
+
+        private void uiButton7_Click(object sender, EventArgs e)
+        {
+            if (!MinerOptions.updateMiner(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+            }
+            else
+            {
+                UIMessageBox.Show("更新完成");
+            }
+        }
     }
 }

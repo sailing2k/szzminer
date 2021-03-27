@@ -82,6 +82,7 @@ namespace szzminer.Views
             this.uiLabel10 = new Sunny.UI.UILabel();
             this.uiLabel8 = new Sunny.UI.UILabel();
             this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            this.updateButton = new Sunny.UI.UIButton();
             this.autoOverclock = new Sunny.UI.UICheckBox();
             this.uiLabel22 = new Sunny.UI.UILabel();
             this.autoMiningTime = new Sunny.UI.UITextBox();
@@ -163,7 +164,6 @@ namespace szzminer.Views
             this.iconMenu = new Sunny.UI.UIContextMenuStrip();
             this.显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateButton = new Sunny.UI.UIButton();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
@@ -729,6 +729,19 @@ namespace szzminer.Views
             this.uiGroupBox4.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox4.TabIndex = 5;
             this.uiGroupBox4.Text = "其他设置";
+            // 
+            // updateButton
+            // 
+            this.updateButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.updateButton.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.updateButton.Location = new System.Drawing.Point(60, 115);
+            this.updateButton.MinimumSize = new System.Drawing.Size(1, 1);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(92, 23);
+            this.updateButton.Style = Sunny.UI.UIStyle.Custom;
+            this.updateButton.TabIndex = 7;
+            this.updateButton.Text = "检查更新";
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // autoOverclock
             // 
@@ -1827,19 +1840,6 @@ namespace szzminer.Views
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
-            // updateButton
-            // 
-            this.updateButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.updateButton.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.updateButton.Location = new System.Drawing.Point(60, 115);
-            this.updateButton.MinimumSize = new System.Drawing.Size(1, 1);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(92, 23);
-            this.updateButton.Style = Sunny.UI.UIStyle.Custom;
-            this.updateButton.TabIndex = 7;
-            this.updateButton.Text = "检查更新";
-            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -1856,7 +1856,7 @@ namespace szzminer.Views
             this.ShowIcon = true;
             this.ShowTitleIcon = true;
             this.Style = Sunny.UI.UIStyle.Custom;
-            this.Text = "松之宅矿工v1.0.0";
+            this.Text = "松之宅矿工v1.1.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

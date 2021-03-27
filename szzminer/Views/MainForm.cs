@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -141,7 +142,7 @@ namespace szzminer.Views
                         case "startMining":
                             if (ActionButton.Text.Contains("开始"))
                             {
-                                uiButton1_Click(null,null);
+                                uiButton1_Click(null, null);
                                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控开始挖矿命令\n");
                             }
                             else
@@ -175,12 +176,21 @@ namespace szzminer.Views
                             uiButton1_Click(null, null);
                             LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控修改币种命令\n");
                             break;
+                        case "shutdown":
+                            ExitWindows.Shutdown(true);
+                            break;
+                        case "reboot":
+                            ExitWindows.Reboot(true);
+                            break;
+                        case "update":
+                            updateButton_Click(null,null);
+                            break;
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    
+
                 }
             }
         }
@@ -276,7 +286,7 @@ namespace szzminer.Views
             }
         }
 
-        
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -346,13 +356,11 @@ namespace szzminer.Views
             }
             else
             {
-                //Task.Run(() =>
-                //{
-                    if (MinerStatusThread != null)
-                    {
-                        MinerStatusThread.Abort();
-                    }
-                //});
+                if (MinerStatusThread != null)
+                {
+                    MinerStatusThread.Abort();
+                }
+
                 RunningTime.Text = "0";
                 stopMiner();
                 controlEnable(true);
@@ -1022,7 +1030,27 @@ namespace szzminer.Views
             double newVersion = Convert.ToDouble(getIncomeData.getHtml("http://121.4.60.81/szzminer/update.html"));
             if (newVersion > currentVersion)
             {
-                //TODO:
+                if (MinerStatusThread != null)
+                {
+                    MinerStatusThread.Abort();
+                }
+                stopMiner();
+                string path = Application.StartupPath + "\\szzminer_update.exe";
+                Process p = new Process();
+                p.StartInfo.FileName = path;
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                p.Start();
+                Application.Exit();
+            }
+            else
+            {
+                Task.Run(()=>{
+                    updateButton.Enabled = false;
+                    updateButton.Text = "无更新";
+                    Thread.Sleep(10*1000);
+                    updateButton.Text = "检查更新";
+                    updateButton.Enabled = true;
+                });
             }
         }
 
