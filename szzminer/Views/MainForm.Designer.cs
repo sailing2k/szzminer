@@ -30,14 +30,14 @@ namespace szzminer.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -69,6 +69,10 @@ namespace szzminer.Views
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiGroupBox7 = new Sunny.UI.UIGroupBox();
+            this.InputRemoteIP = new Sunny.UI.UITextBox();
+            this.remoteControl = new Sunny.UI.UICheckBox();
+            this.uiLabel37 = new Sunny.UI.UILabel();
             this.VMPanel = new Sunny.UI.UIGroupBox();
             this.setVM = new Sunny.UI.UIButton();
             this.VMSize = new Sunny.UI.UITextBox();
@@ -159,6 +163,7 @@ namespace szzminer.Views
             this.iconMenu = new Sunny.UI.UIContextMenuStrip();
             this.显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateButton = new Sunny.UI.UIButton();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
@@ -166,6 +171,7 @@ namespace szzminer.Views
             ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.uiPanel1.SuspendLayout();
+            this.uiGroupBox7.SuspendLayout();
             this.VMPanel.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -215,18 +221,18 @@ namespace szzminer.Views
             this.GPUStatusTable.AllowUserToDeleteRows = false;
             this.GPUStatusTable.AllowUserToResizeColumns = false;
             this.GPUStatusTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.GPUStatusTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.GPUStatusTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.GPUStatusTable.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             this.GPUStatusTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GPUStatusTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GPUStatusTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.GPUStatusTable.ColumnHeadersHeight = 28;
             this.GPUStatusTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.GPUStatusTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -240,14 +246,14 @@ namespace szzminer.Views
             this.Column5,
             this.Column6,
             this.Column7});
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GPUStatusTable.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.GPUStatusTable.DefaultCellStyle = dataGridViewCellStyle3;
             this.GPUStatusTable.EnableHeadersVisualStyles = false;
             this.GPUStatusTable.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.GPUStatusTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
@@ -256,8 +262,8 @@ namespace szzminer.Views
             this.GPUStatusTable.Name = "GPUStatusTable";
             this.GPUStatusTable.ReadOnly = true;
             this.GPUStatusTable.RowHeadersVisible = false;
-            dataGridViewCellStyle36.BackColor = System.Drawing.Color.White;
-            this.GPUStatusTable.RowsDefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.GPUStatusTable.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.GPUStatusTable.RowTemplate.Height = 29;
             this.GPUStatusTable.SelectedIndex = -1;
             this.GPUStatusTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -407,18 +413,18 @@ namespace szzminer.Views
             this.GPUOverClockTable.AllowUserToDeleteRows = false;
             this.GPUOverClockTable.AllowUserToResizeColumns = false;
             this.GPUOverClockTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle37.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.GPUOverClockTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.GPUOverClockTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.GPUOverClockTable.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             this.GPUOverClockTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle38.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GPUOverClockTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GPUOverClockTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.GPUOverClockTable.ColumnHeadersHeight = 28;
             this.GPUOverClockTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.GPUOverClockTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -431,14 +437,14 @@ namespace szzminer.Views
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9});
-            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle39.Font = new System.Drawing.Font("微软雅黑", 9F);
-            dataGridViewCellStyle39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GPUOverClockTable.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 9F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.GPUOverClockTable.DefaultCellStyle = dataGridViewCellStyle7;
             this.GPUOverClockTable.EnableHeadersVisualStyles = false;
             this.GPUOverClockTable.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.GPUOverClockTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
@@ -446,8 +452,8 @@ namespace szzminer.Views
             this.GPUOverClockTable.MultiSelect = false;
             this.GPUOverClockTable.Name = "GPUOverClockTable";
             this.GPUOverClockTable.RowHeadersVisible = false;
-            dataGridViewCellStyle40.BackColor = System.Drawing.Color.White;
-            this.GPUOverClockTable.RowsDefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            this.GPUOverClockTable.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.GPUOverClockTable.RowTemplate.Height = 29;
             this.GPUOverClockTable.SelectedIndex = -1;
             this.GPUOverClockTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -522,6 +528,7 @@ namespace szzminer.Views
             // 
             // uiPanel1
             // 
+            this.uiPanel1.Controls.Add(this.uiGroupBox7);
             this.uiPanel1.Controls.Add(this.VMPanel);
             this.uiPanel1.Controls.Add(this.uiGroupBox4);
             this.uiPanel1.Controls.Add(this.uiGroupBox3);
@@ -537,6 +544,64 @@ namespace szzminer.Views
             this.uiPanel1.TabIndex = 6;
             this.uiPanel1.Text = null;
             // 
+            // uiGroupBox7
+            // 
+            this.uiGroupBox7.Controls.Add(this.InputRemoteIP);
+            this.uiGroupBox7.Controls.Add(this.remoteControl);
+            this.uiGroupBox7.Controls.Add(this.uiLabel37);
+            this.uiGroupBox7.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiGroupBox7.Location = new System.Drawing.Point(239, -4);
+            this.uiGroupBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox7.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox7.Name = "uiGroupBox7";
+            this.uiGroupBox7.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox7.Size = new System.Drawing.Size(270, 76);
+            this.uiGroupBox7.Style = Sunny.UI.UIStyle.Custom;
+            this.uiGroupBox7.TabIndex = 6;
+            this.uiGroupBox7.Text = "群控设置";
+            // 
+            // InputRemoteIP
+            // 
+            this.InputRemoteIP.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.InputRemoteIP.FillColor = System.Drawing.Color.White;
+            this.InputRemoteIP.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.InputRemoteIP.Location = new System.Drawing.Point(91, 24);
+            this.InputRemoteIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.InputRemoteIP.Maximum = 2147483647D;
+            this.InputRemoteIP.Minimum = -2147483648D;
+            this.InputRemoteIP.MinimumSize = new System.Drawing.Size(1, 1);
+            this.InputRemoteIP.Name = "InputRemoteIP";
+            this.InputRemoteIP.Padding = new System.Windows.Forms.Padding(5);
+            this.InputRemoteIP.Size = new System.Drawing.Size(150, 22);
+            this.InputRemoteIP.Style = Sunny.UI.UIStyle.Custom;
+            this.InputRemoteIP.TabIndex = 1;
+            this.InputRemoteIP.Text = "127.0.0.1";
+            // 
+            // remoteControl
+            // 
+            this.remoteControl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.remoteControl.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.remoteControl.Location = new System.Drawing.Point(88, 46);
+            this.remoteControl.MinimumSize = new System.Drawing.Size(1, 1);
+            this.remoteControl.Name = "remoteControl";
+            this.remoteControl.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.remoteControl.Size = new System.Drawing.Size(89, 29);
+            this.remoteControl.Style = Sunny.UI.UIStyle.Custom;
+            this.remoteControl.TabIndex = 5;
+            this.remoteControl.Text = "开启群控";
+            this.remoteControl.ValueChanged += new Sunny.UI.UICheckBox.OnValueChanged(this.remoteControl_ValueChanged);
+            // 
+            // uiLabel37
+            // 
+            this.uiLabel37.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel37.Location = new System.Drawing.Point(16, 23);
+            this.uiLabel37.Name = "uiLabel37";
+            this.uiLabel37.Size = new System.Drawing.Size(68, 23);
+            this.uiLabel37.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel37.TabIndex = 0;
+            this.uiLabel37.Text = "群控端IP:";
+            this.uiLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // VMPanel
             // 
             this.VMPanel.Controls.Add(this.setVM);
@@ -547,7 +612,7 @@ namespace szzminer.Views
             this.VMPanel.Controls.Add(this.uiLabel10);
             this.VMPanel.Controls.Add(this.uiLabel8);
             this.VMPanel.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.VMPanel.Location = new System.Drawing.Point(4, -5);
+            this.VMPanel.Location = new System.Drawing.Point(4, -4);
             this.VMPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.VMPanel.MinimumSize = new System.Drawing.Size(1, 1);
             this.VMPanel.Name = "VMPanel";
@@ -648,18 +713,19 @@ namespace szzminer.Views
             // 
             // uiGroupBox4
             // 
+            this.uiGroupBox4.Controls.Add(this.updateButton);
             this.uiGroupBox4.Controls.Add(this.autoOverclock);
             this.uiGroupBox4.Controls.Add(this.uiLabel22);
             this.uiGroupBox4.Controls.Add(this.autoMiningTime);
             this.uiGroupBox4.Controls.Add(this.autoMining);
             this.uiGroupBox4.Controls.Add(this.loginStart);
             this.uiGroupBox4.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiGroupBox4.Location = new System.Drawing.Point(5, 235);
+            this.uiGroupBox4.Location = new System.Drawing.Point(5, 211);
             this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox4.Name = "uiGroupBox4";
             this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox4.Size = new System.Drawing.Size(230, 124);
+            this.uiGroupBox4.Size = new System.Drawing.Size(230, 148);
             this.uiGroupBox4.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox4.TabIndex = 5;
             this.uiGroupBox4.Text = "其他设置";
@@ -740,12 +806,12 @@ namespace szzminer.Views
             this.uiGroupBox3.Controls.Add(this.uiLabel14);
             this.uiGroupBox3.Controls.Add(this.uiLabel12);
             this.uiGroupBox3.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiGroupBox3.Location = new System.Drawing.Point(4, 129);
+            this.uiGroupBox3.Location = new System.Drawing.Point(4, 124);
             this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox3.Name = "uiGroupBox3";
             this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox3.Size = new System.Drawing.Size(231, 97);
+            this.uiGroupBox3.Size = new System.Drawing.Size(231, 87);
             this.uiGroupBox3.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox3.TabIndex = 4;
             this.uiGroupBox3.Text = "自动重启";
@@ -1632,7 +1698,7 @@ namespace szzminer.Views
             this.SelectCoin.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             this.SelectCoin.FillColor = System.Drawing.Color.White;
             this.SelectCoin.Font = new System.Drawing.Font("微软雅黑", 8F);
-            this.SelectCoin.Location = new System.Drawing.Point(46, 31);
+            this.SelectCoin.Location = new System.Drawing.Point(46, 32);
             this.SelectCoin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SelectCoin.MinimumSize = new System.Drawing.Size(63, 0);
             this.SelectCoin.Name = "SelectCoin";
@@ -1690,7 +1756,7 @@ namespace szzminer.Views
             // uiLabel17
             // 
             this.uiLabel17.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel17.Location = new System.Drawing.Point(6, 78);
+            this.uiLabel17.Location = new System.Drawing.Point(6, 77);
             this.uiLabel17.Name = "uiLabel17";
             this.uiLabel17.Size = new System.Drawing.Size(55, 23);
             this.uiLabel17.Style = Sunny.UI.UIStyle.Custom;
@@ -1701,7 +1767,7 @@ namespace szzminer.Views
             // uiLabel16
             // 
             this.uiLabel16.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel16.Location = new System.Drawing.Point(6, 55);
+            this.uiLabel16.Location = new System.Drawing.Point(6, 54);
             this.uiLabel16.Name = "uiLabel16";
             this.uiLabel16.Size = new System.Drawing.Size(55, 23);
             this.uiLabel16.Style = Sunny.UI.UIStyle.Custom;
@@ -1712,7 +1778,7 @@ namespace szzminer.Views
             // uiLabel15
             // 
             this.uiLabel15.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel15.Location = new System.Drawing.Point(6, 32);
+            this.uiLabel15.Location = new System.Drawing.Point(6, 31);
             this.uiLabel15.Name = "uiLabel15";
             this.uiLabel15.Size = new System.Drawing.Size(55, 23);
             this.uiLabel15.Style = Sunny.UI.UIStyle.Custom;
@@ -1750,16 +1816,29 @@ namespace szzminer.Views
             // 显示ToolStripMenuItem
             // 
             this.显示ToolStripMenuItem.Name = "显示ToolStripMenuItem";
-            this.显示ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.显示ToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.显示ToolStripMenuItem.Text = "显示主界面";
             this.显示ToolStripMenuItem.Click += new System.EventHandler(this.显示ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
+            // updateButton
+            // 
+            this.updateButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.updateButton.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.updateButton.Location = new System.Drawing.Point(60, 115);
+            this.updateButton.MinimumSize = new System.Drawing.Size(1, 1);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(92, 23);
+            this.updateButton.Style = Sunny.UI.UIStyle.Custom;
+            this.updateButton.TabIndex = 7;
+            this.updateButton.Text = "检查更新";
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // MainForm
             // 
@@ -1788,6 +1867,7 @@ namespace szzminer.Views
             ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.uiPanel1.ResumeLayout(false);
+            this.uiGroupBox7.ResumeLayout(false);
             this.VMPanel.ResumeLayout(false);
             this.uiGroupBox4.ResumeLayout(false);
             this.uiGroupBox3.ResumeLayout(false);
@@ -1924,5 +2004,10 @@ namespace szzminer.Views
         private Sunny.UI.UIContextMenuStrip iconMenu;
         private System.Windows.Forms.ToolStripMenuItem 显示ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private Sunny.UI.UICheckBox remoteControl;
+        private Sunny.UI.UIGroupBox uiGroupBox7;
+        private Sunny.UI.UITextBox InputRemoteIP;
+        private Sunny.UI.UILabel uiLabel37;
+        private Sunny.UI.UIButton updateButton;
     }
 }

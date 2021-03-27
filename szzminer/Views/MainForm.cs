@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,14 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using szzminer.Class;
+using szzminer.Class.RemoteClass;
 using szzminer.Tools;
 using szzminer_overclock.AMD;
 
@@ -21,6 +25,10 @@ namespace szzminer.Views
     {
         Thread MinerStatusThread;
         Thread getGpusInfoThread;
+        Thread remoteControlThread;
+        public const double currentVersion = 1.01;
+        bool isMining = false;
+        public static string MinerStatusJson;
         System.DateTime TimeNow = new DateTime();
         TimeSpan TimeCount = new TimeSpan();
         public MainForm()
@@ -28,7 +36,155 @@ namespace szzminer.Views
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
-        //读配置文件
+        private UdpClient udpcRecv = null;
+
+        private IPEndPoint localIpep = null;
+
+        /// <summary>
+        /// 开关：在监听UDP报文阶段为true，否则为false
+        /// </summary>
+        private bool IsUdpcRecvStart = false;
+        /// <summary>
+        /// 线程：不断监听UDP报文
+        /// </summary>
+        private Thread thrRecv;
+        private void StartReceive()
+        {
+            try
+            {
+                if (!IsUdpcRecvStart) // 未监听的情况，开始监听
+                {
+                    localIpep = new IPEndPoint(IPAddress.Parse("0.0.0.0"), 19465); // 本机IP和监听端口号
+                    udpcRecv = new UdpClient(localIpep);
+                    thrRecv = new Thread(ReceiveMessage);
+                    thrRecv.IsBackground = true;
+                    thrRecv.Start();
+                    IsUdpcRecvStart = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+                //Application.Exit();
+            }
+        }
+        private void StopReceive()
+        {
+            if (IsUdpcRecvStart)
+            {
+                thrRecv.Abort(); // 必须先关闭这个线程，否则会异常
+                IsUdpcRecvStart = false;
+                udpcRecv.Close();
+            }
+        }
+        public void getMinerJson()
+        {
+            RemoteMinerStatus remoteMinerStatus = new RemoteMinerStatus();
+            remoteMinerStatus.function = "minerStatus";
+            remoteMinerStatus.if_mining = isMining;
+            remoteMinerStatus.Worker = InputWorker.Text;
+            remoteMinerStatus.Coin = SelectCoin.Text;
+            remoteMinerStatus.MinerCore = SelectMiner.Text;
+            remoteMinerStatus.IP = NetCardDriver.getIP();
+            remoteMinerStatus.MAC = NetCardDriver.getMAC();
+            remoteMinerStatus.Pool = InputMiningPool.Text;
+            remoteMinerStatus.Wallet = InputWallet.Text;
+            remoteMinerStatus.Hashrate = TotalHashrate.Text;
+            remoteMinerStatus.Accepted = Convert.ToInt32(TotalSubmit.Text);
+            remoteMinerStatus.Rejected = Convert.ToInt32(TotalReject.Text);
+            remoteMinerStatus.Power = Convert.ToInt32(TotalPower.Text.Split(' ')[0]);
+            List<DevicesItem> devicesItemList = new List<DevicesItem>();
+            List<GPUOverClock> gPUOverClocksList = new List<GPUOverClock>();
+            for (int i = 0; i < GPUStatusTable.Rows.Count; i++)
+            {
+                DevicesItem devicesItem = new DevicesItem();
+                GPUOverClock gPUOverClock = new GPUOverClock();
+                devicesItem.idbus = Convert.ToString(GPUStatusTable.Rows[i].Cells[0].Value);
+                devicesItem.name = Convert.ToString(GPUStatusTable.Rows[i].Cells[1].Value);
+                devicesItem.Hashrate = Convert.ToString(GPUStatusTable.Rows[i].Cells[2].Value);
+                devicesItem.accept = Convert.ToString(GPUStatusTable.Rows[i].Cells[3].Value);
+                devicesItem.reject = Convert.ToString(GPUStatusTable.Rows[i].Cells[4].Value);
+                devicesItem.power = Convert.ToString(GPUStatusTable.Rows[i].Cells[5].Value);
+                devicesItem.temp = Convert.ToString(GPUStatusTable.Rows[i].Cells[6].Value);
+                devicesItem.fan = Convert.ToString(GPUStatusTable.Rows[i].Cells[7].Value);
+                devicesItem.coreclock = Convert.ToString(GPUStatusTable.Rows[i].Cells[8].Value);
+                devicesItem.memoryclock = Convert.ToString(GPUStatusTable.Rows[i].Cells[9].Value);
+                devicesItemList.Add(devicesItem);
+                gPUOverClock.Busid = Convert.ToString(GPUOverClockTable.Rows[i].Cells[0].Value);
+                gPUOverClock.Name = Convert.ToString(GPUOverClockTable.Rows[i].Cells[1].Value);
+                gPUOverClock.Power = Convert.ToString(GPUOverClockTable.Rows[i].Cells[2].Value);
+                gPUOverClock.TempLimit = Convert.ToString(GPUOverClockTable.Rows[i].Cells[3].Value);
+                gPUOverClock.CoreClock = Convert.ToString(GPUOverClockTable.Rows[i].Cells[4].Value);
+                gPUOverClock.CV = Convert.ToString(GPUOverClockTable.Rows[i].Cells[5].Value);
+                gPUOverClock.MemoryClock = Convert.ToString(GPUOverClockTable.Rows[i].Cells[6].Value);
+                gPUOverClock.MV = Convert.ToString(GPUOverClockTable.Rows[i].Cells[7].Value);
+                gPUOverClock.Fan = Convert.ToString(GPUOverClockTable.Rows[i].Cells[8].Value);
+                gPUOverClocksList.Add(gPUOverClock);
+            }
+            remoteMinerStatus.Devices = devicesItemList;
+            remoteMinerStatus.GPU = gPUOverClocksList;
+            MinerStatusJson = JsonConvert.SerializeObject(remoteMinerStatus);
+        }
+        private void ReceiveMessage(object obj)
+        {
+            while (IsUdpcRecvStart)
+            {
+                try
+                {
+                    byte[] bytRecv = udpcRecv.Receive(ref localIpep);
+
+                    string reData = Encoding.GetEncoding("gb2312").GetString(bytRecv, 0, bytRecv.Length);
+                    RemoteFunction ur = JsonConvert.DeserializeObject<RemoteFunction>(reData);
+                    switch (ur.function)
+                    {
+                        case "startMining":
+                            if (ActionButton.Text.Contains("开始"))
+                            {
+                                uiButton1_Click(null,null);
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控开始挖矿命令\n");
+                            }
+                            else
+                            {
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控开始挖矿命令，但是正在挖矿，不作任何处理\n");
+                            }
+                            break;
+                        case "stopMining":
+                            if (ActionButton.Text.Contains("停止"))
+                            {
+                                uiButton1_Click(null, null);
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控停止挖矿命令\n");
+                            }
+                            else
+                            {
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控停止挖矿命令，但是已经停止，不作任何处理\n");
+                            }
+                            break;
+                        case "changeCoin":
+                            if (ActionButton.Text.Contains("停止"))
+                            {
+                                uiButton1_Click(null, null);
+                            }
+                            changeCoinClass minerOptions = new changeCoinClass();
+                            minerOptions = JsonConvert.DeserializeObject<changeCoinClass>(reData);
+                            SelectCoin.Text = minerOptions.coin;
+                            SelectMiner.Text = minerOptions.core;
+                            SelectMiningPool.Text = minerOptions.miningpool;
+                            InputMiningPool.Text = minerOptions.miningpoolurl;
+                            InputWallet.Text = minerOptions.wallet;
+                            uiButton1_Click(null, null);
+                            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控修改币种命令\n");
+                            break;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+            }
+        }
+        //写配置文件
         private void WriteConfig()
         {
             string iniPath = Application.StartupPath + "\\config\\config.ini";
@@ -36,20 +192,20 @@ namespace szzminer.Views
             {
                 File.Create(iniPath).Dispose();
             }
-            IniHelper.SetValue("松之宅矿工","币种",SelectCoin.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","内核",SelectMiner.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","矿池",SelectMiningPool.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","矿池地址",InputMiningPool.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","钱包地址",InputWallet.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","矿工号",InputWorker.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","附加参数",InputArgu.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","使用计算机名",useComputerName.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工","显示原版内核",MinerDisplayCheckBox.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工","自动重启时间",timeRestart.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","算力低于重启",lowHashrateRestart.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工","开机自动运行",loginStart.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工","自动开始挖矿",autoMining.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工","自动挖矿时间",autoMiningTime.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "币种", SelectCoin.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "内核", SelectMiner.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "矿池", SelectMiningPool.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "矿池地址", InputMiningPool.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "钱包地址", InputWallet.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "矿工号", InputWorker.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "附加参数", InputArgu.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "使用计算机名", useComputerName.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "显示原版内核", MinerDisplayCheckBox.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "自动重启时间", timeRestart.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "算力低于重启", lowHashrateRestart.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "开机自动运行", loginStart.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "自动开始挖矿", autoMining.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "自动挖矿时间", autoMiningTime.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "自动超频", autoOverclock.Checked.ToString(), iniPath);
             //写显卡配置
             string path = Application.StartupPath + "\\config\\gpusConfig.ini";
@@ -67,7 +223,7 @@ namespace szzminer.Views
                 IniHelper.SetValue(Convert.ToString(GPUOverClockTable.Rows[i].Cells[0].Value), "Fan", Convert.ToString(GPUOverClockTable.Rows[i].Cells[8].Value), path);
             }
         }
-        //写配置文件
+        //读配置文件
         private void ReadConfig()
         {
             string iniPath = Application.StartupPath + "\\config\\config.ini";
@@ -75,21 +231,21 @@ namespace szzminer.Views
             {
                 return;
             }
-            SelectCoin.Text=IniHelper.GetValue("松之宅矿工","币种","",iniPath);
-            SelectMiner.Text=IniHelper.GetValue("松之宅矿工","内核","",iniPath);
-            SelectMiningPool.Text=IniHelper.GetValue("松之宅矿工","矿池","",iniPath);
-            InputMiningPool.Text=IniHelper.GetValue("松之宅矿工","矿池地址","",iniPath);
+            SelectCoin.Text = IniHelper.GetValue("松之宅矿工", "币种", "", iniPath);
+            SelectMiner.Text = IniHelper.GetValue("松之宅矿工", "内核", "", iniPath);
+            SelectMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池", "", iniPath);
+            InputMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池地址", "", iniPath);
             InputWallet.Text = IniHelper.GetValue("松之宅矿工", "钱包地址", "", iniPath);
-            InputWorker.Text=IniHelper.GetValue("松之宅矿工","矿工号","",iniPath);
-            InputArgu.Text=IniHelper.GetValue("松之宅矿工","附加参数","",iniPath);
-            useComputerName.Checked = IniHelper.GetValue("松之宅矿工","使用计算机名","",iniPath) == "True" ? true : false;
-            MinerDisplayCheckBox.Checked = IniHelper.GetValue("松之宅矿工","显示原版内核","",iniPath) == "True" ? true : false;
-            timeRestart.Text=IniHelper.GetValue("松之宅矿工", "自动重启时间", "", iniPath);
-            lowHashrateRestart.Text = IniHelper.GetValue("松之宅矿工", "算力低于重启","" , iniPath);
-            loginStart.Checked=IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
-            autoMining.Checked=IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
-            autoMiningTime.Text=IniHelper.GetValue("松之宅矿工", "自动挖矿时间", "", iniPath);
-            autoOverclock.Checked=IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
+            InputWorker.Text = IniHelper.GetValue("松之宅矿工", "矿工号", "", iniPath);
+            InputArgu.Text = IniHelper.GetValue("松之宅矿工", "附加参数", "", iniPath);
+            useComputerName.Checked = IniHelper.GetValue("松之宅矿工", "使用计算机名", "", iniPath) == "True" ? true : false;
+            MinerDisplayCheckBox.Checked = IniHelper.GetValue("松之宅矿工", "显示原版内核", "", iniPath) == "True" ? true : false;
+            timeRestart.Text = IniHelper.GetValue("松之宅矿工", "自动重启时间", "", iniPath);
+            lowHashrateRestart.Text = IniHelper.GetValue("松之宅矿工", "算力低于重启", "", iniPath);
+            loginStart.Checked = IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
+            autoMining.Checked = IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
+            autoMiningTime.Text = IniHelper.GetValue("松之宅矿工", "自动挖矿时间", "", iniPath);
+            autoOverclock.Checked = IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
             //读显卡配置
             IniHelper.setPath(Application.StartupPath + "\\config\\gpusConfig.ini");
             List<string> gpuini;
@@ -119,25 +275,28 @@ namespace szzminer.Views
                 }
             }
         }
+
+        
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
-            Task.Run(()=> {
+
+            Task.Run(() =>
+            {
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] " + getIncomeData.getHtml("http://121.4.60.81/szzminer/notice.html"));
-                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 欢迎使用松之宅矿工，官方网站：topool.top");
-                Functions.getMiningInfo();
+                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 欢迎使用松之宅矿工，官方网站：topool.top\n");
                 VirtualMemoryHelper.getVirtualMemoryInfo(ref DiskComboBox);
                 DiskComboBox.SelectedIndex = 0;
                 getIncomeData.getinfo(IncomeCoin);//从f2pool读取收益计算器所需要的信息
                 IncomeCoin.SelectedIndex = 0;
             });
+            Functions.getMiningInfo();
             Functions.loadCoinIni(ref SelectCoin);
             SelectCoin.SelectedIndex = 0;
             SelectMiner.SelectedIndex = 0;
             SelectMiningPool.SelectedIndex = 0;
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);//为表格控件添加行
             GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
-            
+
             ReadConfig();//读取配置文件
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
@@ -162,7 +321,7 @@ namespace szzminer.Views
 
         private void uiButton1_Click(object sender, EventArgs e)
         {
-            if (ActionButton.Text.Contains("开始挖矿"))
+            if (!isMining)
             {
                 if (string.IsNullOrEmpty(InputMiningPool.Text))
                 {
@@ -174,7 +333,7 @@ namespace szzminer.Views
                     UIMessageBox.ShowError("钱包地址不可为空！");
                     return;
                 }
-                Functions.checkMinerAndDownload(SelectMiner.Text,IniHelper.GetValue(SelectCoin.Text,SelectMiner.Text,"", Application.StartupPath + "\\config\\miner.ini"));
+                Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
                 startMiner(MinerDisplayCheckBox.Checked);//启动挖矿程序
                 Functions.dllPath = System.AppDomain.CurrentDomain.BaseDirectory + string.Format("miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
@@ -183,18 +342,21 @@ namespace szzminer.Views
                 MinerStatusThread.Start();//读取dll并显示内核的输出
                 ActionButton.Text = "停止挖矿";
                 controlEnable(false);
+                isMining = true;
             }
             else
             {
-                Task.Run(()=> {
+                //Task.Run(() =>
+                //{
                     if (MinerStatusThread != null)
                     {
                         MinerStatusThread.Abort();
                     }
-                });
+                //});
                 RunningTime.Text = "0";
                 stopMiner();
                 controlEnable(true);
+                isMining = false;
             }
         }
         /// <summary>
@@ -207,6 +369,8 @@ namespace szzminer.Views
                 int totalPower = 0;
                 szzminer.Tools.GPU.getGPU(ref GPUStatusTable, ref totalPower);
                 this.TotalPower.Text = totalPower.ToString() + " W";
+                getMinerJson();
+                UDPHelper.Send(MinerStatusJson, InputRemoteIP.Text);
                 Thread.Sleep(5000);
             }
         }
@@ -249,7 +413,7 @@ namespace szzminer.Views
                             if (!GPUStatusTable.Rows[j].Cells[0].Value.ToString().Equals(Functions.BUSID[i]))
                                 continue;
                             GPUStatusTable.Rows[j].Cells[0].Value = Functions.BUSID[i];
-                            GPUStatusTable.Rows[j].Cells[2].Value = Functions.Hashrate[i].Split(' ')[0] + " "+speedUnit;
+                            GPUStatusTable.Rows[j].Cells[2].Value = Functions.Hashrate[i].Split(' ')[0] + " " + speedUnit;
                             totalHashrate += Convert.ToDouble(Functions.Hashrate[i].Split(' ')[0]);
                             GPUStatusTable.Rows[j].Cells[3].Value = Functions.Accepted[i];
                             totalAccepted += Convert.ToUInt32(Functions.Accepted[i]);
@@ -257,28 +421,29 @@ namespace szzminer.Views
                             totalRejected += Convert.ToUInt32(Functions.Rejected[i]);
                         }
                     }
-                    TotalHashrate.Text = totalHashrate.ToString() + " "+speedUnit;
+                    TotalHashrate.Text = totalHashrate.ToString() + " " + speedUnit;
                     TotalSubmit.Text = totalAccepted.ToString();
                     TotalReject.Text = totalRejected.ToString();
-                    Task.Run(()=> {
-                        Functions.pingMiningpool(InputMiningPool.Text,ref Timeout);
+                    Task.Run(() =>
+                    {
+                        Functions.pingMiningpool(InputMiningPool.Text, ref Timeout);
                     });
                     TimeCount = DateTime.Now - TimeNow;
                     if (!string.IsNullOrEmpty(timeRestart.Text))//定时重启
                     {
-                        if(Convert.ToInt32(timeRestart.Text) <= TimeCount.Hours)
+                        if (Convert.ToInt32(timeRestart.Text) <= TimeCount.Hours)
                         {
                             ExitWindows.Reboot(true);
                         }
                     }
-                    if(!string.IsNullOrEmpty(lowHashrateRestart.Text))//算力低于重启
+                    if (!string.IsNullOrEmpty(lowHashrateRestart.Text))//算力低于重启
                     {
-                        if(Convert.ToDouble(lowHashrateRestart.Text)< totalHashrate&& TimeCount.Seconds >= 120)//算力低于设定值并且运行时间超过120秒
+                        if (Convert.ToDouble(lowHashrateRestart.Text) < totalHashrate && TimeCount.Seconds >= 120)//算力低于设定值并且运行时间超过120秒
                         {
                             ExitWindows.Reboot(true);
                         }
                     }
-                    RunningTime.Text= string.Format("{0}天{1}小时{2}分钟{3}秒", TimeCount.Days, TimeCount.Hours, TimeCount.Minutes, TimeCount.Seconds);
+                    RunningTime.Text = string.Format("{0}天{1}小时{2}分钟{3}秒", TimeCount.Days, TimeCount.Hours, TimeCount.Minutes, TimeCount.Seconds);
                 }
                 catch (Exception ex)
                 {
@@ -303,7 +468,7 @@ namespace szzminer.Views
             Miner.wallet = InputWallet.Text;
             Miner.worker = InputWorker.Text;
             Miner.argu = InputArgu.Text;
-            Miner.startMiner(MinerDisplay,ref LogOutput);
+            Miner.startMiner(MinerDisplay, ref LogOutput);
             ActionButton.Text = "停止挖矿";
         }
         /// <summary>
@@ -397,7 +562,7 @@ namespace szzminer.Views
                 #region N卡
                 try
                 {
-                    
+
                     for (int i = 0; i < GPUOverClockTable.Rows.Count; i++)
                     {
                         try
@@ -417,7 +582,7 @@ namespace szzminer.Views
 
                         }
                     }
-                    
+
                 }
                 catch
                 {
@@ -427,7 +592,7 @@ namespace szzminer.Views
                 #region A卡超频
                 try
                 {
-                    
+
                     int j = 0;
                     AdlHelper adl = new AdlHelper();
                     for (int i = 0; i < GPUOverClockTable.Rows.Count; i++)
@@ -477,7 +642,7 @@ namespace szzminer.Views
             {
                 InputMiningPool.Enabled = false;
             }
-            InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text,SelectMiningPool.Text,"", Application.StartupPath + "\\config" + "\\miningpool.ini");
+            InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text, SelectMiningPool.Text, "", Application.StartupPath + "\\config" + "\\miningpool.ini");
         }
 
         private void useComputerName_ValueChanged(object sender, bool value)
@@ -494,7 +659,7 @@ namespace szzminer.Views
 
         private void DiskComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            VirtualMemoryHelper.getVirtualMemoryUsage(DiskComboBox.SelectedIndex,ref uiLabel9);
+            VirtualMemoryHelper.getVirtualMemoryUsage(DiskComboBox.SelectedIndex, ref uiLabel9);
         }
 
         private void setVM_Click(object sender, EventArgs e)
@@ -502,19 +667,19 @@ namespace szzminer.Views
             if (string.IsNullOrEmpty(VMSize.Text))
             {
                 //UIMessageBox.ShowError("虚拟内存大小不可为空");
-                UIMessageBox.Show("虚拟内存大小不可为空","虚拟内存设置失败");
+                UIMessageBox.Show("虚拟内存大小不可为空", "虚拟内存设置失败");
                 return;
             }
-            VirtualMemoryHelper.setVirtualMemory(DiskComboBox,Convert.ToInt32(VMSize.Text),ref uiLabel9);
-            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 设置"+ DiskComboBox.Items[DiskComboBox.SelectedIndex].ToString() + "虚拟内存为"+ VMSize.Text + "GB\n");
+            VirtualMemoryHelper.setVirtualMemory(DiskComboBox, Convert.ToInt32(VMSize.Text), ref uiLabel9);
+            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 设置" + DiskComboBox.Items[DiskComboBox.SelectedIndex].ToString() + "虚拟内存为" + VMSize.Text + "GB\n");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             WriteConfig();
-            if (ActionButton.Text.Equals("停止挖矿"))
+            if (isMining)
             {
-                UIMessageBox.Show("正在挖矿，无法退出","提示");
+                UIMessageBox.Show("正在挖矿，无法退出", "提示");
                 e.Cancel = true;
             }
         }
@@ -582,7 +747,8 @@ namespace szzminer.Views
             if (autoMining.Checked && !string.IsNullOrEmpty(autoMiningTime.Text))
             {
                 int time = Convert.ToInt32(autoMiningTime.Text);
-                Task.Run(()=> {
+                Task.Run(() =>
+                {
                     while (true)
                     {
                         if (!ActionButton.Text.Contains("开始挖矿"))
@@ -591,7 +757,7 @@ namespace szzminer.Views
                         }
                         if (time == 0)
                         {
-                            uiButton1_Click(null,null);
+                            uiButton1_Click(null, null);
                             break;
                         }
                         ActionButton.Text = "开始挖矿(" + time.ToString() + ")";
@@ -602,7 +768,7 @@ namespace szzminer.Views
             }
             if (autoOverclock.Checked)
             {
-                overClockConfirm_Click(null,null);
+                overClockConfirm_Click(null, null);
             }
         }
 
@@ -838,5 +1004,90 @@ namespace szzminer.Views
         {
             Application.Exit();
         }
+
+        private void remoteControl_ValueChanged(object sender, bool value)
+        {
+            if (remoteControl.Checked)
+            {
+                StartReceive();
+            }
+            else
+            {
+                StopReceive();
+            }
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            double newVersion = Convert.ToDouble(getIncomeData.getHtml("http://121.4.60.81/szzminer/update.html"));
+            if (newVersion > currentVersion)
+            {
+                //TODO:
+            }
+        }
+
+        /*private void lockWallet_Click(object sender, EventArgs e)
+        {
+            if (lockWallet.Checked == true)
+            {
+                lockWallet.Checked = false;
+            }
+            else
+            {
+                lockWallet.Checked = true;
+            }
+            if (lockWallet.Checked == true)
+            {
+                lockWallet.Checked = false;
+            }
+            else
+            {
+                lockWallet.Checked = true;
+            }
+            if (lockWallet.Checked)
+            {
+                UIInputForm InputPassword = new UIInputForm();
+                InputPassword.Label.Text = "请设置密码";
+                InputPassword.Text = "松之宅矿工锁定钱包地址";
+                InputPassword.ShowDialog();
+                if (InputPassword.IsOK)
+                {
+                    pwd = InputPassword.Editor.Text;
+                    lockWallet.Checked = true;
+                    InputWallet.Enabled = false;
+                }
+                else
+                {
+                    pwd = "";
+                    lockWallet.Checked = false;
+                }
+            }
+            else
+            {
+                lockWallet.Checked = true;
+                UIInputForm InputPassword = new UIInputForm();
+                InputPassword.Label.Text = "请输入解锁密码";
+                InputPassword.Text = "松之宅矿工锁定钱包地址";
+                InputPassword.ShowDialog();
+                if (InputPassword.IsOK)
+                {
+                    if (pwd != InputPassword.Editor.Text)
+                    {
+                        UIMessageBox.ShowError("密码输入错误");
+                        lockWallet.Checked = true;
+                    }
+                    else
+                    {
+                        lockWallet.Checked = false;
+                        InputWallet.Enabled = true;
+                        return;
+                    }
+                }
+                else
+                {
+                    lockWallet.Checked = true;
+                }
+            }
+        }*/
     }
 }
