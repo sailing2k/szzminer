@@ -27,7 +27,7 @@ namespace szzminer.Views
         Thread MinerStatusThread;
         Thread getGpusInfoThread;
         Thread remoteControlThread;
-        public const double currentVersion = 1.01;
+        public const double currentVersion = 1.10;
         bool isMining = false;
         public static string MinerStatusJson;
         System.DateTime TimeNow = new DateTime();
@@ -190,6 +190,36 @@ namespace szzminer.Views
                             }
                             overClockConfirm_Click(null,null);
                             break;
+                        case "setreboot":
+                            if (isMining)
+                            {
+                                uiButton1_Click(null, null);
+                                RemoteReboot remoteReboot = new RemoteReboot();
+                                remoteReboot = JsonConvert.DeserializeObject<RemoteReboot>(reData);
+                                timeRestart.Text = remoteReboot.hourReboot;
+                                lowHashrateRestart.Text = remoteReboot.hashrateReboot;
+                                uiButton1_Click(null, null);
+                            }
+                            else
+                            {
+                                RemoteReboot remoteReboot = new RemoteReboot();
+                                remoteReboot = JsonConvert.DeserializeObject<RemoteReboot>(reData);
+                                timeRestart.Text = remoteReboot.hourReboot;
+                                lowHashrateRestart.Text = remoteReboot.hashrateReboot;
+                            }
+                            WriteConfig();
+                            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控修改重启条件命令\n");
+                            break;
+                        case "otherOption":
+                            RemoteOtherOptions remoteOtherOptions = new RemoteOtherOptions();
+                            remoteOtherOptions = JsonConvert.DeserializeObject<RemoteOtherOptions>(reData);
+                            loginStart.Checked = remoteOtherOptions.autoLogin;
+                            autoMining.Checked = remoteOtherOptions.autoMining;
+                            autoMiningTime.Text = remoteOtherOptions.autoMiningTime;
+                            autoOverclock.Checked = remoteOtherOptions.autoOv;
+                            WriteConfig();
+                            LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控修改其他设置命令\n");
+                            break;
                     }
 
                 }
@@ -298,6 +328,7 @@ namespace szzminer.Views
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LnkHelper.CreateShortcutOnDesktop("松之宅挖矿者", Application.StartupPath + @"\szzminer.exe");
             ReadConfig();//读取配置文件
             Task.Run(() =>
             {
@@ -353,7 +384,7 @@ namespace szzminer.Views
                 Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
                 startMiner(MinerDisplayCheckBox.Checked);//启动挖矿程序
-                Functions.dllPath = Application.StartupPath+string.Format("\\miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
+                Functions.dllPath = Application.StartupPath + string.Format("\\miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
                 MinerStatusThread.IsBackground = true;
                 MinerStatusThread.Start();//读取dll并显示内核的输出
@@ -791,6 +822,7 @@ namespace szzminer.Views
             }
             if (remoteControl.Checked)
             {
+                InputRemoteIP.Enabled = false;
                 StartReceive();
             }
         }
@@ -1028,11 +1060,6 @@ namespace szzminer.Views
             Application.Exit();
         }
 
-        private void remoteControl_ValueChanged(object sender, bool value)
-        {
-            
-        }
-
         private void updateButton_Click(object sender, EventArgs e)
         {
             double newVersion = Convert.ToDouble(getIncomeData.getHtml("http://121.4.60.81/szzminer/update.html"));
@@ -1083,18 +1110,15 @@ namespace szzminer.Views
             if (remoteControl.Checked)
             {
                 StartReceive();
+                InputRemoteIP.Enabled = false;
                 remoteControl.Checked = true;
             }
             else
             {
                 StopReceive();
+                InputRemoteIP.Enabled = true;
             }
             WriteConfig();
-        }
-
-        private void remoteControl_ValueChanged_1(object sender, bool value)
-        {
-
         }
 
         private void loginStart_Click(object sender, EventArgs e)
@@ -1116,69 +1140,5 @@ namespace szzminer.Views
         {
             WriteConfig();
         }
-
-        /*private void lockWallet_Click(object sender, EventArgs e)
-        {
-            if (lockWallet.Checked == true)
-            {
-                lockWallet.Checked = false;
-            }
-            else
-            {
-                lockWallet.Checked = true;
-            }
-            if (lockWallet.Checked == true)
-            {
-                lockWallet.Checked = false;
-            }
-            else
-            {
-                lockWallet.Checked = true;
-            }
-            if (lockWallet.Checked)
-            {
-                UIInputForm InputPassword = new UIInputForm();
-                InputPassword.Label.Text = "请设置密码";
-                InputPassword.Text = "松之宅矿工锁定钱包地址";
-                InputPassword.ShowDialog();
-                if (InputPassword.IsOK)
-                {
-                    pwd = InputPassword.Editor.Text;
-                    lockWallet.Checked = true;
-                    InputWallet.Enabled = false;
-                }
-                else
-                {
-                    pwd = "";
-                    lockWallet.Checked = false;
-                }
-            }
-            else
-            {
-                lockWallet.Checked = true;
-                UIInputForm InputPassword = new UIInputForm();
-                InputPassword.Label.Text = "请输入解锁密码";
-                InputPassword.Text = "松之宅矿工锁定钱包地址";
-                InputPassword.ShowDialog();
-                if (InputPassword.IsOK)
-                {
-                    if (pwd != InputPassword.Editor.Text)
-                    {
-                        UIMessageBox.ShowError("密码输入错误");
-                        lockWallet.Checked = true;
-                    }
-                    else
-                    {
-                        lockWallet.Checked = false;
-                        InputWallet.Enabled = true;
-                        return;
-                    }
-                }
-                else
-                {
-                    lockWallet.Checked = true;
-                }
-            }
-        }*/
     }
 }

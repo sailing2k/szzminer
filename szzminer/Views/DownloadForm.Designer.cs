@@ -31,6 +31,7 @@ namespace szzminer.Views
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.labelDescription = new Sunny.UI.UILabel();
             this.processBar = new Sunny.UI.UIProcessBar();
             this.SuspendLayout();
@@ -66,10 +67,13 @@ namespace szzminer.Views
             this.ControlBox = false;
             this.Controls.Add(this.processBar);
             this.Controls.Add(this.labelDescription);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsForbidAltF4 = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DownloadForm";
+            this.ShowIcon = true;
+            this.ShowTitleIcon = true;
             this.Text = "松之宅矿工";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.DownloadForm_Load);

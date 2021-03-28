@@ -95,6 +95,7 @@ namespace szzminerServer
 
         private void Flesh()
         {
+            int totalPowerC = 0;
             for (int j = 0; j < MinerStatusLoad.remoteMinerStatusList.Count; j++)
             {
                 int i;
@@ -112,6 +113,7 @@ namespace szzminerServer
                         MinerStatusTable.Rows[i].Cells[8].Value = MinerStatusLoad.remoteMinerStatusList[j].Accepted;
                         MinerStatusTable.Rows[i].Cells[9].Value = MinerStatusLoad.remoteMinerStatusList[j].Rejected;
                         MinerStatusTable.Rows[i].Cells[10].Value = MinerStatusLoad.remoteMinerStatusList[j].Power;
+                        totalPowerC += Convert.ToInt32(MinerStatusTable.Rows[i].Cells[10].Value);
                         MinerStatusTable.Rows[i].Cells[11].Value = MinerStatusLoad.remoteMinerStatusList[j].Hashrate;
                         MinerStatusTable.Rows[i].Cells[12].Value = MinerStatusLoad.remoteMinerStatusList[j].IP;
                         MinerStatusTable.Rows[i].Cells[13].Value = MinerStatusLoad.remoteMinerStatusList[j].MAC;
@@ -131,11 +133,13 @@ namespace szzminerServer
                     MinerStatusTable.Rows[i].Cells[8].Value = MinerStatusLoad.remoteMinerStatusList[j].Accepted;
                     MinerStatusTable.Rows[i].Cells[9].Value = MinerStatusLoad.remoteMinerStatusList[j].Rejected;
                     MinerStatusTable.Rows[i].Cells[10].Value = MinerStatusLoad.remoteMinerStatusList[j].Power;
+                    totalPowerC += Convert.ToInt32(MinerStatusTable.Rows[i].Cells[10].Value);
                     MinerStatusTable.Rows[i].Cells[11].Value = MinerStatusLoad.remoteMinerStatusList[j].Hashrate;
                     MinerStatusTable.Rows[i].Cells[12].Value = MinerStatusLoad.remoteMinerStatusList[j].IP;
                     MinerStatusTable.Rows[i].Cells[13].Value = MinerStatusLoad.remoteMinerStatusList[j].MAC;
                 }
             }
+            this.totalPower.Text = totalPowerC.ToString() + " W";
         }
 
         private void uiButton2_Click(object sender, EventArgs e)
@@ -162,7 +166,7 @@ namespace szzminerServer
             if (e.RowIndex > -1)
             {
                 this.GPUStatusTable.Rows.Clear();
-                string ip = MinerStatusTable.Rows[e.RowIndex].Cells[13].Value.ToString();
+                string ip = MinerStatusTable.Rows[e.RowIndex].Cells[12].Value.ToString();
                 for (int i = 0; i < MinerStatusLoad.remoteMinerStatusList.Count; i++)
                 {
                     if (MinerStatusLoad.remoteMinerStatusList[i].IP == ip)
@@ -343,6 +347,81 @@ namespace szzminerServer
             }
             overClockForm overClockForm = new overClockForm(selectedMiner);
             overClockForm.ShowDialog();
+        }
+        private static bool checkTableSelected(UIDataGridView MinerStatusTable)
+        {
+            int j = 0;
+            for (; j < MinerStatusTable.Rows.Count; j++)
+            {
+                if (MinerStatusTable.Rows[j].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[j].Cells[2].Value.ToString() == "True")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void uiButton8_Click(object sender, EventArgs e)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+                return;
+            }
+            RemoteReboot remoteReboot = new RemoteReboot();
+            remoteReboot.function = "setreboot";
+            remoteReboot.hourReboot = timeRestart.Text;
+            remoteReboot.hashrateReboot = lowHashrateRestart.Text;
+            string msg = JsonConvert.SerializeObject(remoteReboot);
+            
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send(msg, MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    UIMessageBox.Show("设置完成", "提示");
+                    return;
+                }
+            }
+        }
+
+        private void uiButton9_Click(object sender, EventArgs e)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+                return;
+            }
+            RemoteOtherOptions remoteOtherOptions = new RemoteOtherOptions();
+            remoteOtherOptions.function = "otherOption";
+            remoteOtherOptions.autoLogin = loginStart.Checked;
+            remoteOtherOptions.autoMining = autoMining.Checked;
+            remoteOtherOptions.autoMiningTime = autoMiningTime.Text;
+            remoteOtherOptions.autoOv = autoOverclock.Checked;
+            string msg = JsonConvert.SerializeObject(remoteOtherOptions);
+
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send(msg, MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    UIMessageBox.Show("设置完成","提示");
+                    return;
+                }
+            }
         }
     }
 }

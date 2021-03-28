@@ -48,7 +48,7 @@ namespace szzminer.Class
         }
         static string getArguments()
         {
-            StreamReader sr = File.OpenText(string.Format("miner\\{0}\\config_{1}.ini",minerBigName, coin));
+            StreamReader sr = File.OpenText(Application.StartupPath+string.Format("\\miner\\{0}\\config_{1}.ini",minerBigName, coin));
             string argu = sr.ReadLine();
             return argu;
         }
