@@ -42,6 +42,7 @@ namespace szzminerServer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.uiButton2 = new Sunny.UI.UIButton();
             this.uiCheckBox1 = new Sunny.UI.UICheckBox();
             this.uiButton7 = new Sunny.UI.UIButton();
             this.uiButton6 = new Sunny.UI.UIButton();
@@ -63,12 +64,6 @@ namespace szzminerServer
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GPUStatusTable = new Sunny.UI.UIDataGridView();
-            this.flush = new Sunny.UI.UIButton();
-            this.uiButton4 = new Sunny.UI.UIButton();
-            this.uiButton3 = new Sunny.UI.UIButton();
-            this.uiButton1 = new Sunny.UI.UIButton();
-            this.uiTabControl1 = new Sunny.UI.UITabControl();
-            this.uiButton2 = new Sunny.UI.UIButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,10 +74,35 @@ namespace szzminerServer
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flush = new Sunny.UI.UIButton();
+            this.uiButton4 = new Sunny.UI.UIButton();
+            this.uiButton3 = new Sunny.UI.UIButton();
+            this.uiButton1 = new Sunny.UI.UIButton();
+            this.uiTabControl1 = new Sunny.UI.UITabControl();
+            this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            this.uiTabControl2 = new Sunny.UI.UITabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.uiLabel13 = new Sunny.UI.UILabel();
+            this.lowHashrateRestart = new Sunny.UI.UITextBox();
+            this.timeRestart = new Sunny.UI.UITextBox();
+            this.uiLabel14 = new Sunny.UI.UILabel();
+            this.uiLabel12 = new Sunny.UI.UILabel();
+            this.uiButton8 = new Sunny.UI.UIButton();
+            this.autoOverclock = new Sunny.UI.UICheckBox();
+            this.uiLabel22 = new Sunny.UI.UILabel();
+            this.autoMiningTime = new Sunny.UI.UITextBox();
+            this.autoMining = new Sunny.UI.UICheckBox();
+            this.loginStart = new Sunny.UI.UICheckBox();
+            this.uiButton9 = new Sunny.UI.UIButton();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
             this.uiTabControl1.SuspendLayout();
+            this.uiGroupBox1.SuspendLayout();
+            this.uiTabControl2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -98,6 +118,7 @@ namespace szzminerServer
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage5.Controls.Add(this.uiGroupBox1);
             this.tabPage5.Controls.Add(this.uiButton2);
             this.tabPage5.Controls.Add(this.uiCheckBox1);
             this.tabPage5.Controls.Add(this.uiButton7);
@@ -115,6 +136,18 @@ namespace szzminerServer
             this.tabPage5.Size = new System.Drawing.Size(1596, 690);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "矿机设置";
+            // 
+            // uiButton2
+            // 
+            this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton2.Location = new System.Drawing.Point(692, 5);
+            this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton2.Name = "uiButton2";
+            this.uiButton2.Size = new System.Drawing.Size(100, 35);
+            this.uiButton2.TabIndex = 12;
+            this.uiButton2.Text = "一键超频";
+            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click_1);
             // 
             // uiCheckBox1
             // 
@@ -401,83 +434,6 @@ namespace szzminerServer
             this.GPUStatusTable.Size = new System.Drawing.Size(683, 315);
             this.GPUStatusTable.TabIndex = 4;
             // 
-            // flush
-            // 
-            this.flush.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flush.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.flush.Location = new System.Drawing.Point(1374, 5);
-            this.flush.MinimumSize = new System.Drawing.Size(1, 1);
-            this.flush.Name = "flush";
-            this.flush.Size = new System.Drawing.Size(100, 35);
-            this.flush.TabIndex = 5;
-            this.flush.Text = "手动刷新";
-            this.flush.Click += new System.EventHandler(this.uiButton2_Click);
-            // 
-            // uiButton4
-            // 
-            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton4.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton4.Location = new System.Drawing.Point(267, 5);
-            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton4.Name = "uiButton4";
-            this.uiButton4.Size = new System.Drawing.Size(100, 35);
-            this.uiButton4.TabIndex = 2;
-            this.uiButton4.Text = "一键换币";
-            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
-            // 
-            // uiButton3
-            // 
-            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton3.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton3.Location = new System.Drawing.Point(161, 5);
-            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton3.Name = "uiButton3";
-            this.uiButton3.Size = new System.Drawing.Size(100, 35);
-            this.uiButton3.TabIndex = 2;
-            this.uiButton3.Text = "一键停止";
-            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
-            // 
-            // uiButton1
-            // 
-            this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton1.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton1.Location = new System.Drawing.Point(55, 5);
-            this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton1.Name = "uiButton1";
-            this.uiButton1.Size = new System.Drawing.Size(100, 35);
-            this.uiButton1.TabIndex = 2;
-            this.uiButton1.Text = "一键挖矿";
-            this.uiButton1.Click += new System.EventHandler(this.uiButton1_Click);
-            // 
-            // uiTabControl1
-            // 
-            this.uiTabControl1.Controls.Add(this.tabPage5);
-            this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.uiTabControl1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiTabControl1.ItemSize = new System.Drawing.Size(100, 40);
-            this.uiTabControl1.Location = new System.Drawing.Point(1, 35);
-            this.uiTabControl1.MainPage = "";
-            this.uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
-            this.uiTabControl1.Name = "uiTabControl1";
-            this.uiTabControl1.SelectedIndex = 0;
-            this.uiTabControl1.Size = new System.Drawing.Size(1596, 730);
-            this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.uiTabControl1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.uiTabControl1.TabIndex = 9;
-            this.uiTabControl1.TabSelectedColor = System.Drawing.Color.White;
-            // 
-            // uiButton2
-            // 
-            this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton2.Location = new System.Drawing.Point(692, 5);
-            this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton2.Name = "uiButton2";
-            this.uiButton2.Size = new System.Drawing.Size(100, 35);
-            this.uiButton2.TabIndex = 12;
-            this.uiButton2.Text = "一键超频";
-            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click_1);
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "BUS";
@@ -548,6 +504,288 @@ namespace szzminerServer
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
             this.dataGridViewTextBoxColumn10.Width = 70;
             // 
+            // flush
+            // 
+            this.flush.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.flush.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.flush.Location = new System.Drawing.Point(1374, 5);
+            this.flush.MinimumSize = new System.Drawing.Size(1, 1);
+            this.flush.Name = "flush";
+            this.flush.Size = new System.Drawing.Size(100, 35);
+            this.flush.TabIndex = 5;
+            this.flush.Text = "手动刷新";
+            this.flush.Click += new System.EventHandler(this.uiButton2_Click);
+            // 
+            // uiButton4
+            // 
+            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton4.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton4.Location = new System.Drawing.Point(267, 5);
+            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton4.Name = "uiButton4";
+            this.uiButton4.Size = new System.Drawing.Size(100, 35);
+            this.uiButton4.TabIndex = 2;
+            this.uiButton4.Text = "一键换币";
+            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
+            // 
+            // uiButton3
+            // 
+            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton3.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton3.Location = new System.Drawing.Point(161, 5);
+            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton3.Name = "uiButton3";
+            this.uiButton3.Size = new System.Drawing.Size(100, 35);
+            this.uiButton3.TabIndex = 2;
+            this.uiButton3.Text = "一键停止";
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
+            // 
+            // uiButton1
+            // 
+            this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton1.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton1.Location = new System.Drawing.Point(55, 5);
+            this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton1.Name = "uiButton1";
+            this.uiButton1.Size = new System.Drawing.Size(100, 35);
+            this.uiButton1.TabIndex = 2;
+            this.uiButton1.Text = "一键挖矿";
+            this.uiButton1.Click += new System.EventHandler(this.uiButton1_Click);
+            // 
+            // uiTabControl1
+            // 
+            this.uiTabControl1.Controls.Add(this.tabPage5);
+            this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.uiTabControl1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiTabControl1.ItemSize = new System.Drawing.Size(100, 40);
+            this.uiTabControl1.Location = new System.Drawing.Point(1, 35);
+            this.uiTabControl1.MainPage = "";
+            this.uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
+            this.uiTabControl1.Name = "uiTabControl1";
+            this.uiTabControl1.SelectedIndex = 0;
+            this.uiTabControl1.Size = new System.Drawing.Size(1596, 730);
+            this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.uiTabControl1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.uiTabControl1.TabIndex = 9;
+            this.uiTabControl1.TabSelectedColor = System.Drawing.Color.White;
+            // 
+            // uiGroupBox1
+            // 
+            this.uiGroupBox1.Controls.Add(this.uiTabControl2);
+            this.uiGroupBox1.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiGroupBox1.Location = new System.Drawing.Point(693, 367);
+            this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox1.Name = "uiGroupBox1";
+            this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox1.Size = new System.Drawing.Size(411, 318);
+            this.uiGroupBox1.TabIndex = 13;
+            this.uiGroupBox1.Text = "其他设置";
+            // 
+            // uiTabControl2
+            // 
+            this.uiTabControl2.Controls.Add(this.tabPage1);
+            this.uiTabControl2.Controls.Add(this.tabPage2);
+            this.uiTabControl2.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.uiTabControl2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiTabControl2.ItemSize = new System.Drawing.Size(100, 40);
+            this.uiTabControl2.Location = new System.Drawing.Point(13, 36);
+            this.uiTabControl2.MainPage = "";
+            this.uiTabControl2.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
+            this.uiTabControl2.Name = "uiTabControl2";
+            this.uiTabControl2.SelectedIndex = 0;
+            this.uiTabControl2.Size = new System.Drawing.Size(386, 270);
+            this.uiTabControl2.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.uiTabControl2.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.uiTabControl2.TabIndex = 0;
+            this.uiTabControl2.TabSelectedColor = System.Drawing.Color.White;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage1.Controls.Add(this.uiButton8);
+            this.tabPage1.Controls.Add(this.uiLabel13);
+            this.tabPage1.Controls.Add(this.lowHashrateRestart);
+            this.tabPage1.Controls.Add(this.timeRestart);
+            this.tabPage1.Controls.Add(this.uiLabel14);
+            this.tabPage1.Controls.Add(this.uiLabel12);
+            this.tabPage1.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.tabPage1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.tabPage1.Location = new System.Drawing.Point(0, 40);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(386, 230);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "重启设置";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage2.Controls.Add(this.uiButton9);
+            this.tabPage2.Controls.Add(this.autoOverclock);
+            this.tabPage2.Controls.Add(this.uiLabel22);
+            this.tabPage2.Controls.Add(this.autoMiningTime);
+            this.tabPage2.Controls.Add(this.autoMining);
+            this.tabPage2.Controls.Add(this.loginStart);
+            this.tabPage2.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.tabPage2.Location = new System.Drawing.Point(0, 40);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(386, 230);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "其他设置";
+            // 
+            // uiLabel13
+            // 
+            this.uiLabel13.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel13.Location = new System.Drawing.Point(199, 14);
+            this.uiLabel13.Name = "uiLabel13";
+            this.uiLabel13.Size = new System.Drawing.Size(38, 23);
+            this.uiLabel13.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel13.TabIndex = 7;
+            this.uiLabel13.Text = "小时";
+            this.uiLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lowHashrateRestart
+            // 
+            this.lowHashrateRestart.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.lowHashrateRestart.FillColor = System.Drawing.Color.White;
+            this.lowHashrateRestart.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.lowHashrateRestart.Location = new System.Drawing.Point(117, 44);
+            this.lowHashrateRestart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lowHashrateRestart.Maximum = 2147483647D;
+            this.lowHashrateRestart.Minimum = -2147483648D;
+            this.lowHashrateRestart.MinimumSize = new System.Drawing.Size(1, 1);
+            this.lowHashrateRestart.Name = "lowHashrateRestart";
+            this.lowHashrateRestart.Padding = new System.Windows.Forms.Padding(5);
+            this.lowHashrateRestart.Size = new System.Drawing.Size(81, 22);
+            this.lowHashrateRestart.Style = Sunny.UI.UIStyle.Custom;
+            this.lowHashrateRestart.TabIndex = 5;
+            // 
+            // timeRestart
+            // 
+            this.timeRestart.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.timeRestart.FillColor = System.Drawing.Color.White;
+            this.timeRestart.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.timeRestart.Location = new System.Drawing.Point(117, 15);
+            this.timeRestart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.timeRestart.Maximum = 2147483647D;
+            this.timeRestart.Minimum = -2147483648D;
+            this.timeRestart.MinimumSize = new System.Drawing.Size(1, 1);
+            this.timeRestart.Name = "timeRestart";
+            this.timeRestart.Padding = new System.Windows.Forms.Padding(5);
+            this.timeRestart.Size = new System.Drawing.Size(81, 22);
+            this.timeRestart.Style = Sunny.UI.UIStyle.Custom;
+            this.timeRestart.TabIndex = 6;
+            // 
+            // uiLabel14
+            // 
+            this.uiLabel14.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel14.Location = new System.Drawing.Point(20, 44);
+            this.uiLabel14.Name = "uiLabel14";
+            this.uiLabel14.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel14.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel14.TabIndex = 3;
+            this.uiLabel14.Text = "总算力低于:";
+            this.uiLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel12
+            // 
+            this.uiLabel12.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel12.Location = new System.Drawing.Point(20, 14);
+            this.uiLabel12.Name = "uiLabel12";
+            this.uiLabel12.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel12.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel12.TabIndex = 4;
+            this.uiLabel12.Text = "定时重启电脑:";
+            this.uiLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiButton8
+            // 
+            this.uiButton8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton8.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton8.Location = new System.Drawing.Point(253, 22);
+            this.uiButton8.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton8.Name = "uiButton8";
+            this.uiButton8.Size = new System.Drawing.Size(100, 35);
+            this.uiButton8.TabIndex = 8;
+            this.uiButton8.Text = "一键设置";
+            // 
+            // autoOverclock
+            // 
+            this.autoOverclock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.autoOverclock.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.autoOverclock.Location = new System.Drawing.Point(19, 71);
+            this.autoOverclock.MinimumSize = new System.Drawing.Size(1, 1);
+            this.autoOverclock.Name = "autoOverclock";
+            this.autoOverclock.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.autoOverclock.Size = new System.Drawing.Size(150, 29);
+            this.autoOverclock.Style = Sunny.UI.UIStyle.Custom;
+            this.autoOverclock.TabIndex = 9;
+            this.autoOverclock.Text = "软件开启时自动超频";
+            // 
+            // uiLabel22
+            // 
+            this.uiLabel22.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel22.Location = new System.Drawing.Point(197, 45);
+            this.uiLabel22.Name = "uiLabel22";
+            this.uiLabel22.Size = new System.Drawing.Size(29, 23);
+            this.uiLabel22.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel22.TabIndex = 8;
+            this.uiLabel22.Text = "秒";
+            this.uiLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // autoMiningTime
+            // 
+            this.autoMiningTime.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.autoMiningTime.FillColor = System.Drawing.Color.White;
+            this.autoMiningTime.Font = new System.Drawing.Font("微软雅黑", 8F);
+            this.autoMiningTime.Location = new System.Drawing.Point(126, 46);
+            this.autoMiningTime.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.autoMiningTime.Maximum = 2147483647D;
+            this.autoMiningTime.Minimum = -2147483648D;
+            this.autoMiningTime.MinimumSize = new System.Drawing.Size(1, 1);
+            this.autoMiningTime.Name = "autoMiningTime";
+            this.autoMiningTime.Padding = new System.Windows.Forms.Padding(5);
+            this.autoMiningTime.Size = new System.Drawing.Size(68, 22);
+            this.autoMiningTime.Style = Sunny.UI.UIStyle.Custom;
+            this.autoMiningTime.TabIndex = 7;
+            // 
+            // autoMining
+            // 
+            this.autoMining.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.autoMining.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.autoMining.Location = new System.Drawing.Point(19, 42);
+            this.autoMining.MinimumSize = new System.Drawing.Size(1, 1);
+            this.autoMining.Name = "autoMining";
+            this.autoMining.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.autoMining.Size = new System.Drawing.Size(117, 29);
+            this.autoMining.Style = Sunny.UI.UIStyle.Custom;
+            this.autoMining.TabIndex = 6;
+            this.autoMining.Text = "自动开始挖矿";
+            // 
+            // loginStart
+            // 
+            this.loginStart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loginStart.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.loginStart.Location = new System.Drawing.Point(19, 13);
+            this.loginStart.MinimumSize = new System.Drawing.Size(1, 1);
+            this.loginStart.Name = "loginStart";
+            this.loginStart.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.loginStart.Size = new System.Drawing.Size(117, 29);
+            this.loginStart.Style = Sunny.UI.UIStyle.Custom;
+            this.loginStart.TabIndex = 5;
+            this.loginStart.Text = "开机自动运行";
+            // 
+            // uiButton9
+            // 
+            this.uiButton9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton9.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton9.Location = new System.Drawing.Point(259, 42);
+            this.uiButton9.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton9.Name = "uiButton9";
+            this.uiButton9.Size = new System.Drawing.Size(100, 35);
+            this.uiButton9.TabIndex = 10;
+            this.uiButton9.Text = "一键设置";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -565,6 +803,10 @@ namespace szzminerServer
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).EndInit();
             this.uiTabControl1.ResumeLayout(false);
+            this.uiGroupBox1.ResumeLayout(false);
+            this.uiTabControl2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -610,6 +852,22 @@ namespace szzminerServer
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private Sunny.UI.UIGroupBox uiGroupBox1;
+        private Sunny.UI.UITabControl uiTabControl2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private Sunny.UI.UIButton uiButton8;
+        private Sunny.UI.UILabel uiLabel13;
+        private Sunny.UI.UITextBox lowHashrateRestart;
+        private Sunny.UI.UITextBox timeRestart;
+        private Sunny.UI.UILabel uiLabel14;
+        private Sunny.UI.UILabel uiLabel12;
+        private Sunny.UI.UIButton uiButton9;
+        private Sunny.UI.UICheckBox autoOverclock;
+        private Sunny.UI.UILabel uiLabel22;
+        private Sunny.UI.UITextBox autoMiningTime;
+        private Sunny.UI.UICheckBox autoMining;
+        private Sunny.UI.UICheckBox loginStart;
     }
 }
 

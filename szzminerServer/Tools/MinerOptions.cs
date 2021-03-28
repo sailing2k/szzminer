@@ -51,6 +51,27 @@ namespace szzminerServer.Tools
             }
             return true;
         }
+        public static bool rebootOptions(UIDataGridView MinerStatusTable)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                return false;
+            }
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send("{\"function\":\"stopMining\"}", MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    return true;
+                }
+            }
+            return true;
+        }
         public static bool shutdownMiner(UIDataGridView MinerStatusTable)
         {
             if (!checkTableSelected(MinerStatusTable))
