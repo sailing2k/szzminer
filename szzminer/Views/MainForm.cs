@@ -279,6 +279,13 @@ namespace szzminer.Views
                 return;
             }
             SelectCoin.Text = IniHelper.GetValue("松之宅矿工", "币种", "", iniPath);
+            for(int i = 0; i < SelectCoin.Items.Count; i++)
+            {
+                if(SelectCoin.Items[i].ToString().Equals(SelectCoin.Text))
+                {
+                    SelectCoin.SelectedIndex = i;
+                }
+            }
             SelectMiner.Text = IniHelper.GetValue("松之宅矿工", "内核", "", iniPath);
             SelectMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池", "", iniPath);
             InputMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池地址", "", iniPath);
@@ -329,6 +336,10 @@ namespace szzminer.Views
         private void MainForm_Load(object sender, EventArgs e)
         {
             LnkHelper.CreateShortcutOnDesktop("松之宅挖矿者", Application.StartupPath + @"\szzminer.exe");
+            Functions.loadCoinIni(ref SelectCoin);
+            SelectCoin.SelectedIndex = 0;
+            SelectMiner.SelectedIndex = 0;
+            SelectMiningPool.SelectedIndex = 0;
             ReadConfig();//读取配置文件
             Task.Run(() =>
             {
@@ -340,10 +351,6 @@ namespace szzminer.Views
                 IncomeCoin.SelectedIndex = 0;
             });
             Functions.getMiningInfo();
-            Functions.loadCoinIni(ref SelectCoin);
-            //SelectCoin.SelectedIndex = 0;
-            //SelectMiner.SelectedIndex = 0;
-            //SelectMiningPool.SelectedIndex = 0;
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);//为表格控件添加行
             GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
             getGpusInfoThread = new Thread(getGpusInfo);
