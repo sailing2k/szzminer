@@ -245,7 +245,6 @@ namespace szzminer.Views
             IniHelper.SetValue("松之宅矿工", "矿工号", InputWorker.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "附加参数", InputArgu.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "使用计算机名", useComputerName.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "显示原版内核", MinerDisplayCheckBox.Checked.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "自动重启时间", timeRestart.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "算力低于重启", lowHashrateRestart.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "开机自动运行", loginStart.Checked.ToString(), iniPath);
@@ -293,7 +292,6 @@ namespace szzminer.Views
             InputWorker.Text = IniHelper.GetValue("松之宅矿工", "矿工号", "", iniPath);
             InputArgu.Text = IniHelper.GetValue("松之宅矿工", "附加参数", "", iniPath);
             useComputerName.Checked = IniHelper.GetValue("松之宅矿工", "使用计算机名", "", iniPath) == "True" ? true : false;
-            MinerDisplayCheckBox.Checked = IniHelper.GetValue("松之宅矿工", "显示原版内核", "", iniPath) == "True" ? true : false;
             timeRestart.Text = IniHelper.GetValue("松之宅矿工", "自动重启时间", "", iniPath);
             lowHashrateRestart.Text = IniHelper.GetValue("松之宅矿工", "算力低于重启", "", iniPath);
             loginStart.Checked = IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
@@ -336,11 +334,6 @@ namespace szzminer.Views
         private void MainForm_Load(object sender, EventArgs e)
         {
             LnkHelper.CreateShortcutOnDesktop("松之宅挖矿者", Application.StartupPath + @"\szzminer.exe");
-            Functions.loadCoinIni(ref SelectCoin);
-            SelectCoin.SelectedIndex = 0;
-            SelectMiner.SelectedIndex = 0;
-            SelectMiningPool.SelectedIndex = 0;
-            ReadConfig();//读取配置文件
             Task.Run(() =>
             {
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] " + getIncomeData.getHtml("http://121.4.60.81/szzminer/notice.html"));
@@ -350,9 +343,15 @@ namespace szzminer.Views
                 getIncomeData.getinfo(IncomeCoin);//从f2pool读取收益计算器所需要的信息
                 IncomeCoin.SelectedIndex = 0;
             });
-            Functions.getMiningInfo();
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);//为表格控件添加行
             GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
+            Functions.getMiningInfo();
+            Functions.loadCoinIni(ref SelectCoin);
+            SelectCoin.SelectedIndex = 0;
+            SelectMiner.SelectedIndex = 0;
+            SelectMiningPool.SelectedIndex = 0;
+            ReadConfig();//读取配置文件
+            
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
             getGpusInfoThread.Start();//实时更新显卡信息
@@ -370,7 +369,6 @@ namespace szzminer.Views
             InputWorker.Enabled = isEnable;
             InputArgu.Enabled = isEnable;
             useComputerName.Enabled = isEnable;
-            MinerDisplayCheckBox.Enabled = isEnable;
             uiPanel1.Enabled = isEnable;
         }
 
@@ -390,7 +388,7 @@ namespace szzminer.Views
                 }
                 Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
-                startMiner(MinerDisplayCheckBox.Checked);//启动挖矿程序
+                startMiner();//启动挖矿程序
                 Functions.dllPath = Application.StartupPath + string.Format("\\miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
                 MinerStatusThread.IsBackground = true;
@@ -515,7 +513,7 @@ namespace szzminer.Views
         /// 开始挖矿
         /// </summary>
         /// <param name="MinerDisplay"></param>
-        private void startMiner(bool MinerDisplay)
+        private void startMiner()
         {
             Miner.coin = SelectCoin.Text;
             Miner.minerBigName = SelectMiner.Text;
@@ -524,7 +522,8 @@ namespace szzminer.Views
             Miner.wallet = InputWallet.Text;
             Miner.worker = InputWorker.Text;
             Miner.argu = InputArgu.Text;
-            Miner.startMiner(MinerDisplay, ref LogOutput);
+            Miner.startMiner(ref LogOutput,ref showCorePanel);
+            this.Activate();
             ActionButton.Text = "停止挖矿";
         }
         /// <summary>
@@ -814,7 +813,7 @@ namespace szzminer.Views
                         }
                         if (time == 0)
                         {
-                            uiButton1_Click(null, null);
+                            this.Invoke(new MethodInvoker(() => { ActionButton.PerformClick(); }));
                             break;
                         }
                         ActionButton.Text = "开始挖矿(" + time.ToString() + ")";

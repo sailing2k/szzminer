@@ -140,6 +140,7 @@
     <Compile Include="Tools\IniHelper.cs" />
     <Compile Include="Tools\LnkHelper.cs" />
     <Compile Include="Tools\NetCardDriver.cs" />
+    <Compile Include="Tools\showMinerWindow.cs" />
     <Compile Include="Tools\UDPHelper.cs" />
     <Compile Include="Tools\VirtualMemoryHelper.cs" />
     <Compile Include="Views\DownloadForm.cs">
