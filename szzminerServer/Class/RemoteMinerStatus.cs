@@ -77,7 +77,6 @@ namespace szzminerServer.Class
         /// </summary>
         public string Hashrate { get; set; }
 
-        public List<GPUOverClock> GPU { get; set; }
         public List<DevicesItem> Devices { get; set; }
     }
 }

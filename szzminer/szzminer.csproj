@@ -128,6 +128,7 @@
     <Compile Include="Class\RemoteClass\changeCoinClass.cs" />
     <Compile Include="Class\RemoteClass\RemoteFunction.cs" />
     <Compile Include="Class\RemoteClass\RemoteMinerStatus.cs" />
+    <Compile Include="Class\RemoteClass\RemoteOverclock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\DriveDto.cs" />

@@ -96,11 +96,9 @@ namespace szzminer.Views
             remoteMinerStatus.Rejected = Convert.ToInt32(TotalReject.Text);
             remoteMinerStatus.Power = Convert.ToInt32(TotalPower.Text.Split(' ')[0]);
             List<DevicesItem> devicesItemList = new List<DevicesItem>();
-            List<GPUOverClock> gPUOverClocksList = new List<GPUOverClock>();
             for (int i = 0; i < GPUStatusTable.Rows.Count; i++)
             {
                 DevicesItem devicesItem = new DevicesItem();
-                GPUOverClock gPUOverClock = new GPUOverClock();
                 devicesItem.idbus = Convert.ToString(GPUStatusTable.Rows[i].Cells[0].Value);
                 devicesItem.name = Convert.ToString(GPUStatusTable.Rows[i].Cells[1].Value);
                 devicesItem.Hashrate = Convert.ToString(GPUStatusTable.Rows[i].Cells[2].Value);
@@ -112,19 +110,8 @@ namespace szzminer.Views
                 devicesItem.coreclock = Convert.ToString(GPUStatusTable.Rows[i].Cells[8].Value);
                 devicesItem.memoryclock = Convert.ToString(GPUStatusTable.Rows[i].Cells[9].Value);
                 devicesItemList.Add(devicesItem);
-                gPUOverClock.Busid = Convert.ToString(GPUOverClockTable.Rows[i].Cells[0].Value);
-                gPUOverClock.Name = Convert.ToString(GPUOverClockTable.Rows[i].Cells[1].Value);
-                gPUOverClock.Power = Convert.ToString(GPUOverClockTable.Rows[i].Cells[2].Value);
-                gPUOverClock.TempLimit = Convert.ToString(GPUOverClockTable.Rows[i].Cells[3].Value);
-                gPUOverClock.CoreClock = Convert.ToString(GPUOverClockTable.Rows[i].Cells[4].Value);
-                gPUOverClock.CV = Convert.ToString(GPUOverClockTable.Rows[i].Cells[5].Value);
-                gPUOverClock.MemoryClock = Convert.ToString(GPUOverClockTable.Rows[i].Cells[6].Value);
-                gPUOverClock.MV = Convert.ToString(GPUOverClockTable.Rows[i].Cells[7].Value);
-                gPUOverClock.Fan = Convert.ToString(GPUOverClockTable.Rows[i].Cells[8].Value);
-                gPUOverClocksList.Add(gPUOverClock);
             }
             remoteMinerStatus.Devices = devicesItemList;
-            remoteMinerStatus.GPU = gPUOverClocksList;
             MinerStatusJson = JsonConvert.SerializeObject(remoteMinerStatus);
         }
         private void ReceiveMessage(object obj)
@@ -185,6 +172,24 @@ namespace szzminer.Views
                         case "update":
                             updateButton_Click(null,null);
                             break;
+                        case "overclock":
+                            RemoteOverclock remoteOverclock = new RemoteOverclock();
+                            remoteOverclock=JsonConvert.DeserializeObject<RemoteOverclock>(reData);
+                            for(int i = 0; i < GPUOverClockTable.Rows.Count; i++)
+                            {
+                                if (GPUOverClockTable.Rows[i].Cells[1].Value.ToString() == remoteOverclock.OVData.Name)
+                                {
+                                    GPUOverClockTable.Rows[i].Cells[2].Value = remoteOverclock.OVData.Power;
+                                    GPUOverClockTable.Rows[i].Cells[3].Value = remoteOverclock.OVData.TempLimit;
+                                    GPUOverClockTable.Rows[i].Cells[4].Value = remoteOverclock.OVData.CoreClock;
+                                    GPUOverClockTable.Rows[i].Cells[5].Value = remoteOverclock.OVData.CV;
+                                    GPUOverClockTable.Rows[i].Cells[6].Value = remoteOverclock.OVData.MemoryClock;
+                                    GPUOverClockTable.Rows[i].Cells[7].Value = remoteOverclock.OVData.MV;
+                                    GPUOverClockTable.Rows[i].Cells[8].Value = remoteOverclock.OVData.Fan;
+                                }
+                            }
+                            overClockConfirm_Click(null,null);
+                            break;
                     }
 
                 }
@@ -217,6 +222,8 @@ namespace szzminer.Views
             IniHelper.SetValue("松之宅矿工", "自动开始挖矿", autoMining.Checked.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "自动挖矿时间", autoMiningTime.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "自动超频", autoOverclock.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "群控IP", InputRemoteIP.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "开启群控", remoteControl.Checked.ToString(), iniPath);
             //写显卡配置
             string path = Application.StartupPath + "\\config\\gpusConfig.ini";
             if (File.Exists(path))
@@ -256,6 +263,8 @@ namespace szzminer.Views
             autoMining.Checked = IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
             autoMiningTime.Text = IniHelper.GetValue("松之宅矿工", "自动挖矿时间", "", iniPath);
             autoOverclock.Checked = IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
+            InputRemoteIP.Text = IniHelper.GetValue("松之宅矿工", "群控IP", "", iniPath);
+            remoteControl.Checked= IniHelper.GetValue("松之宅矿工", "开启群控", "", iniPath) == "True" ? true : false;
             //读显卡配置
             IniHelper.setPath(Application.StartupPath + "\\config\\gpusConfig.ini");
             List<string> gpuini;
@@ -289,7 +298,7 @@ namespace szzminer.Views
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            ReadConfig();//读取配置文件
             Task.Run(() =>
             {
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] " + getIncomeData.getHtml("http://121.4.60.81/szzminer/notice.html"));
@@ -301,13 +310,11 @@ namespace szzminer.Views
             });
             Functions.getMiningInfo();
             Functions.loadCoinIni(ref SelectCoin);
-            SelectCoin.SelectedIndex = 0;
-            SelectMiner.SelectedIndex = 0;
-            SelectMiningPool.SelectedIndex = 0;
+            //SelectCoin.SelectedIndex = 0;
+            //SelectMiner.SelectedIndex = 0;
+            //SelectMiningPool.SelectedIndex = 0;
             GPU.addRow(ref GPUStatusTable, ref GPUOverClockTable);//为表格控件添加行
             GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
-
-            ReadConfig();//读取配置文件
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
             getGpusInfoThread.Start();//实时更新显卡信息
@@ -346,7 +353,7 @@ namespace szzminer.Views
                 Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
                 startMiner(MinerDisplayCheckBox.Checked);//启动挖矿程序
-                Functions.dllPath = System.AppDomain.CurrentDomain.BaseDirectory + string.Format("miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
+                Functions.dllPath = Application.StartupPath+string.Format("\\miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
                 MinerStatusThread.IsBackground = true;
                 MinerStatusThread.Start();//读取dll并显示内核的输出
@@ -377,8 +384,11 @@ namespace szzminer.Views
                 int totalPower = 0;
                 szzminer.Tools.GPU.getGPU(ref GPUStatusTable, ref totalPower);
                 this.TotalPower.Text = totalPower.ToString() + " W";
-                getMinerJson();
-                UDPHelper.Send(MinerStatusJson, InputRemoteIP.Text);
+                if (remoteControl.Checked && !string.IsNullOrEmpty(InputRemoteIP.Text))
+                {
+                    getMinerJson();
+                    UDPHelper.Send(MinerStatusJson, InputRemoteIP.Text);
+                }
                 Thread.Sleep(5000);
             }
         }
@@ -558,7 +568,7 @@ namespace szzminer.Views
                 {
                     //WriteLog("A卡超频失败！" + ex.ToString());
                 }
-
+                WriteConfig();
 
             });
         }
@@ -617,6 +627,7 @@ namespace szzminer.Views
                 #endregion
                 GPU.getOverclockGPU(ref GPUOverClockTable);
             });
+            WriteConfig();
         }
 
         private void SelectCoin_SelectedIndexChanged(object sender, EventArgs e)
@@ -645,12 +656,14 @@ namespace szzminer.Views
             if (SelectMiningPool.Text.Equals("自定义矿池"))
             {
                 InputMiningPool.Enabled = true;
+                InputMiningPool.Text = "";
             }
             else
             {
                 InputMiningPool.Enabled = false;
+                InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text, SelectMiningPool.Text, "", Application.StartupPath + "\\config" + "\\miningpool.ini");
             }
-            InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text, SelectMiningPool.Text, "", Application.StartupPath + "\\config" + "\\miningpool.ini");
+            
         }
 
         private void useComputerName_ValueChanged(object sender, bool value)
@@ -659,10 +672,7 @@ namespace szzminer.Views
             {
                 this.InputWorker.Text = Environment.GetEnvironmentVariable("computername"); ;
             }
-            else
-            {
-                this.InputWorker.Text = "";
-            }
+            //WriteConfig();
         }
 
         private void DiskComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -748,6 +758,7 @@ namespace szzminer.Views
                 rk2.Close();
                 rk.Close();
             }
+            //WriteConfig();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -777,6 +788,10 @@ namespace szzminer.Views
             if (autoOverclock.Checked)
             {
                 overClockConfirm_Click(null, null);
+            }
+            if (remoteControl.Checked)
+            {
+                StartReceive();
             }
         }
 
@@ -1015,14 +1030,7 @@ namespace szzminer.Views
 
         private void remoteControl_ValueChanged(object sender, bool value)
         {
-            if (remoteControl.Checked)
-            {
-                StartReceive();
-            }
-            else
-            {
-                StopReceive();
-            }
+            
         }
 
         private void updateButton_Click(object sender, EventArgs e)
@@ -1052,6 +1060,61 @@ namespace szzminer.Views
                     updateButton.Enabled = true;
                 });
             }
+        }
+
+        private void autoMining_ValueChanged(object sender, bool value)
+        {
+            //WriteConfig();
+        }
+
+        private void autoOverclock_ValueChanged(object sender, bool value)
+        {
+            //WriteConfig();
+        }
+
+        private void remoteControl_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(InputRemoteIP.Text))
+            {
+                UIMessageBox.ShowError("请填写IP地址");
+                remoteControl.Checked = false;
+                return;
+            }
+            if (remoteControl.Checked)
+            {
+                StartReceive();
+                remoteControl.Checked = true;
+            }
+            else
+            {
+                StopReceive();
+            }
+            WriteConfig();
+        }
+
+        private void remoteControl_ValueChanged_1(object sender, bool value)
+        {
+
+        }
+
+        private void loginStart_Click(object sender, EventArgs e)
+        {
+            WriteConfig();
+        }
+
+        private void autoMining_Click(object sender, EventArgs e)
+        {
+            WriteConfig();
+        }
+
+        private void autoOverclock_Click(object sender, EventArgs e)
+        {
+            WriteConfig();
+        }
+
+        private void useComputerName_Click(object sender, EventArgs e)
+        {
+            WriteConfig();
         }
 
         /*private void lockWallet_Click(object sender, EventArgs e)

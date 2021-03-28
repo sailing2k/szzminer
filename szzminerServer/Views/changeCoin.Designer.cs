@@ -41,6 +41,8 @@ namespace szzminerServer.Views
             this.uiLabel15 = new Sunny.UI.UILabel();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiButton2 = new Sunny.UI.UIButton();
+            this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // InputWallet
@@ -64,7 +66,7 @@ namespace szzminerServer.Views
             this.InputMiningPool.Enabled = false;
             this.InputMiningPool.FillColor = System.Drawing.Color.White;
             this.InputMiningPool.Font = new System.Drawing.Font("微软雅黑", 8F);
-            this.InputMiningPool.Location = new System.Drawing.Point(122, 178);
+            this.InputMiningPool.Location = new System.Drawing.Point(122, 179);
             this.InputMiningPool.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.InputMiningPool.Maximum = 2147483647D;
             this.InputMiningPool.Minimum = -2147483648D;
@@ -172,7 +174,7 @@ namespace szzminerServer.Views
             // 
             this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiButton1.Location = new System.Drawing.Point(49, 268);
+            this.uiButton1.Location = new System.Drawing.Point(71, 11);
             this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton1.Name = "uiButton1";
             this.uiButton1.Size = new System.Drawing.Size(100, 35);
@@ -184,7 +186,7 @@ namespace szzminerServer.Views
             // 
             this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiButton2.Location = new System.Drawing.Point(263, 268);
+            this.uiButton2.Location = new System.Drawing.Point(239, 11);
             this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton2.Name = "uiButton2";
             this.uiButton2.Size = new System.Drawing.Size(100, 35);
@@ -192,13 +194,24 @@ namespace szzminerServer.Views
             this.uiButton2.Text = "取消";
             this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
             // 
+            // uiPanel1
+            // 
+            this.uiPanel1.Controls.Add(this.uiButton2);
+            this.uiPanel1.Controls.Add(this.uiButton1);
+            this.uiPanel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiPanel1.Location = new System.Drawing.Point(0, 273);
+            this.uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel1.Name = "uiPanel1";
+            this.uiPanel1.Size = new System.Drawing.Size(410, 56);
+            this.uiPanel1.TabIndex = 17;
+            // 
             // changeCoin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 329);
-            this.Controls.Add(this.uiButton2);
-            this.Controls.Add(this.uiButton1);
+            this.Controls.Add(this.uiPanel1);
             this.Controls.Add(this.InputWallet);
             this.Controls.Add(this.InputMiningPool);
             this.Controls.Add(this.SelectMiningPool);
@@ -212,6 +225,7 @@ namespace szzminerServer.Views
             this.Name = "changeCoin";
             this.Text = "切换币种";
             this.Load += new System.EventHandler(this.changeCoin_Load);
+            this.uiPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -230,5 +244,6 @@ namespace szzminerServer.Views
         private Sunny.UI.UILabel uiLabel15;
         private Sunny.UI.UIButton uiButton1;
         private Sunny.UI.UIButton uiButton2;
+        private Sunny.UI.UIPanel uiPanel1;
     }
 }

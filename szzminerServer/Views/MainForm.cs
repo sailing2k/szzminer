@@ -167,13 +167,13 @@ namespace szzminerServer
                 {
                     if (MinerStatusLoad.remoteMinerStatusList[i].IP == ip)
                     {
-                        if (MinerStatusLoad.remoteMinerStatusList[i].GPU == null || MinerStatusLoad.remoteMinerStatusList[i].Devices == null)
+                        if (MinerStatusLoad.remoteMinerStatusList[i].Devices == null)
                         {
                             break;
                         }
                         else
                         {
-                            for (int j = 0; j < MinerStatusLoad.remoteMinerStatusList[i].GPU.Count; j++)
+                            for (int j = 0; j < MinerStatusLoad.remoteMinerStatusList[i].Devices.Count; j++)
                             {
                                 GPUStatusTable.Rows.Add();
                                 GPUStatusTable.Rows[j].Cells[0].Value = MinerStatusLoad.remoteMinerStatusList[i].Devices[j].idbus;
@@ -186,13 +186,6 @@ namespace szzminerServer
                                 GPUStatusTable.Rows[j].Cells[7].Value = MinerStatusLoad.remoteMinerStatusList[i].Devices[j].fan;
                                 GPUStatusTable.Rows[j].Cells[8].Value = MinerStatusLoad.remoteMinerStatusList[i].Devices[j].coreclock;
                                 GPUStatusTable.Rows[j].Cells[9].Value = MinerStatusLoad.remoteMinerStatusList[i].Devices[j].memoryclock;
-                                GPUStatusTable.Rows[j].Cells[10].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].Power;
-                                GPUStatusTable.Rows[j].Cells[11].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].TempLimit;
-                                GPUStatusTable.Rows[j].Cells[12].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].CoreClock;
-                                GPUStatusTable.Rows[j].Cells[13].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].CV;
-                                GPUStatusTable.Rows[j].Cells[14].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].MemoryClock;
-                                GPUStatusTable.Rows[j].Cells[15].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].MV;
-                                GPUStatusTable.Rows[j].Cells[16].Value = MinerStatusLoad.remoteMinerStatusList[i].GPU[j].Fan;
                             }
                         }
 
@@ -321,6 +314,35 @@ namespace szzminerServer
             {
                 UIMessageBox.Show("更新完成");
             }
+        }
+
+        private void uiButton2_Click_1(object sender, EventArgs e)
+        {
+            List<RemoteMinerStatus> selectedMiner=new List<RemoteMinerStatus>();
+            for (int i = 0; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    for(int j=0;j<MinerStatusLoad.remoteMinerStatusList.Count;j++)
+                    {
+                        if(MinerStatusLoad.remoteMinerStatusList[i].IP==MinerStatusTable.Rows[i].Cells[12].Value.ToString())
+                        {
+                            selectedMiner.Add(MinerStatusLoad.remoteMinerStatusList[i]);
+                        }
+                    }
+                }
+            }
+            if (selectedMiner.Count <= 0)
+            {
+                UIMessageBox.ShowError("请选择矿机");
+                return;
+            }
+            overClockForm overClockForm = new overClockForm(selectedMiner);
+            overClockForm.ShowDialog();
         }
     }
 }

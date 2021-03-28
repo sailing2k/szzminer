@@ -23,18 +23,6 @@ namespace szzminer.Class.RemoteClass
         public string coreclock { get; set; }
         public string memoryclock { get; set; }
     }
-    public class GPUOverClock
-    {
-        public string Busid { get; set; }
-        public string Name { get; set; }
-        public string Power { get; set; }
-        public string TempLimit { get; set; }
-        public string CoreClock { get; set; }
-        public string CV { get; set; }
-        public string MemoryClock { get; set; }
-        public string MV { get; set; }
-        public string Fan { get; set; }
-    }
     public class RemoteMinerStatus
     {
         public string function { get; set; }
@@ -75,7 +63,6 @@ namespace szzminer.Class.RemoteClass
         /// </summary>
         public string Hashrate { get; set; }
 
-        public List<GPUOverClock> GPU { get; set; }
         public List<DevicesItem> Devices { get; set; }
     }
 }
