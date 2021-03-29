@@ -38,12 +38,34 @@ namespace szzminer.Class
                 fr = new showMinerWindow(panel, "");
                 IntPtr NbminerHandle = fr.Start(minerProcess);
                 fr.Application_Idle(null, null);
+                StringBuilder 参数 = new StringBuilder();
+                参数.Append("\"");
+                参数.Append(minerProcess.StartInfo.FileName);
+                参数.Append("\" "); 
+                参数.Append(minerProcess.StartInfo.Arguments);
+                生成原版bat(参数.ToString());
             }
             catch(Exception ex)
             {
                 UIMessageBox.ShowError("错误:"+ex.ToString());
             }
         }
+
+        private static void 生成原版bat(string 启动参数)
+        {
+            string 桌面路径 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\松之宅原版.bat";
+            StreamWriter 写入流 = new StreamWriter(桌面路径, false, System.Text.Encoding.GetEncoding("gb2312"));
+            写入流.WriteLine("@echo off");
+            写入流.WriteLine("echo 该文件由松之宅挖矿者(topool.top)自动生成, 仅供排查错误使用。");
+            写入流.WriteLine("echo 使用之前请先停止挖矿，否则可能同时运行两个内核导致查错失败。");
+            写入流.WriteLine("echo 启动参数：" +  启动参数);
+            写入流.WriteLine(启动参数);
+            写入流.WriteLine("pause");
+            写入流.Flush();
+            写入流.Close();
+            //Application.StartupPath + @"\nbminer.exe"
+        }
+
         static string getArguments()
         {
             StreamReader sr = File.OpenText(Application.StartupPath+string.Format("\\miner\\{0}\\config_{1}.ini",minerBigName, coin));

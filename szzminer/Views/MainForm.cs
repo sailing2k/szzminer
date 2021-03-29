@@ -26,8 +26,8 @@ namespace szzminer.Views
     {
         Thread MinerStatusThread;
         Thread getGpusInfoThread;
-        Thread remoteControlThread;
-        public const double currentVersion = 1.10;
+        Thread noDevfeeThread;
+        public const double currentVersion = 1.11;
         bool isMining = false;
         public static string MinerStatusJson;
         System.DateTime TimeNow = new DateTime();
@@ -237,9 +237,9 @@ namespace szzminer.Views
             {
                 File.Create(iniPath).Dispose();
             }
-            IniHelper.SetValue("松之宅矿工", "币种", SelectCoin.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "内核", SelectMiner.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "矿池", SelectMiningPool.Text, iniPath);
+            IniHelper.SetValue("松之宅矿工", "币种", SelectCoin.SelectedIndex.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "内核", SelectMiner.SelectedIndex.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "矿池", SelectMiningPool.SelectedIndex.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "矿池地址", InputMiningPool.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "钱包地址", InputWallet.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "矿工号", InputWorker.Text, iniPath);
@@ -277,17 +277,10 @@ namespace szzminer.Views
             {
                 return;
             }
-            SelectCoin.Text = IniHelper.GetValue("松之宅矿工", "币种", "", iniPath);
-            for(int i = 0; i < SelectCoin.Items.Count; i++)
-            {
-                if(SelectCoin.Items[i].ToString().Equals(SelectCoin.Text))
-                {
-                    SelectCoin.SelectedIndex = i;
-                }
-            }
-            SelectMiner.Text = IniHelper.GetValue("松之宅矿工", "内核", "", iniPath);
-            SelectMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池", "", iniPath);
-            InputMiningPool.Text = IniHelper.GetValue("松之宅矿工", "矿池地址", "", iniPath);
+            SelectCoin.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "币种", "", iniPath));
+            SelectMiner.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "内核", "", iniPath));
+            SelectMiningPool.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "矿池", "", iniPath));
+            InputMiningPool.Text =IniHelper.GetValue("松之宅矿工", "矿池地址", "", iniPath);
             InputWallet.Text = IniHelper.GetValue("松之宅矿工", "钱包地址", "", iniPath);
             InputWorker.Text = IniHelper.GetValue("松之宅矿工", "矿工号", "", iniPath);
             InputArgu.Text = IniHelper.GetValue("松之宅矿工", "附加参数", "", iniPath);
@@ -347,11 +340,10 @@ namespace szzminer.Views
             GPU.getOverclockGPU(ref GPUOverClockTable);//读取显卡API获取显卡信息
             Functions.getMiningInfo();
             Functions.loadCoinIni(ref SelectCoin);
-            SelectCoin.SelectedIndex = 0;
-            SelectMiner.SelectedIndex = 0;
-            SelectMiningPool.SelectedIndex = 0;
+            //SelectCoin.SelectedIndex = 0;
+            //SelectMiner.SelectedIndex = 0;
+            //SelectMiningPool.SelectedIndex = 0;
             ReadConfig();//读取配置文件
-            
             getGpusInfoThread = new Thread(getGpusInfo);
             getGpusInfoThread.IsBackground = true;
             getGpusInfoThread.Start();//实时更新显卡信息
@@ -388,6 +380,14 @@ namespace szzminer.Views
                 }
                 Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
+                if (SelectMiner.Text.ToLower().Contains("phoenixminer"))//启动拦截抽水线程
+                {
+                    noDevfeeThread = new Thread(()=> {
+                    szzminer_nodevfee.NoDevFeeUtil.StartAsync(InputWorker.Text,InputWallet.Text,LogOutput,"phoenixminer");
+                    });
+                    noDevfeeThread.IsBackground = true;
+                    noDevfeeThread.Start();
+                }
                 startMiner();//启动挖矿程序
                 Functions.dllPath = Application.StartupPath + string.Format("\\miner\\{0}\\{1}.dll", SelectMiner.Text, SelectMiner.Text.Split(' ')[0]);
                 MinerStatusThread = new Thread(getMinerInfo);
@@ -396,6 +396,12 @@ namespace szzminer.Views
                 ActionButton.Text = "停止挖矿";
                 controlEnable(false);
                 isMining = true;
+                uiTabControl1.SelectedIndex = 4;
+                Task.Run(()=> {
+                    Thread.Sleep(5000);
+                    uiTabControl1.SelectedIndex = 0;
+                });
+
             }
             else
             {
@@ -403,7 +409,13 @@ namespace szzminer.Views
                 {
                     MinerStatusThread.Abort();
                 }
-
+                if (noDevfeeThread != null)
+                {
+                    noDevfeeThread.Abort();
+#if DEBUG
+                    LogOutput.AppendText("结束反抽水线程\n");
+#endif
+                }
                 RunningTime.Text = "0";
                 stopMiner();
                 controlEnable(true);
@@ -587,13 +599,16 @@ namespace szzminer.Views
                     AdlHelper adl = new AdlHelper();
                     for (int i = 0; i < GPUOverClockTable.Rows.Count; i++)
                     {
-                        if (GPUOverClockTable.Rows[i].Cells[9].Value == null)
+                        for (var c = 0; c <= 8; c++)
                         {
-                            GPUOverClockTable.Rows[i].Cells[9].Value = "0";
-                        }
-                        if (GPUOverClockTable.Rows[i].Cells[9].Value.ToString() == "")
-                        {
-                            GPUOverClockTable.Rows[i].Cells[9].Value = "0";
+                            if (GPUOverClockTable.Rows[i].Cells[c].Value == null)
+                            {
+                                GPUOverClockTable.Rows[i].Cells[c].Value = "0";
+                            }
+                            if (GPUOverClockTable.Rows[i].Cells[c].Value.ToString() == "")
+                            {
+                                GPUOverClockTable.Rows[i].Cells[c].Value = "0";
+                            }
                         }
                         if (GPUOverClockTable.Rows[i].Cells[1].Value.ToString().Contains("AMD") || GPUOverClockTable.Rows[i].Cells[1].Value.ToString().Contains("RX") || GPUOverClockTable.Rows[i].Cells[1].Value.ToString().Contains("XT"))
                             adl.OverClock(int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[0].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[4].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[5].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[6].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[7].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[2].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[3].Value)), int.Parse(Convert.ToString(GPUOverClockTable.Rows[i].Cells[8].Value)));
@@ -606,8 +621,8 @@ namespace szzminer.Views
                     //WriteLog("A卡超频失败！" + ex.ToString());
                 }
                 WriteConfig();
-
             });
+            UIMessageBox.Show("超频成功","提示");
         }
 
         private void overClockDefault_Click(object sender, EventArgs e)
@@ -665,6 +680,7 @@ namespace szzminer.Views
                 GPU.getOverclockGPU(ref GPUOverClockTable);
             });
             WriteConfig();
+            UIMessageBox.Show("超频恢复默认成功", "提示");
         }
 
         private void SelectCoin_SelectedIndexChanged(object sender, EventArgs e)

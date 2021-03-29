@@ -185,6 +185,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\文档\szzminer-main\szzminer-nodevfee\szzminer-nodevfee.csproj">
+      <Project>{8e0a1c8c-e9fb-4f67-a154-d297ce9d921c}</Project>
+      <Name>szzminer-nodevfee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\文档\szzminer-main\szzminer-overclock\WindowsFormsApp1\szzminer_overclock.csproj">
       <Project>{fccc771b-b01c-4fc4-990d-2a0fee1aff15}</Project>
       <Name>szzminer_overclock</Name>
