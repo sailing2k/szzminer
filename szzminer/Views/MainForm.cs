@@ -289,22 +289,22 @@ namespace szzminer.Views
             {
                 File.Create(iniPath).Dispose();
             }
-            IniHelper.SetValue("松之宅矿工", "币种", SelectCoin.SelectedIndex.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "内核", SelectMiner.SelectedIndex.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "矿池", SelectMiningPool.SelectedIndex.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "矿池地址", InputMiningPool.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "钱包地址", InputWallet.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "矿工号", InputWorker.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "附加参数", InputArgu.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "使用计算机名", useComputerName.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动重启时间", timeRestart.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "算力低于重启", lowHashrateRestart.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "开机自动运行", loginStart.Active.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动开始挖矿", autoMining.Active.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动挖矿时间", autoMiningTime.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动超频", autoOverclock.Active.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "群控IP", InputRemoteIP.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "开启群控", remoteControl.Checked.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "coin", SelectCoin.SelectedIndex.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "miner", SelectMiner.SelectedIndex.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "miningpool", SelectMiningPool.SelectedIndex.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "miningpoolurl", InputMiningPool.Text, iniPath);
+            IniHelper.SetValue("szzminer", "wallet", InputWallet.Text, iniPath);
+            IniHelper.SetValue("szzminer", "worker", InputWorker.Text, iniPath);
+            IniHelper.SetValue("szzminer", "argu", InputArgu.Text, iniPath);
+            IniHelper.SetValue("szzminer", "usingComputerName", useComputerName.Checked.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "autoReboot", timeRestart.Text, iniPath);
+            IniHelper.SetValue("szzminer", "lowHashrateReboot", lowHashrateRestart.Text, iniPath);
+            IniHelper.SetValue("szzminer", "loginStart", loginStart.Active.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "autoMining", autoMining.Active.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "autoMiningTime", autoMiningTime.Text, iniPath);
+            IniHelper.SetValue("szzminer", "autoOverclock", autoOverclock.Active.ToString(), iniPath);
+            IniHelper.SetValue("szzminer", "remoteIP", InputRemoteIP.Text, iniPath);
+            IniHelper.SetValue("szzminer", "remoteEnable", remoteControl.Checked.ToString(), iniPath);
             //写显卡配置
             string path = Application.StartupPath + "\\config\\gpusConfig.ini";
             if (File.Exists(path))
@@ -329,22 +329,22 @@ namespace szzminer.Views
             {
                 return;
             }
-            SelectCoin.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "币种", "", iniPath));
-            SelectMiner.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "内核", "", iniPath));
-            SelectMiningPool.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("松之宅矿工", "矿池", "", iniPath));
-            InputMiningPool.Text =IniHelper.GetValue("松之宅矿工", "矿池地址", "", iniPath);
-            InputWallet.Text = IniHelper.GetValue("松之宅矿工", "钱包地址", "", iniPath);
-            InputWorker.Text = IniHelper.GetValue("松之宅矿工", "矿工号", "", iniPath);
-            InputArgu.Text = IniHelper.GetValue("松之宅矿工", "附加参数", "", iniPath);
-            useComputerName.Checked = IniHelper.GetValue("松之宅矿工", "使用计算机名", "", iniPath) == "True" ? true : false;
-            timeRestart.Text = IniHelper.GetValue("松之宅矿工", "自动重启时间", "", iniPath);
-            lowHashrateRestart.Text = IniHelper.GetValue("松之宅矿工", "算力低于重启", "", iniPath);
-            loginStart.Active = IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
-            autoMining.Active = IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
-            autoMiningTime.Text = IniHelper.GetValue("松之宅矿工", "自动挖矿时间", "", iniPath);
-            autoOverclock.Active = IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
-            InputRemoteIP.Text = IniHelper.GetValue("松之宅矿工", "群控IP", "", iniPath);
-            remoteControl.Checked= IniHelper.GetValue("松之宅矿工", "开启群控", "", iniPath) == "True" ? true : false;
+            SelectCoin.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("szzminer", "coin", "", iniPath));
+            SelectMiner.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("szzminer", "miner", "", iniPath));
+            SelectMiningPool.SelectedIndex = Convert.ToInt32(IniHelper.GetValue("szzminer", "miningpool", "", iniPath));
+            InputMiningPool.Text =IniHelper.GetValue("szzminer", "miningpoolurl", "", iniPath);
+            InputWallet.Text = IniHelper.GetValue("szzminer", "wallet", "", iniPath);
+            InputWorker.Text = IniHelper.GetValue("szzminer", "worker", "", iniPath);
+            InputArgu.Text = IniHelper.GetValue("szzminer", "argu", "", iniPath);
+            useComputerName.Checked = IniHelper.GetValue("szzminer", "usingComputerName", "", iniPath) == "True" ? true : false;
+            timeRestart.Text = IniHelper.GetValue("szzminer", "autoReboot", "", iniPath);
+            lowHashrateRestart.Text = IniHelper.GetValue("szzminer", "lowHashrateReboot", "", iniPath);
+            loginStart.Active = IniHelper.GetValue("szzminer", "loginStart", "", iniPath) == "True" ? true : false;
+            autoMining.Active = IniHelper.GetValue("szzminer", "autoMining", "", iniPath) == "True" ? true : false;
+            autoMiningTime.Text = IniHelper.GetValue("szzminer", "autoMiningTime", "", iniPath);
+            autoOverclock.Active = IniHelper.GetValue("szzminer", "autoOverclock", "", iniPath) == "True" ? true : false;
+            InputRemoteIP.Text = IniHelper.GetValue("szzminer", "remoteIP", "", iniPath);
+            remoteControl.Checked= IniHelper.GetValue("szzminer", "remoteEnable", "", iniPath) == "True" ? true : false;
             //读显卡配置
             IniHelper.setPath(Application.StartupPath + "\\config\\gpusConfig.ini");
             List<string> gpuini;
