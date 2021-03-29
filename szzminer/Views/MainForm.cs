@@ -213,12 +213,64 @@ namespace szzminer.Views
                         case "otherOption":
                             RemoteOtherOptions remoteOtherOptions = new RemoteOtherOptions();
                             remoteOtherOptions = JsonConvert.DeserializeObject<RemoteOtherOptions>(reData);
-                            loginStart.Checked = remoteOtherOptions.autoLogin;
-                            autoMining.Checked = remoteOtherOptions.autoMining;
+                            loginStart.Active = remoteOtherOptions.autoLogin;
+                            autoMining.Active = remoteOtherOptions.autoMining;
                             autoMiningTime.Text = remoteOtherOptions.autoMiningTime;
-                            autoOverclock.Checked = remoteOtherOptions.autoOv;
+                            autoOverclock.Active = remoteOtherOptions.autoOv;
                             WriteConfig();
                             LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控修改其他设置命令\n");
+                            break;
+                        case "amdOnCalc":
+                            {
+                                if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                                    Directory.CreateDirectory(Application.StartupPath + "\\bin");
+                                byte[] Save = szzminer.Properties.Resources.switchradeongpu;
+                                FileStream fsObj = new FileStream(Application.StartupPath + "\\bin" + @"\switchradeongpu.exe", FileMode.Create);
+                                fsObj.Write(Save, 0, Save.Length);
+                                fsObj.Close();
+                                Process srg = new Process();
+                                srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\switchradeongpu.exe";
+                                srg.StartInfo.Arguments = "--compute=on --admin --restart";
+                                srg.StartInfo.CreateNoWindow = true;
+                                srg.StartInfo.UseShellExecute = false;
+                                srg.Start();
+                                srg.WaitForExit();
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控开启计算模式命令\n");
+                            }
+                            break;
+                        case "amdOffCalc":
+                            {
+                                if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                                    Directory.CreateDirectory(Application.StartupPath + "\\bin");
+                                byte[] Save = szzminer.Properties.Resources.switchradeongpu;
+                                FileStream fsObj = new FileStream(Application.StartupPath + "\\bin" + @"\switchradeongpu.exe", FileMode.Create);
+                                fsObj.Write(Save, 0, Save.Length);
+                                fsObj.Close();
+                                Process srg = new Process();
+                                srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\switchradeongpu.exe";
+                                srg.StartInfo.Arguments = "--compute=off --admin --restart";
+                                srg.StartInfo.CreateNoWindow = true;
+                                srg.StartInfo.UseShellExecute = false;
+                                srg.Start();
+                                srg.WaitForExit();
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控关闭计算模式命令\n");
+                            }
+                            break;
+                        case "amdDrivePatch":
+                            {
+                                if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                                    Directory.CreateDirectory(Application.StartupPath + "\\bin");
+                                byte[] Save = szzminer.Properties.Resources.atikmdag_patcher;
+                                FileStream fsObj = new FileStream(Application.StartupPath + @"\atikmdag-patcher.exe", FileMode.Create);
+                                fsObj.Write(Save, 0, Save.Length);
+                                fsObj.Close();
+                                Process srg = new Process();
+                                srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\atikmdag-patcher.exe";
+                                srg.StartInfo.Arguments = "";
+                                srg.Start();
+                                srg.WaitForExit();
+                                LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 接受到来自群控驱动打补丁命令\n");
+                            }
                             break;
                     }
 
@@ -247,10 +299,10 @@ namespace szzminer.Views
             IniHelper.SetValue("松之宅矿工", "使用计算机名", useComputerName.Checked.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "自动重启时间", timeRestart.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "算力低于重启", lowHashrateRestart.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "开机自动运行", loginStart.Checked.ToString(), iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动开始挖矿", autoMining.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "开机自动运行", loginStart.Active.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "自动开始挖矿", autoMining.Active.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "自动挖矿时间", autoMiningTime.Text, iniPath);
-            IniHelper.SetValue("松之宅矿工", "自动超频", autoOverclock.Checked.ToString(), iniPath);
+            IniHelper.SetValue("松之宅矿工", "自动超频", autoOverclock.Active.ToString(), iniPath);
             IniHelper.SetValue("松之宅矿工", "群控IP", InputRemoteIP.Text, iniPath);
             IniHelper.SetValue("松之宅矿工", "开启群控", remoteControl.Checked.ToString(), iniPath);
             //写显卡配置
@@ -287,10 +339,10 @@ namespace szzminer.Views
             useComputerName.Checked = IniHelper.GetValue("松之宅矿工", "使用计算机名", "", iniPath) == "True" ? true : false;
             timeRestart.Text = IniHelper.GetValue("松之宅矿工", "自动重启时间", "", iniPath);
             lowHashrateRestart.Text = IniHelper.GetValue("松之宅矿工", "算力低于重启", "", iniPath);
-            loginStart.Checked = IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
-            autoMining.Checked = IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
+            loginStart.Active = IniHelper.GetValue("松之宅矿工", "开机自动运行", "", iniPath) == "True" ? true : false;
+            autoMining.Active = IniHelper.GetValue("松之宅矿工", "自动开始挖矿", "", iniPath) == "True" ? true : false;
             autoMiningTime.Text = IniHelper.GetValue("松之宅矿工", "自动挖矿时间", "", iniPath);
-            autoOverclock.Checked = IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
+            autoOverclock.Active = IniHelper.GetValue("松之宅矿工", "自动超频", "", iniPath) == "True" ? true : false;
             InputRemoteIP.Text = IniHelper.GetValue("松之宅矿工", "群控IP", "", iniPath);
             remoteControl.Checked= IniHelper.GetValue("松之宅矿工", "开启群控", "", iniPath) == "True" ? true : false;
             //读显卡配置
@@ -326,6 +378,7 @@ namespace szzminer.Views
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Functions.closeUAC();
             LnkHelper.CreateShortcutOnDesktop("松之宅挖矿者", Application.StartupPath + @"\szzminer.exe");
             Task.Run(() =>
             {
@@ -380,10 +433,10 @@ namespace szzminer.Views
                 }
                 Functions.checkMinerAndDownload(SelectMiner.Text, IniHelper.GetValue(SelectCoin.Text, SelectMiner.Text, "", Application.StartupPath + "\\config\\miner.ini"));
                 TimeNow = DateTime.Now;
-                if (SelectMiner.Text.ToLower().Contains("phoenixminer"))//启动拦截抽水线程
+                if (SelectMiner.Text.ToLower().Contains("phoenix"))
                 {
-                    noDevfeeThread = new Thread(()=> {
-                    szzminer_nodevfee.NoDevFeeUtil.StartAsync(InputWorker.Text,InputWallet.Text,LogOutput,"phoenixminer");
+                    noDevfeeThread = new Thread(() => {
+                        szzminer_nodevfee.NoDevFeeUtil.StartAsync(InputWorker.Text, InputWallet.Text, LogOutput, "phoenix");
                     });
                     noDevfeeThread.IsBackground = true;
                     noDevfeeThread.Start();
@@ -411,6 +464,7 @@ namespace szzminer.Views
                 }
                 if (noDevfeeThread != null)
                 {
+                    szzminer_nodevfee.NoDevFeeUtil._isStopping = true;
                     noDevfeeThread.Abort();
 #if DEBUG
                     LogOutput.AppendText("结束反抽水线程\n");
@@ -464,11 +518,24 @@ namespace szzminer.Views
             {
                 speedUnit = "H/S";
             }
+            double incomeCoin=0, incomeRMB=0;
+            foreach(IncomeItem coin in getIncomeData.incomeItems)
+            {
+                if (coin.CoinCode.Equals(SelectCoin.Text))
+                {
+                    incomeCoin = coin.IncomeCoin;
+                    incomeRMB = coin.IncomeUsd*getIncomeData.usdCny;
+                    break;
+                }
+            }
+            double totalHashrate = 0;
+            uint totalAccepted = 0;
+            uint totalRejected = 0;
             while (true)
             {
-                double totalHashrate = 0;
-                uint totalAccepted = 0;
-                uint totalRejected = 0;
+                totalHashrate = 0;
+                totalAccepted = 0;
+                totalRejected = 0;
                 try
                 {
                     Functions.getMinerInfo();
@@ -490,6 +557,8 @@ namespace szzminer.Views
                     TotalHashrate.Text = totalHashrate.ToString() + " " + speedUnit;
                     TotalSubmit.Text = totalAccepted.ToString();
                     TotalReject.Text = totalRejected.ToString();
+                    rewardCoin.Text = (totalHashrate * incomeCoin).ToString("#0.00000")+SelectCoin.Text;
+                    rewardRMB.Text = (totalHashrate * incomeRMB).ToString("#0.000")+"元";
                     Task.Run(() =>
                     {
                         Functions.pingMiningpool(InputMiningPool.Text, ref Timeout);
@@ -534,7 +603,7 @@ namespace szzminer.Views
             Miner.wallet = InputWallet.Text;
             Miner.worker = InputWorker.Text;
             Miner.argu = InputArgu.Text;
-            Miner.startMiner(ref LogOutput,ref showCorePanel);
+            Miner.startMiner(LogOutput,ref showCorePanel);
             this.Activate();
             ActionButton.Text = "停止挖矿";
         }
@@ -620,9 +689,22 @@ namespace szzminer.Views
                 {
                     //WriteLog("A卡超频失败！" + ex.ToString());
                 }
+                finally
+                {
+                    Task.Run(()=> {
+                        overClockConfirm.Enabled = false;
+                        for(int i = 10; i > 0; i--)
+                        {
+                            overClockConfirm.Text = "超频成功(" + i.ToString()+")";
+                            Thread.Sleep(1000);
+                        }
+                        overClockConfirm.Enabled = true;
+                        overClockConfirm.Text = "确认超频";
+                    });
+                    
+                }
                 WriteConfig();
             });
-            UIMessageBox.Show("超频成功","提示");
         }
 
         private void overClockDefault_Click(object sender, EventArgs e)
@@ -679,7 +761,7 @@ namespace szzminer.Views
                 #endregion
                 GPU.getOverclockGPU(ref GPUOverClockTable);
             });
-            WriteConfig();
+            //WriteConfig();
             UIMessageBox.Show("超频恢复默认成功", "提示");
         }
 
@@ -753,6 +835,7 @@ namespace szzminer.Views
                 UIMessageBox.Show("正在挖矿，无法退出", "提示");
                 e.Cancel = true;
             }
+            overClockDefault.PerformClick();
         }
 
         private void timeRestart_KeyPress(object sender, KeyPressEventArgs e)
@@ -790,33 +873,9 @@ namespace szzminer.Views
                 e.Handled = true;
             }
         }
-
-        private void loginStart_ValueChanged(object sender, bool value)
-        {
-            if (loginStart.Checked) //设置开机自启动  
-            {
-                string path = Application.ExecutablePath;
-                RegistryKey rk = Registry.CurrentUser;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.SetValue("szzminer", "\"" + path + "\"");
-                rk2.Close();
-                rk.Close();
-            }
-            else //取消开机自启动  
-            {
-                string path = Application.ExecutablePath;
-                RegistryKey rk = Registry.CurrentUser;
-                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-                rk2.DeleteValue("szzminer", false);
-                rk2.Close();
-                rk.Close();
-            }
-            //WriteConfig();
-        }
-
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (autoMining.Checked && !string.IsNullOrEmpty(autoMiningTime.Text))
+            if (autoMining.Active && !string.IsNullOrEmpty(autoMiningTime.Text))
             {
                 int time = Convert.ToInt32(autoMiningTime.Text);
                 Task.Run(() =>
@@ -838,7 +897,7 @@ namespace szzminer.Views
                     }
                 });
             }
-            if (autoOverclock.Checked)
+            if (autoOverclock.Active)
             {
                 overClockConfirm_Click(null, null);
             }
@@ -1143,22 +1202,99 @@ namespace szzminer.Views
             WriteConfig();
         }
 
-        private void loginStart_Click(object sender, EventArgs e)
-        {
-            WriteConfig();
-        }
-
-        private void autoMining_Click(object sender, EventArgs e)
-        {
-            WriteConfig();
-        }
-
         private void autoOverclock_Click(object sender, EventArgs e)
         {
             WriteConfig();
         }
 
         private void useComputerName_Click(object sender, EventArgs e)
+        {
+            WriteConfig();
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                Directory.CreateDirectory(Application.StartupPath + "\\bin");
+            byte[] Save = szzminer.Properties.Resources.switchradeongpu;
+            FileStream fsObj = new FileStream(Application.StartupPath + "\\bin" + @"\switchradeongpu.exe", FileMode.Create);
+            fsObj.Write(Save, 0, Save.Length);
+            fsObj.Close();
+            Process srg = new Process();
+            srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\switchradeongpu.exe";
+            srg.StartInfo.Arguments = "--compute=on --admin --restart";
+            srg.StartInfo.CreateNoWindow = true;
+            srg.StartInfo.UseShellExecute = false;
+            srg.Start();
+            srg.WaitForExit();
+            UIMessageBox.Show("成功开启计算模式");
+            LogOutput.AppendText("成功开启计算模式\n");
+        }
+
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                Directory.CreateDirectory(Application.StartupPath + "\\bin");
+            byte[] Save = szzminer.Properties.Resources.switchradeongpu;
+            FileStream fsObj = new FileStream(Application.StartupPath + "\\bin" + @"\switchradeongpu.exe", FileMode.Create);
+            fsObj.Write(Save, 0, Save.Length);
+            fsObj.Close();
+            Process srg = new Process();
+            srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\switchradeongpu.exe";
+            srg.StartInfo.Arguments = "--compute=off --admin --restart";
+            srg.StartInfo.CreateNoWindow = true;
+            srg.StartInfo.UseShellExecute = false;
+            srg.Start();
+            srg.WaitForExit();
+            UIMessageBox.Show("成功关闭计算模式");
+            LogOutput.AppendText("成功关闭计算模式\n");
+        }
+
+        private void uiButton4_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Application.StartupPath + "\\bin"))
+                Directory.CreateDirectory(Application.StartupPath + "\\bin");
+            byte[] Save = szzminer.Properties.Resources.atikmdag_patcher;
+            FileStream fsObj = new FileStream(Application.StartupPath + "\\bin\\atikmdag-patcher.exe", FileMode.Create);
+            fsObj.Write(Save, 0, Save.Length);
+            fsObj.Close();
+            Process srg = new Process();
+            srg.StartInfo.FileName = Application.StartupPath + "\\bin" + @"\atikmdag-patcher.exe";
+            srg.StartInfo.Arguments = "";
+            srg.Start();
+            srg.WaitForExit();
+            UIMessageBox.Show("成功为A卡打补丁，重启后生效");
+            LogOutput.AppendText("成功打补丁\n");
+        }
+
+        private void uiSwitch1_ValueChanged(object sender, bool value)
+        {
+            if (loginStart.Active)
+            {
+                string path = Application.ExecutablePath;
+                RegistryKey rk = Registry.CurrentUser;
+                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                rk2.SetValue("szzminer", "\"" + path + "\"");
+                rk2.Close();
+                rk.Close();
+            }
+            else
+            {
+                string path = Application.ExecutablePath;
+                RegistryKey rk = Registry.CurrentUser;
+                RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+                rk2.DeleteValue("szzminer", false);
+                rk2.Close();
+                rk.Close();
+            }
+        }
+
+        private void autoMining_Click_1(object sender, EventArgs e)
+        {
+            WriteConfig();
+        }
+
+        private void autoOverclock_Click_1(object sender, EventArgs e)
         {
             WriteConfig();
         }

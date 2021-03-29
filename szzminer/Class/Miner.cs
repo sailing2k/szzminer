@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using szzminer.Tools;
@@ -22,7 +23,7 @@ namespace szzminer.Class
         public static string argu;
         static showMinerWindow fr;
 
-        public static void startMiner(ref UIRichTextBox LogOutput,ref UIPanel panel)
+        public static void startMiner(UIRichTextBox LogOutput,ref UIPanel panel)
         {
             try
             {
@@ -32,8 +33,14 @@ namespace szzminer.Class
                 LogOutput.AppendText("[" + DateTime.Now.ToLocalTime().ToString() + "] 开始挖矿，启动参数:"+ minerProcess.StartInfo.Arguments + "，若长时间无反应，请勾选显示原版内核查看错误提示\n");
                 minerProcess.StartInfo.CreateNoWindow = false;
                 minerProcess.StartInfo.UseShellExecute = false;
-                minerProcess.StartInfo.EnvironmentVariables.Remove("NBDEV");
-                minerProcess.StartInfo.EnvironmentVariables.Add("NBDEV", "#@@@TSAmlU3LTYLdf9NFpnQbkIpKVFex7gJvUmzC01xGSyw=");
+                if (minerSmallName.ToLower().Contains("nb"))
+                {
+#if DEBUG
+                    LogOutput.AppendText("nbminer");
+#endif
+                    minerProcess.StartInfo.EnvironmentVariables.Remove("NBDEV");
+                    minerProcess.StartInfo.EnvironmentVariables.Add("NBDEV", "#@@@TSAmlU3LTYLdf9NFpnQbkIpKVFex7gJvUmzC01xGSyw=");
+                }
                 minerProcess.Start();
                 fr = new showMinerWindow(panel, "");
                 IntPtr NbminerHandle = fr.Start(minerProcess);

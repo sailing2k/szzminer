@@ -423,5 +423,41 @@ namespace szzminerServer
                 }
             }
         }
+
+        private void uiButton12_Click(object sender, EventArgs e)
+        {
+            if (!MinerOptions.amdOnCalc(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+            }
+            else
+            {
+                UIMessageBox.Show("设置完成");
+            }
+        }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            if (!MinerOptions.amdDriverPatch(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+            }
+            else
+            {
+                UIMessageBox.Show("设置完成");
+            }
+        }
+
+        private void uiButton11_Click(object sender, EventArgs e)
+        {
+            if (!MinerOptions.amdOffCalc(MinerStatusTable))
+            {
+                UIMessageBox.ShowError("请选择矿机");
+            }
+            else
+            {
+                UIMessageBox.Show("设置完成");
+            }
+        }
     }
 }

@@ -30,6 +30,69 @@ namespace szzminerServer.Tools
             }
             return true;
         }
+        public static bool amdOnCalc(UIDataGridView MinerStatusTable)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                return false;
+            }
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send("{\"function\":\"amdOnCalc\"}", MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    return true;
+                }
+            }
+            return true;
+        }
+        public static bool amdOffCalc(UIDataGridView MinerStatusTable)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                return false;
+            }
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send("{\"function\":\"amdOffCalc\"}", MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    return true;
+                }
+            }
+            return true;
+        }
+        public static bool amdDriverPatch(UIDataGridView MinerStatusTable)
+        {
+            if (!checkTableSelected(MinerStatusTable))
+            {
+                return false;
+            }
+            var i = 0;
+            for (; i < MinerStatusTable.Rows.Count; i++)
+            {
+                if (MinerStatusTable.Rows[i].Cells[2].Value == null)
+                {
+                    continue;
+                }
+                if (MinerStatusTable.Rows[i].Cells[2].Value.ToString() == "True")
+                {
+                    UDPHelper.Send("{\"function\":\"amdDrivePatch\"}", MinerStatusTable.Rows[i].Cells[12].Value.ToString());
+                    return true;
+                }
+            }
+            return true;
+        }
         public static bool stopMiner(UIDataGridView MinerStatusTable)
         {
             if (!checkTableSelected(MinerStatusTable))

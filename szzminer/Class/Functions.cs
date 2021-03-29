@@ -1,4 +1,5 @@
-﻿using Sunny.UI;
+﻿using Microsoft.Win32;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -144,6 +145,14 @@ namespace szzminer.Class
                 //ZipFile.CreateFromDirectory(Application.StartupPath + "\\miner\\", Application.StartupPath + "\\miner\\" + minerName + ".zip");
             }
         }
-
+        public static void closeUAC()
+        {
+            string path = Application.ExecutablePath;
+            RegistryKey rk = Registry.LocalMachine;
+            RegistryKey rk2 = rk.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System");
+            rk2.SetValue("EnableLUA", "0");
+            rk2.Close();
+            rk.Close();
+        }
     }
 }

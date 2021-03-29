@@ -42,6 +42,8 @@ namespace szzminerServer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.totalPower = new Sunny.UI.UILabel();
+            this.uiLabel2 = new Sunny.UI.UILabel();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
             this.uiTabControl2 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -95,8 +97,10 @@ namespace szzminerServer
             this.uiButton3 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
-            this.uiLabel2 = new Sunny.UI.UILabel();
-            this.totalPower = new Sunny.UI.UILabel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.uiButton10 = new Sunny.UI.UIButton();
+            this.uiButton11 = new Sunny.UI.UIButton();
+            this.uiButton12 = new Sunny.UI.UIButton();
             this.tabPage5.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.uiTabControl2.SuspendLayout();
@@ -105,6 +109,7 @@ namespace szzminerServer
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
             this.uiTabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -141,6 +146,28 @@ namespace szzminerServer
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "矿机设置";
             // 
+            // totalPower
+            // 
+            this.totalPower.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.totalPower.Location = new System.Drawing.Point(1219, 20);
+            this.totalPower.Name = "totalPower";
+            this.totalPower.Size = new System.Drawing.Size(54, 23);
+            this.totalPower.Style = Sunny.UI.UIStyle.Custom;
+            this.totalPower.TabIndex = 14;
+            this.totalPower.Text = "0 W";
+            this.totalPower.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel2
+            // 
+            this.uiLabel2.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel2.Location = new System.Drawing.Point(1169, 20);
+            this.uiLabel2.Name = "uiLabel2";
+            this.uiLabel2.Size = new System.Drawing.Size(54, 23);
+            this.uiLabel2.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel2.TabIndex = 14;
+            this.uiLabel2.Text = "总功耗:";
+            this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // uiGroupBox1
             // 
             this.uiGroupBox1.Controls.Add(this.uiTabControl2);
@@ -157,6 +184,7 @@ namespace szzminerServer
             // uiTabControl2
             // 
             this.uiTabControl2.Controls.Add(this.tabPage1);
+            this.uiTabControl2.Controls.Add(this.tabPage3);
             this.uiTabControl2.Controls.Add(this.tabPage2);
             this.uiTabControl2.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.uiTabControl2.Font = new System.Drawing.Font("微软雅黑", 12F);
@@ -792,25 +820,56 @@ namespace szzminerServer
             this.uiTabControl1.TabIndex = 9;
             this.uiTabControl1.TabSelectedColor = System.Drawing.Color.White;
             // 
-            // uiLabel2
+            // tabPage3
             // 
-            this.uiLabel2.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel2.Location = new System.Drawing.Point(1169, 20);
-            this.uiLabel2.Name = "uiLabel2";
-            this.uiLabel2.Size = new System.Drawing.Size(54, 23);
-            this.uiLabel2.TabIndex = 14;
-            this.uiLabel2.Text = "总功耗:";
-            this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.uiButton10);
+            this.tabPage3.Controls.Add(this.uiButton11);
+            this.tabPage3.Controls.Add(this.uiButton12);
+            this.tabPage3.Location = new System.Drawing.Point(0, 40);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(386, 230);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "A卡设置";
             // 
-            // totalPower
+            // uiButton10
             // 
-            this.totalPower.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.totalPower.Location = new System.Drawing.Point(1219, 20);
-            this.totalPower.Name = "totalPower";
-            this.totalPower.Size = new System.Drawing.Size(54, 23);
-            this.totalPower.TabIndex = 14;
-            this.totalPower.Text = "0 W";
-            this.totalPower.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton10.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton10.Location = new System.Drawing.Point(19, 68);
+            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton10.Name = "uiButton10";
+            this.uiButton10.Size = new System.Drawing.Size(115, 35);
+            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton10.TabIndex = 4;
+            this.uiButton10.Text = "A卡驱动打补丁";
+            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
+            // 
+            // uiButton11
+            // 
+            this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton11.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton11.Location = new System.Drawing.Point(149, 16);
+            this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton11.Name = "uiButton11";
+            this.uiButton11.Size = new System.Drawing.Size(115, 35);
+            this.uiButton11.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton11.TabIndex = 2;
+            this.uiButton11.Text = "A卡关闭计算模式";
+            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
+            // 
+            // uiButton12
+            // 
+            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton12.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton12.Location = new System.Drawing.Point(19, 16);
+            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton12.Name = "uiButton12";
+            this.uiButton12.Size = new System.Drawing.Size(115, 35);
+            this.uiButton12.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton12.TabIndex = 3;
+            this.uiButton12.Text = "A卡开启计算模式";
+            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
             // 
             // MainForm
             // 
@@ -823,7 +882,7 @@ namespace szzminerServer
             this.Name = "MainForm";
             this.ShowIcon = true;
             this.ShowTitleIcon = true;
-            this.Text = "松之宅群控v1.0.0";
+            this.Text = "松之宅群控v1.0.1";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabPage5.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
@@ -833,6 +892,7 @@ namespace szzminerServer
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).EndInit();
             this.uiTabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -896,6 +956,10 @@ namespace szzminerServer
         private Sunny.UI.UICheckBox loginStart;
         private Sunny.UI.UILabel totalPower;
         private Sunny.UI.UILabel uiLabel2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private Sunny.UI.UIButton uiButton10;
+        private Sunny.UI.UIButton uiButton11;
+        private Sunny.UI.UIButton uiButton12;
     }
 }
 
