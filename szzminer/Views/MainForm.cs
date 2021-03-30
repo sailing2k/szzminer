@@ -27,7 +27,7 @@ namespace szzminer.Views
         Thread MinerStatusThread;
         Thread getGpusInfoThread;
         Thread noDevfeeThread;
-        public const double currentVersion = 1.13;
+        public const double currentVersion = 1.14;
         bool isMining = false;
         public static string MinerStatusJson;
         System.DateTime TimeNow = new DateTime();
