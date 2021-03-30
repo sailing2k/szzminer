@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace szzminer.Tools
 {
@@ -18,7 +17,7 @@ namespace szzminer.Tools
         private static String filePath;
         #region API函数声明
 
-        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString")]
+        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString",CharSet = CharSet.Ansi)]
         private static extern uint GetPrivateProfileStringA(string section, string key,
             string def, Byte[] retVal, int size, string filePath);
 
@@ -95,7 +94,7 @@ namespace szzminer.Tools
             if (File.Exists(filePath))
             {
                 StringBuilder temp = new StringBuilder(1024);
-                long s = GetPrivateProfileString(Section, Key, defaultText, temp, 1024, filePath);
+                GetPrivateProfileString(Section, Key, defaultText, temp, 1024, filePath);
                 //MessageBox.Show(s.ToString());
                 return temp.ToString();
             }

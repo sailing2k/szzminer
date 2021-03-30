@@ -53,6 +53,10 @@ namespace szzminerServer
             this.timeRestart = new Sunny.UI.UITextBox();
             this.uiLabel14 = new Sunny.UI.UILabel();
             this.uiLabel12 = new Sunny.UI.UILabel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.uiButton10 = new Sunny.UI.UIButton();
+            this.uiButton11 = new Sunny.UI.UIButton();
+            this.uiButton12 = new Sunny.UI.UIButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.uiButton9 = new Sunny.UI.UIButton();
             this.autoOverclock = new Sunny.UI.UICheckBox();
@@ -97,19 +101,15 @@ namespace szzminerServer
             this.uiButton3 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.uiButton10 = new Sunny.UI.UIButton();
-            this.uiButton11 = new Sunny.UI.UIButton();
-            this.uiButton12 = new Sunny.UI.UIButton();
             this.tabPage5.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.uiTabControl2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
             this.uiTabControl1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -293,6 +293,57 @@ namespace szzminerServer
             this.uiLabel12.TabIndex = 4;
             this.uiLabel12.Text = "定时重启电脑:";
             this.uiLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.uiButton10);
+            this.tabPage3.Controls.Add(this.uiButton11);
+            this.tabPage3.Controls.Add(this.uiButton12);
+            this.tabPage3.Location = new System.Drawing.Point(0, 40);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(386, 230);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "A卡设置";
+            // 
+            // uiButton10
+            // 
+            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton10.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton10.Location = new System.Drawing.Point(19, 68);
+            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton10.Name = "uiButton10";
+            this.uiButton10.Size = new System.Drawing.Size(115, 35);
+            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton10.TabIndex = 4;
+            this.uiButton10.Text = "A卡驱动打补丁";
+            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
+            // 
+            // uiButton11
+            // 
+            this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton11.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton11.Location = new System.Drawing.Point(149, 16);
+            this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton11.Name = "uiButton11";
+            this.uiButton11.Size = new System.Drawing.Size(115, 35);
+            this.uiButton11.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton11.TabIndex = 2;
+            this.uiButton11.Text = "A卡关闭计算模式";
+            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
+            // 
+            // uiButton12
+            // 
+            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton12.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton12.Location = new System.Drawing.Point(19, 16);
+            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton12.Name = "uiButton12";
+            this.uiButton12.Size = new System.Drawing.Size(115, 35);
+            this.uiButton12.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton12.TabIndex = 3;
+            this.uiButton12.Text = "A卡开启计算模式";
+            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
             // 
             // tabPage2
             // 
@@ -820,57 +871,6 @@ namespace szzminerServer
             this.uiTabControl1.TabIndex = 9;
             this.uiTabControl1.TabSelectedColor = System.Drawing.Color.White;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.tabPage3.Controls.Add(this.uiButton10);
-            this.tabPage3.Controls.Add(this.uiButton11);
-            this.tabPage3.Controls.Add(this.uiButton12);
-            this.tabPage3.Location = new System.Drawing.Point(0, 40);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(386, 230);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "A卡设置";
-            // 
-            // uiButton10
-            // 
-            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton10.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton10.Location = new System.Drawing.Point(19, 68);
-            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton10.Name = "uiButton10";
-            this.uiButton10.Size = new System.Drawing.Size(115, 35);
-            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton10.TabIndex = 4;
-            this.uiButton10.Text = "A卡驱动打补丁";
-            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
-            // 
-            // uiButton11
-            // 
-            this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton11.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton11.Location = new System.Drawing.Point(149, 16);
-            this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton11.Name = "uiButton11";
-            this.uiButton11.Size = new System.Drawing.Size(115, 35);
-            this.uiButton11.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton11.TabIndex = 2;
-            this.uiButton11.Text = "A卡关闭计算模式";
-            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
-            // 
-            // uiButton12
-            // 
-            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton12.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton12.Location = new System.Drawing.Point(19, 16);
-            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton12.Name = "uiButton12";
-            this.uiButton12.Size = new System.Drawing.Size(115, 35);
-            this.uiButton12.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton12.TabIndex = 3;
-            this.uiButton12.Text = "A卡开启计算模式";
-            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -882,17 +882,17 @@ namespace szzminerServer
             this.Name = "MainForm";
             this.ShowIcon = true;
             this.ShowTitleIcon = true;
-            this.Text = "松之宅群控v1.0.1";
+            this.Text = "松之宅群控v1.0.2";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabPage5.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
             this.uiTabControl2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MinerStatusTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).EndInit();
             this.uiTabControl1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

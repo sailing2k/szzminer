@@ -39,6 +39,7 @@ namespace szzminer.Tools
             try
             {
                 AdlHelper adl = new AdlHelper();
+                const ulong a = 1024 * 1024 * 1024;
                 for (int i = 0; i < adl.ATIGpus.Count; i++)
                 {
                     uint power,fan;
@@ -47,7 +48,7 @@ namespace szzminer.Tools
                     adl.GetPowerFanTemp(adl.ATIGpus[i].BusNumber,out power,out fan,out temp);
                     adl.GetClockRange(adl.ATIGpus[i].BusNumber,out coreClock,out memoryClock);
                     GPUStatusTable.Rows[GPUCount].Cells[0].Value = adl.ATIGpus[i].BusNumber;
-                    GPUStatusTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + Math.Round((double)adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) / 1000000000) + "GB"; ;
+                    GPUStatusTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + ((adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) + a - 1) / a).ToString() + "GB"; ;
                     GPUStatusTable.Rows[GPUCount].Cells[5].Value = power;
                     GPUStatusTable.Rows[GPUCount].Cells[6].Value = temp;
                     GPUStatusTable.Rows[GPUCount].Cells[7].Value = fan;
@@ -89,6 +90,7 @@ namespace szzminer.Tools
             try
             {
                 AdlHelper adl = new AdlHelper();
+                const ulong a= 1024 * 1024 * 1024;
                 for (int i = 0; i < adl.ATIGpus.Count; i++)
                 {
                     uint power, fan;
@@ -97,7 +99,7 @@ namespace szzminer.Tools
                     adl.GetPowerFanTemp(adl.ATIGpus[i].BusNumber, out power, out fan, out temp);
                     adl.GetClockRange(adl.ATIGpus[i].BusNumber, out coreClock, out memoryClock);
                     GPUOverClockTable.Rows[GPUCount].Cells[0].Value = adl.ATIGpus[i].BusNumber;
-                    GPUOverClockTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) / 1024 / 1024 / 1024 + "GB"; ;
+                    GPUOverClockTable.Rows[GPUCount].Cells[1].Value = adl.ATIGpus[i].AdapterName + " " + ((adl.GetTotalMemory(adl.ATIGpus[i].AdapterIndex) + a - 1) / a).ToString() + "GB"; ;
                     GPUOverClockTable.Rows[GPUCount].Cells[2].Value = adl.ATIGpus[i].PowerDefault.ToString();
                     GPUOverClockTable.Rows[GPUCount].Cells[3].Value = adl.ATIGpus[i].TempLimitDefault.ToString();
                     GPUOverClockTable.Rows[GPUCount].Cells[4].Value = (adl.ATIGpus[i].coreClockSelf).ToString();

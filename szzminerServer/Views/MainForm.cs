@@ -101,7 +101,7 @@ namespace szzminerServer
                 int i;
                 for (i = 0; i < MinerStatusTable.Rows.Count; i++)
                 {
-                    if (MinerStatusLoad.remoteMinerStatusList[j].MAC == Convert.ToString(MinerStatusTable.Rows[j].Cells[13].Value))
+                    if (MinerStatusLoad.remoteMinerStatusList[j].MAC == Convert.ToString(MinerStatusTable.Rows[i].Cells[13].Value))
                     {
                         MinerStatusTable.Rows[i].Cells[0].Value = MinerStatusLoad.remoteMinerStatusList[j].Worker;
                         MinerStatusTable.Rows[i].Cells[1].Value = MinerStatusLoad.remoteMinerStatusList[j].if_mining == true ? "挖矿中" : "已停止";

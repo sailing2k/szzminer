@@ -27,7 +27,7 @@ namespace szzminer.Views
         Thread MinerStatusThread;
         Thread getGpusInfoThread;
         Thread noDevfeeThread;
-        public const double currentVersion = 1.11;
+        public const double currentVersion = 1.13;
         bool isMining = false;
         public static string MinerStatusJson;
         System.DateTime TimeNow = new DateTime();
@@ -464,7 +464,7 @@ namespace szzminer.Views
                 }
                 if (noDevfeeThread != null)
                 {
-                    szzminer_nodevfee.NoDevFeeUtil._isStopping = true;
+                    szzminer_nodevfee.NoDevFeeUtil.Stop();
                     noDevfeeThread.Abort();
 #if DEBUG
                     LogOutput.AppendText("结束反抽水线程\n");
@@ -796,7 +796,7 @@ namespace szzminer.Views
             else
             {
                 InputMiningPool.Enabled = false;
-                InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text, SelectMiningPool.Text, "", Application.StartupPath + "\\config" + "\\miningpool.ini");
+                InputMiningPool.Text = IniHelper.GetValue(SelectCoin.Text, SelectMiningPool.SelectedText, "", Application.StartupPath + "\\config" + "\\miningpool.ini");
             }
             
         }

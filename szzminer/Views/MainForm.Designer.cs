@@ -69,6 +69,10 @@ namespace szzminer.Views
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiGroupBox8 = new Sunny.UI.UIGroupBox();
+            this.uiButton4 = new Sunny.UI.UIButton();
+            this.uiButton3 = new Sunny.UI.UIButton();
+            this.uiButton2 = new Sunny.UI.UIButton();
             this.uiGroupBox7 = new Sunny.UI.UIGroupBox();
             this.InputRemoteIP = new Sunny.UI.UITextBox();
             this.remoteControl = new Sunny.UI.UICheckBox();
@@ -82,6 +86,12 @@ namespace szzminer.Views
             this.uiLabel10 = new Sunny.UI.UILabel();
             this.uiLabel8 = new Sunny.UI.UILabel();
             this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            this.autoOverclock = new Sunny.UI.UISwitch();
+            this.autoMining = new Sunny.UI.UISwitch();
+            this.uiLabel43 = new Sunny.UI.UILabel();
+            this.uiLabel44 = new Sunny.UI.UILabel();
+            this.uiLabel42 = new Sunny.UI.UILabel();
+            this.loginStart = new Sunny.UI.UISwitch();
             this.updateButton = new Sunny.UI.UIButton();
             this.uiLabel22 = new Sunny.UI.UILabel();
             this.autoMiningTime = new Sunny.UI.UITextBox();
@@ -128,11 +138,15 @@ namespace szzminer.Views
             this.showCorePanel = new Sunny.UI.UIPanel();
             this.LogOutput = new Sunny.UI.UIRichTextBox();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            this.uiLabel41 = new Sunny.UI.UILabel();
+            this.uiLabel40 = new Sunny.UI.UILabel();
             this.uiLabel7 = new Sunny.UI.UILabel();
             this.uiLabel6 = new Sunny.UI.UILabel();
             this.uiLabel4 = new Sunny.UI.UILabel();
             this.uiLabel3 = new Sunny.UI.UILabel();
             this.uiLabel2 = new Sunny.UI.UILabel();
+            this.rewardRMB = new Sunny.UI.UILabel();
+            this.rewardCoin = new Sunny.UI.UILabel();
             this.RunningTime = new Sunny.UI.UILabel();
             this.Timeout = new Sunny.UI.UILabel();
             this.TotalPower = new Sunny.UI.UILabel();
@@ -162,20 +176,6 @@ namespace szzminer.Views
             this.iconMenu = new Sunny.UI.UIContextMenuStrip();
             this.显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uiLabel40 = new Sunny.UI.UILabel();
-            this.uiLabel41 = new Sunny.UI.UILabel();
-            this.rewardCoin = new Sunny.UI.UILabel();
-            this.rewardRMB = new Sunny.UI.UILabel();
-            this.uiGroupBox8 = new Sunny.UI.UIGroupBox();
-            this.uiButton2 = new Sunny.UI.UIButton();
-            this.uiButton3 = new Sunny.UI.UIButton();
-            this.uiButton4 = new Sunny.UI.UIButton();
-            this.loginStart = new Sunny.UI.UISwitch();
-            this.uiLabel42 = new Sunny.UI.UILabel();
-            this.uiLabel43 = new Sunny.UI.UILabel();
-            this.autoMining = new Sunny.UI.UISwitch();
-            this.autoOverclock = new Sunny.UI.UISwitch();
-            this.uiLabel44 = new Sunny.UI.UILabel();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GPUStatusTable)).BeginInit();
@@ -183,6 +183,7 @@ namespace szzminer.Views
             ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.uiPanel1.SuspendLayout();
+            this.uiGroupBox8.SuspendLayout();
             this.uiGroupBox7.SuspendLayout();
             this.VMPanel.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
@@ -195,7 +196,6 @@ namespace szzminer.Views
             this.uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).BeginInit();
             this.iconMenu.SuspendLayout();
-            this.uiGroupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiTabControl1
@@ -560,6 +560,61 @@ namespace szzminer.Views
             this.uiPanel1.TabIndex = 6;
             this.uiPanel1.Text = null;
             // 
+            // uiGroupBox8
+            // 
+            this.uiGroupBox8.Controls.Add(this.uiButton4);
+            this.uiGroupBox8.Controls.Add(this.uiButton3);
+            this.uiGroupBox8.Controls.Add(this.uiButton2);
+            this.uiGroupBox8.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiGroupBox8.Location = new System.Drawing.Point(239, 79);
+            this.uiGroupBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox8.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox8.Name = "uiGroupBox8";
+            this.uiGroupBox8.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox8.Size = new System.Drawing.Size(270, 180);
+            this.uiGroupBox8.Style = Sunny.UI.UIStyle.Custom;
+            this.uiGroupBox8.TabIndex = 7;
+            this.uiGroupBox8.Text = "显卡设置";
+            // 
+            // uiButton4
+            // 
+            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton4.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton4.Location = new System.Drawing.Point(13, 88);
+            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton4.Name = "uiButton4";
+            this.uiButton4.Size = new System.Drawing.Size(115, 35);
+            this.uiButton4.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton4.TabIndex = 1;
+            this.uiButton4.Text = "A卡驱动打补丁";
+            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
+            // 
+            // uiButton3
+            // 
+            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton3.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton3.Location = new System.Drawing.Point(143, 36);
+            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton3.Name = "uiButton3";
+            this.uiButton3.Size = new System.Drawing.Size(115, 35);
+            this.uiButton3.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton3.TabIndex = 0;
+            this.uiButton3.Text = "A卡关闭计算模式";
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
+            // 
+            // uiButton2
+            // 
+            this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiButton2.Location = new System.Drawing.Point(13, 36);
+            this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton2.Name = "uiButton2";
+            this.uiButton2.Size = new System.Drawing.Size(115, 35);
+            this.uiButton2.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton2.TabIndex = 0;
+            this.uiButton2.Text = "A卡开启计算模式";
+            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
+            // 
             // uiGroupBox7
             // 
             this.uiGroupBox7.Controls.Add(this.InputRemoteIP);
@@ -747,6 +802,75 @@ namespace szzminer.Views
             this.uiGroupBox4.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox4.TabIndex = 5;
             this.uiGroupBox4.Text = "其他设置";
+            // 
+            // autoOverclock
+            // 
+            this.autoOverclock.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.autoOverclock.Location = new System.Drawing.Point(170, 93);
+            this.autoOverclock.MinimumSize = new System.Drawing.Size(1, 1);
+            this.autoOverclock.Name = "autoOverclock";
+            this.autoOverclock.Size = new System.Drawing.Size(51, 23);
+            this.autoOverclock.Style = Sunny.UI.UIStyle.Custom;
+            this.autoOverclock.TabIndex = 8;
+            this.autoOverclock.Text = "uiSwitch1";
+            this.autoOverclock.Click += new System.EventHandler(this.autoOverclock_Click_1);
+            // 
+            // autoMining
+            // 
+            this.autoMining.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.autoMining.Location = new System.Drawing.Point(170, 61);
+            this.autoMining.MinimumSize = new System.Drawing.Size(1, 1);
+            this.autoMining.Name = "autoMining";
+            this.autoMining.Size = new System.Drawing.Size(51, 23);
+            this.autoMining.Style = Sunny.UI.UIStyle.Custom;
+            this.autoMining.TabIndex = 8;
+            this.autoMining.Text = "uiSwitch1";
+            this.autoMining.Click += new System.EventHandler(this.autoMining_Click_1);
+            // 
+            // uiLabel43
+            // 
+            this.uiLabel43.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel43.Location = new System.Drawing.Point(7, 59);
+            this.uiLabel43.Name = "uiLabel43";
+            this.uiLabel43.Size = new System.Drawing.Size(96, 23);
+            this.uiLabel43.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel43.TabIndex = 10;
+            this.uiLabel43.Text = "自动开始挖矿";
+            this.uiLabel43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel44
+            // 
+            this.uiLabel44.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel44.Location = new System.Drawing.Point(8, 92);
+            this.uiLabel44.Name = "uiLabel44";
+            this.uiLabel44.Size = new System.Drawing.Size(144, 23);
+            this.uiLabel44.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel44.TabIndex = 9;
+            this.uiLabel44.Text = "软件开启时自动超频";
+            this.uiLabel44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel42
+            // 
+            this.uiLabel42.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel42.Location = new System.Drawing.Point(8, 27);
+            this.uiLabel42.Name = "uiLabel42";
+            this.uiLabel42.Size = new System.Drawing.Size(95, 23);
+            this.uiLabel42.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel42.TabIndex = 9;
+            this.uiLabel42.Text = "开机自动运行";
+            this.uiLabel42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // loginStart
+            // 
+            this.loginStart.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.loginStart.Location = new System.Drawing.Point(170, 29);
+            this.loginStart.MinimumSize = new System.Drawing.Size(1, 1);
+            this.loginStart.Name = "loginStart";
+            this.loginStart.Size = new System.Drawing.Size(51, 23);
+            this.loginStart.Style = Sunny.UI.UIStyle.Custom;
+            this.loginStart.TabIndex = 8;
+            this.loginStart.Text = "uiSwitch1";
+            this.loginStart.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
             // 
             // updateButton
             // 
@@ -1399,6 +1523,30 @@ namespace szzminer.Views
             this.uiGroupBox1.TabIndex = 2;
             this.uiGroupBox1.Text = "信息";
             // 
+            // uiLabel41
+            // 
+            this.uiLabel41.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel41.Location = new System.Drawing.Point(6, 182);
+            this.uiLabel41.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.uiLabel41.Name = "uiLabel41";
+            this.uiLabel41.Size = new System.Drawing.Size(70, 23);
+            this.uiLabel41.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel41.TabIndex = 0;
+            this.uiLabel41.Text = "理论收益:";
+            this.uiLabel41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel40
+            // 
+            this.uiLabel40.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.uiLabel40.Location = new System.Drawing.Point(6, 159);
+            this.uiLabel40.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.uiLabel40.Name = "uiLabel40";
+            this.uiLabel40.Size = new System.Drawing.Size(70, 23);
+            this.uiLabel40.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel40.TabIndex = 0;
+            this.uiLabel40.Text = "理论收益:";
+            this.uiLabel40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // uiLabel7
             // 
             this.uiLabel7.Font = new System.Drawing.Font("微软雅黑", 10F);
@@ -1458,6 +1606,30 @@ namespace szzminer.Views
             this.uiLabel2.TabIndex = 0;
             this.uiLabel2.Text = "总接受:";
             this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rewardRMB
+            // 
+            this.rewardRMB.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.rewardRMB.Location = new System.Drawing.Point(75, 182);
+            this.rewardRMB.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.rewardRMB.Name = "rewardRMB";
+            this.rewardRMB.Size = new System.Drawing.Size(155, 23);
+            this.rewardRMB.Style = Sunny.UI.UIStyle.Custom;
+            this.rewardRMB.TabIndex = 0;
+            this.rewardRMB.Text = "0";
+            this.rewardRMB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rewardCoin
+            // 
+            this.rewardCoin.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.rewardCoin.Location = new System.Drawing.Point(75, 159);
+            this.rewardCoin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.rewardCoin.Name = "rewardCoin";
+            this.rewardCoin.Size = new System.Drawing.Size(155, 23);
+            this.rewardCoin.Style = Sunny.UI.UIStyle.Custom;
+            this.rewardCoin.TabIndex = 0;
+            this.rewardCoin.Text = "0";
+            this.rewardCoin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // RunningTime
             // 
@@ -1830,178 +2002,6 @@ namespace szzminer.Views
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
-            // uiLabel40
-            // 
-            this.uiLabel40.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel40.Location = new System.Drawing.Point(6, 159);
-            this.uiLabel40.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.uiLabel40.Name = "uiLabel40";
-            this.uiLabel40.Size = new System.Drawing.Size(70, 23);
-            this.uiLabel40.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel40.TabIndex = 0;
-            this.uiLabel40.Text = "理论收益:";
-            this.uiLabel40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel41
-            // 
-            this.uiLabel41.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel41.Location = new System.Drawing.Point(6, 182);
-            this.uiLabel41.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.uiLabel41.Name = "uiLabel41";
-            this.uiLabel41.Size = new System.Drawing.Size(70, 23);
-            this.uiLabel41.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel41.TabIndex = 0;
-            this.uiLabel41.Text = "理论收益:";
-            this.uiLabel41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // rewardCoin
-            // 
-            this.rewardCoin.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.rewardCoin.Location = new System.Drawing.Point(75, 159);
-            this.rewardCoin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.rewardCoin.Name = "rewardCoin";
-            this.rewardCoin.Size = new System.Drawing.Size(155, 23);
-            this.rewardCoin.Style = Sunny.UI.UIStyle.Custom;
-            this.rewardCoin.TabIndex = 0;
-            this.rewardCoin.Text = "0";
-            this.rewardCoin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // rewardRMB
-            // 
-            this.rewardRMB.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.rewardRMB.Location = new System.Drawing.Point(75, 182);
-            this.rewardRMB.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.rewardRMB.Name = "rewardRMB";
-            this.rewardRMB.Size = new System.Drawing.Size(155, 23);
-            this.rewardRMB.Style = Sunny.UI.UIStyle.Custom;
-            this.rewardRMB.TabIndex = 0;
-            this.rewardRMB.Text = "0";
-            this.rewardRMB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox8
-            // 
-            this.uiGroupBox8.Controls.Add(this.uiButton4);
-            this.uiGroupBox8.Controls.Add(this.uiButton3);
-            this.uiGroupBox8.Controls.Add(this.uiButton2);
-            this.uiGroupBox8.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiGroupBox8.Location = new System.Drawing.Point(239, 79);
-            this.uiGroupBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox8.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox8.Name = "uiGroupBox8";
-            this.uiGroupBox8.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox8.Size = new System.Drawing.Size(270, 180);
-            this.uiGroupBox8.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox8.TabIndex = 7;
-            this.uiGroupBox8.Text = "显卡设置";
-            // 
-            // uiButton2
-            // 
-            this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton2.Location = new System.Drawing.Point(13, 36);
-            this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton2.Name = "uiButton2";
-            this.uiButton2.Size = new System.Drawing.Size(115, 35);
-            this.uiButton2.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton2.TabIndex = 0;
-            this.uiButton2.Text = "A卡开启计算模式";
-            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
-            // 
-            // uiButton3
-            // 
-            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton3.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton3.Location = new System.Drawing.Point(143, 36);
-            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton3.Name = "uiButton3";
-            this.uiButton3.Size = new System.Drawing.Size(115, 35);
-            this.uiButton3.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton3.TabIndex = 0;
-            this.uiButton3.Text = "A卡关闭计算模式";
-            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
-            // 
-            // uiButton4
-            // 
-            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton4.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiButton4.Location = new System.Drawing.Point(13, 88);
-            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton4.Name = "uiButton4";
-            this.uiButton4.Size = new System.Drawing.Size(115, 35);
-            this.uiButton4.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton4.TabIndex = 1;
-            this.uiButton4.Text = "A卡驱动打补丁";
-            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
-            // 
-            // loginStart
-            // 
-            this.loginStart.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.loginStart.Location = new System.Drawing.Point(170, 29);
-            this.loginStart.MinimumSize = new System.Drawing.Size(1, 1);
-            this.loginStart.Name = "loginStart";
-            this.loginStart.Size = new System.Drawing.Size(51, 23);
-            this.loginStart.Style = Sunny.UI.UIStyle.Custom;
-            this.loginStart.TabIndex = 8;
-            this.loginStart.Text = "uiSwitch1";
-            this.loginStart.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
-            // 
-            // uiLabel42
-            // 
-            this.uiLabel42.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel42.Location = new System.Drawing.Point(8, 27);
-            this.uiLabel42.Name = "uiLabel42";
-            this.uiLabel42.Size = new System.Drawing.Size(95, 23);
-            this.uiLabel42.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel42.TabIndex = 9;
-            this.uiLabel42.Text = "开机自动运行";
-            this.uiLabel42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel43
-            // 
-            this.uiLabel43.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel43.Location = new System.Drawing.Point(7, 59);
-            this.uiLabel43.Name = "uiLabel43";
-            this.uiLabel43.Size = new System.Drawing.Size(96, 23);
-            this.uiLabel43.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel43.TabIndex = 10;
-            this.uiLabel43.Text = "自动开始挖矿";
-            this.uiLabel43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // autoMining
-            // 
-            this.autoMining.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.autoMining.Location = new System.Drawing.Point(170, 61);
-            this.autoMining.MinimumSize = new System.Drawing.Size(1, 1);
-            this.autoMining.Name = "autoMining";
-            this.autoMining.Size = new System.Drawing.Size(51, 23);
-            this.autoMining.Style = Sunny.UI.UIStyle.Custom;
-            this.autoMining.TabIndex = 8;
-            this.autoMining.Text = "uiSwitch1";
-            this.autoMining.Click += new System.EventHandler(this.autoMining_Click_1);
-            // 
-            // autoOverclock
-            // 
-            this.autoOverclock.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.autoOverclock.Location = new System.Drawing.Point(170, 93);
-            this.autoOverclock.MinimumSize = new System.Drawing.Size(1, 1);
-            this.autoOverclock.Name = "autoOverclock";
-            this.autoOverclock.Size = new System.Drawing.Size(51, 23);
-            this.autoOverclock.Style = Sunny.UI.UIStyle.Custom;
-            this.autoOverclock.TabIndex = 8;
-            this.autoOverclock.Text = "uiSwitch1";
-            this.autoOverclock.Click += new System.EventHandler(this.autoOverclock_Click_1);
-            // 
-            // uiLabel44
-            // 
-            this.uiLabel44.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.uiLabel44.Location = new System.Drawing.Point(8, 92);
-            this.uiLabel44.Name = "uiLabel44";
-            this.uiLabel44.Size = new System.Drawing.Size(144, 23);
-            this.uiLabel44.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel44.TabIndex = 9;
-            this.uiLabel44.Text = "软件开启时自动超频";
-            this.uiLabel44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -2018,7 +2018,7 @@ namespace szzminer.Views
             this.ShowIcon = true;
             this.ShowTitleIcon = true;
             this.Style = Sunny.UI.UIStyle.Custom;
-            this.Text = "松之宅矿工v1.1.2";
+            this.Text = "松之宅矿工v1.1.3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -2029,6 +2029,7 @@ namespace szzminer.Views
             ((System.ComponentModel.ISupportInitialize)(this.GPUOverClockTable)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.uiPanel1.ResumeLayout(false);
+            this.uiGroupBox8.ResumeLayout(false);
             this.uiGroupBox7.ResumeLayout(false);
             this.VMPanel.ResumeLayout(false);
             this.uiGroupBox4.ResumeLayout(false);
@@ -2041,7 +2042,6 @@ namespace szzminer.Views
             this.uiGroupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).EndInit();
             this.iconMenu.ResumeLayout(false);
-            this.uiGroupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
